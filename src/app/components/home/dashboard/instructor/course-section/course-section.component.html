@@ -1,0 +1,81 @@
+<div class="col-sm-12">
+
+    <form [formGroup]="detailForm">
+      <div class="row">
+        <div class="col-md-12">
+          <div formArrayName="openedCourseSectionRecords">
+            <div class="row">
+              <div *ngFor="let title of openedCourseSectionRecords.controls; let i=index" class="m-bottom-10 col-md-6">
+                <div>
+                  Bölüm Adı ({{openedCourseSectionRecords.controls[i].get('languageCode').value}})
+                  <div class="form-inline" [formGroupName]="i">
+                    <div class="form-group">
+                      <input class="form-control mb-2" type="text" formControlName="title">
+                     
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  Açıklama ({{openedCourseSectionRecords.controls[i].get('languageCode').value}})
+                  <div class="form-inline" [formGroupName]="i">
+                      <div class="form-group">
+                        <textarea class="form-control mb-2"  formControlName="description"></textarea>
+                       
+                      </div>
+                    </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="m-top-10 col-md-12 mb-3">
+    
+        <ng-container *ngIf="!isEditMode">
+          <button *hasClaim="'instructor_add'" class="btn btn-success btn-sm m-right-10" (click)="saveSection()"
+            cdkFocusInitial><i class="fas fa-save"></i> {{'SAVE' | translate}}</button>
+        </ng-container>
+        <ng-container *ngIf="isEditMode">
+          <button *hasClaim="'instructor_edit'" class="btn btn-success btn-sm m-right-10" (click)="saveSection()"
+            cdkFocusInitial><i class="fas fa-save"></i> {{'EDIT' | translate}}</button>
+        </ng-container>
+      </div>
+    </form>
+
+
+  </div>
+<div class="courses-table">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">Başlık</th>
+                    <th scope="col">Dersler</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let section of course?.openedCourseSections">
+                    <th scope="row">
+                        <a >
+                            {{section?.openedCourseSectionRecords[0].title}}
+                        </a>
+                    </th>
+                    <td>
+                        <a [routerLink]="'/dashboard/course-lessons/'+section.code" >{{'LESSONS' | translate}} {{section?.openedCourseLessons.length}}</a>
+                    </td>
+                    <td class="action">
+                        
+                        <ng-container>
+                            <button  class="btn btn-warning btn-sm m-right-10" (click)="sectionDetail(section)"
+                              cdkFocusInitial><i class="fas fa-save"></i> {{'EDIT' | translate}} <i class='bx bx-arrow-right'></i></button>
+                            <button  class="btn btn-danger btn-sm m-right-10" (click)="deleteSection(section)"
+                              cdkFocusInitial><i class="fas fa-save"></i> {{'DELETE' | translate}} <i class='bx bx-arrow-right'></i></button>
+                          </ng-container>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

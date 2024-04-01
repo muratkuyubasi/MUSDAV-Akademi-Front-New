@@ -1,0 +1,29 @@
+<div class="edit-profile-box">
+    <form>
+    <div class="row">
+        <div class=" col-md-6 mb-3">
+            <div class="form-group">
+                <label>Soru kökü bir den fazla soru barındırcak mı?</label>
+                <mat-slide-toggle (change)="setQuestion($event)">
+                    <span *ngIf="isSubQuestion">{{'YES' | translate}}</span>
+                    <span *ngIf="!isSubQuestion">{{'NO' | translate}}</span>
+                </mat-slide-toggle>
+            </div>
+            
+            
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>{{'HOMEPAGE.QUESTIONTYPE' |translate}}</label>
+                <select class="form-control form-select" (change)="setQuestionType($event)">
+                    <option value="">Tür Seçiniz</option>
+                    <option *ngFor="let type of questionTypes" [value]="type.id">{{type.title}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    
+</form>
+    <app-question-multiple-choice *ngIf="questionTypeId==1" [isSubQuestion]="isSubQuestion" [exam]="exam" [question]="question"></app-question-multiple-choice>
+
+</div>

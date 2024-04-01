@@ -1,0 +1,39 @@
+<div class="courses-table">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">{{'HOMEPAGE.COURSE_NAME' | translate}}</th>
+                    <th scope="col">{{'OPENEDCOURSETYPE' | translate}}</th>
+                    <th scope="col">{{'CATEGORY' | translate}}</th>
+                    <th scope="col">{{'HOMEPAGE.PROCESS' | translate}}</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let course of courses">
+                    <th scope="row">
+                        <a routerLink="/course-details">
+                            {{course.openedCourseTitle}}
+                        </a>
+                    </th>
+                    <td>
+                        {{course.openedCourseTypeName}}
+                    </td>
+                    <td>
+                        {{course.openedCourseCategoryName}}
+                    </td>
+                    <td>
+                        <!-- <span class="d-block mb-1 progress-title">75%</span>
+                        <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar" style="width: 75%"></div>
+                        </div> -->
+                    </td>
+                    <td>
+                        <a routerLink="/course-detail/{{course.code}}/{{course.openedCourseSlug}}" class="default-btn two">{{'HOMEPAGE.GOTO_COURSE' | translate}}</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

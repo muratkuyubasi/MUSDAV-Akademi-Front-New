@@ -1,0 +1,135 @@
+<div class="edit-profile-box">
+<form [formGroup]="questionForm">
+    <div class="row">
+        <!-- <div class="col-md-4">
+            <div class="form-group">
+                <label>{{'HOMEPAGE.QUESTIONTYPE' |translate}}</label>
+                <select formControlName="questionTypeId" class="form-control form-select">
+                    <option value="">Tür Seçiniz</option>
+                    <option *ngFor="let type of questionTypes" [value]="type.id">{{type.title}}</option>
+                </select>
+            </div>
+        </div> -->
+        <div class="col-md-4" *ngIf="!isSubQuestion">
+            <div class="form-group">
+                <label>{{'HOMEPAGE.QUESTIONDURATION' |translate}}</label>
+                <input type="number" formControlName="questionDuration" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-4" *ngIf="!isSubQuestion">
+            <div class="form-group">
+                <label>{{'HOMEPAGE.QUESTIONSCORE' |translate}}</label>
+                <input type="number" formControlName="questionScore" class="form-control" />
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div formArrayName="questionRecords">
+                <div class="row">
+                    <div *ngFor="let name of questionRecords.controls; let i=index" class="m-bottom-10 col-md-12">
+                        {{'HOMEPAGE.QUESTION' | translate}} ({{questionRecords.controls[i].get('languageCode').value.toUpperCase()}})
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-inline" [formGroupName]="i">
+                                    <div class="form-group">
+                                        <angular-editor 
+                                        [config]="editorConfig"
+                                        formControlName="questionText"
+                                        id="{{i}}"
+
+                                        ></angular-editor>
+                                    </div>
+                                  </div>
+                            </div>
+                            <!-- <div class="col-md-6">
+                                <div class="form-inline" [formGroupName]="i">
+                                    <div class="form-group">
+                                      <input class="form-control mb-2" type="file" (change)="onReady($event)" formControlName="attachedImage">
+                                    </div>
+                                  </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div formArrayName="questionAnswers">
+                <div class="row">
+                    
+                    <div *ngFor="let ans of questionAnswers.controls; let i=index">
+                        <div class="row"  [formGroupName]="i">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    {{i+1}} {{'HOMEPAGE.OPTION' | translate}}
+                                    <label> {{'HOMEPAGE.ISCORRECT' | translate}}?</label>
+                                     <mat-slide-toggle (change)="setCorrect(i)" formControlName="isCorrect">
+                                        <span *ngIf="questionAnswers.controls[i].get('isCorrect').value">{{'YES' | translate}}</span>
+                                        <span *ngIf="!questionAnswers.controls[i].get('isCorrect').value">{{'NO' | translate}}</span>
+                                    </mat-slide-toggle> 
+
+
+                                     <!-- <input id="{{'isCorrect_'+i}}" formControlName="isCorrect" type="radio" value="true">  -->
+                                </div>
+                            </div>
+                            <div class="col-md-10 mb-5" formArrayName="answerRecords">
+                                <div *ngFor="let rec of  ans.get('answerRecords')['controls']; let j=index">
+                                    
+                                    <div [formGroupName]="j">
+                                        ({{ans.get('answerRecords')['controls'][j].get('languageCode').value.toUpperCase()}})
+                                        <angular-editor 
+                                        [config]="editorConfig"
+                                        placeholder="Seçenek"
+                                        formControlName="answerText"
+                                        id="{{j}}"
+
+                                        ></angular-editor>
+                                        <!-- <input formControlName="answerText" /> -->
+                                    </div> 
+
+                                </div>
+                            </div>
+                               
+                                    <!-- {{'HOMEPAGE.ANSWER' | translate}} ({{questionRecords.controls[j].get('languageCode').value.toUpperCase()}}) -->
+                                  
+                                     
+                                       <!-- <angular-editor 
+                                        [config]="editorConfig"
+                                        formControlName="answerText"
+                                        id="{{j}}"
+
+                                        ></angular-editor> -->
+                                    
+                                <!-- <div class="form-group">
+                                    <label>{{'HOMEPAGE.ISCORRECT' | translate}}</label>
+                                    <input  formControlName="isCorect" type="checkbox">
+                                </div> -->
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row align-items-center justify-content-between">
+        <div class="m-top-10 col-md-8">
+            <ng-container *ngIf="isEditMode">
+              <button *hasClaim="'exam_edit'" class="btn btn-success btn-sm m-right-10" (click)="saveQuestion()"
+                cdkFocusInitial><i class="fas fa-save"></i> {{'EDIT' | translate}}</button>
+            </ng-container>
+            <ng-container *ngIf="!isEditMode">
+              <button *hasClaim="'exam_add'" class="btn btn-success btn-sm m-right-10" (click)="saveQuestion()"
+                cdkFocusInitial><i class="fas fa-save"></i> {{'SAVE' | translate}}</button>
+            </ng-container>
+    
+            
+          </div>
+          <div class="m-top-10 col-md-3" style="text-align: right;">
+            <p (click)="showOption()">Seçenekler {{this.question?.questionAnswers.length}}</p>
+            <ng-container >
+                <button *hasClaim="'exam_add'" class="btn btn-danger btn-sm m-right-10" (click)="addAnswer()"
+                  cdkFocusInitial><i class="fas fa-save"></i> {{'HOMEPAGE.ADDNEWANSWER' | translate}}</button>
+              </ng-container>
+          </div>
+    </div>
+    
+</form>
+</div>

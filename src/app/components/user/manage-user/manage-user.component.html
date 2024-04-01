@@ -1,0 +1,163 @@
+<div class="row align-items-center justify-content-between">
+  <div class="col-md-auto col-sm-auto">
+    <div class="content-header">
+      <h1 *ngIf="!isEditMode">{{'ADD_USER' | translate}}</h1>
+      <h1 *ngIf="isEditMode">{{'EDIT_USER' | translate}}</h1>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <form [formGroup]="userForm">
+      <div class="box box-primary">
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group ">
+                <label>{{'FIRST_NAME' | translate}}</label>
+                <input formControlName="firstName" class="form-control" type="text">
+                <div *ngIf="userForm.get('firstName').touched && userForm.get('firstName').errors">
+                  <div class="text-danger" *ngIf="userForm.get('firstName').errors?.required">
+                    {{'FIRST_NAME_IS_REQUIRED' | translate}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group ">
+                <label>{{'LAST_NAME' | translate}}</label>
+                <input formControlName="lastName" class="form-control" type="text">
+                <div *ngIf="userForm.get('lastName').touched && userForm.get('lastName').errors">
+                  <div class="text-danger" *ngIf="userForm.get('lastName').errors?.required">
+                    {{'LAST_NAME_IS_REQUIRED' | translate}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group ">
+                <label>{{'MOBILE_NUMBER' | translate}}</label>
+                <input formControlName="phoneNumber" class="form-control" type="number">
+                <div *ngIf="userForm.get('phoneNumber').touched && userForm.get('phoneNumber').errors">
+                  <div class="text-danger" *ngIf="userForm.get('phoneNumber').errors?.required">
+                    {{'MOBILE_IS_REQUIRED' | translate}}
+                  </div>
+                  <div class="text-danger" *ngIf="userForm.get('phoneNumber').errors?.pattern">
+                    {{'MOBILE_NUMBER_MUST_HAVE_10_DIGITS' | translate}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>{{'EMAIL' | translate}}</label>
+                <input [attr.disabled]="isEditMode ? '' : null" formControlName="email" class="form-control"
+                  type="email">
+                <div *ngIf="userForm.get('email').touched && userForm.get('email').errors">
+                  <div class="text-danger" *ngIf="userForm.get('email').errors?.required">
+                    {{'EMAIL_IS_REQUIRED' | translate}}
+                  </div>
+                  <div class="text-danger" *ngIf="userForm.get('email').errors?.email">
+                    {{'PLEASE_ENTER_VALID_EMAIL' | translate}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!isEditMode" class="col-md-6">
+              <div class="form-group">
+                <label>{{'PASSWORD' | translate}}</label>
+                <input autocomplete="new-password" formControlName="password" class="form-control" type="password">
+                <div *ngIf="userForm.get('password').touched && userForm.get('password').errors">
+                  <div class="text-danger" *ngIf="userForm.get('password').errors?.required">
+                    {{'PASSWORD_IS_REQUIRED' | translate}}
+                  </div>
+                  <div class="text-danger" *ngIf="userForm.get('password').errors?.minlength">
+                    {{'YOU_HAVE_TO_ENTER_AT_LEAST_6_DIGIT' | translate}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!isEditMode" class="col-md-6">
+              <div class="form-group">
+                <label>{{'CONFIRM_PASSWORD' | translate}}</label>
+                <input autocomplete="new-password" formControlName="confirmPassword" class="form-control"
+                  type="password">
+                <div *ngIf="userForm.get('confirmPassword').touched && userForm.get('confirmPassword').errors">
+                  <div class="text-danger" *ngIf="userForm.get('confirmPassword').errors?.required">
+                    {{'CONFIRM_PASSWORD_IS_REQUIRED' | translate}}
+                  </div>
+                </div>
+                <div class="text-danger"
+                  *ngIf="userForm.get('confirmPassword').touched && userForm.hasError('notSame')">
+                  {{'PASSWORDS_DO_NOT_MATCH' | translate}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <mat-form-field appearance="fill" class="full-width">
+                <mat-label>{{'ROLES' | translate}}</mat-label>
+                <mat-select [(value)]="selectedRoles" multiple>
+                  <mat-select-trigger>
+                    <span *ngIf="selectedRoles.length > 0">
+                      {{selectedRoles[0].name}}
+                    </span>
+                    <span *ngIf="selectedRoles.length > 1" class="example-additional-selection">
+                      (+{{selectedRoles.length - 1}} {{selectedRoles.length === 2 ? 'other' : 'others'}})
+                    </span>
+                  </mat-select-trigger>
+                  <mat-option *ngFor="let role of roleList" [value]="role">{{role.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="form-group col-md-6 status-switch">
+              <mat-slide-toggle formControlName="isActive">
+                <span *ngIf="userForm.get('isActive').value">{{'ACTIVE' | translate}}</span>
+                <span *ngIf="!userForm.get('isActive').value">{{'INACTIVE' | translate}}</span>
+              </mat-slide-toggle>
+            </div>
+            <div class="form-group col-md-6">
+              <div class="form-group">
+                <label>{{'ADDRESS' | translate}}</label>
+                <textarea formControlName="address" class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="m-bottom-10">
+                <b> {{'ALLOW_USER_WITH_SPECIFIC_IP' | translate}}:</b>
+                <button type="button" class="btn btn-success btn-sm margin-left-10" (click)="addIP()">
+                  <i class="fas fa-plus"></i> {{'ADD' | translate}} </button>
+              </div>
+              <div formArrayName="userAllowedIPs">
+                <div class="row">
+                  <div *ngFor="let ip of userAllowedIPs.controls; let i=index" class="m-bottom-10">
+                    <div class="form-inline" [formGroupName]="i">
+                      <div class="form-group">
+                        <input class="form-control mb-2" type="text" formControlName="ipAddress">
+                        <button (click)="removeIP(i)" type="button" class="btn btn-danger btn-sm margin-left-10 mb-2">
+                          <i class="fas fa-trash-alt"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="m-top-10 col-md-12">
+              <ng-container *ngIf="isEditMode">
+                <button *hasClaim="'user_edit'" class="btn btn-success btn-sm m-right-10" (click)="saveUser()"
+                  cdkFocusInitial><i class="fas fa-save"></i> {{'SAVE' | translate}}</button>
+              </ng-container>
+              <ng-container *ngIf="!isEditMode">
+                <button *hasClaim="'user_add'" class="btn btn-success btn-sm m-right-10" (click)="saveUser()"
+                  cdkFocusInitial><i class="fas fa-save"></i> {{'SAVE' | translate}}</button>
+              </ng-container>
+              <button type="button" class="btn btn-danger btn-sm" [routerLink]="['/admin/users']"><i
+                  class="fas fa-times-circle"></i>
+                {{'CANCEL' | translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

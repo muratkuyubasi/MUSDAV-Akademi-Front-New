@@ -1,0 +1,70 @@
+<app-breadcrumb *ngIf="!isEditMode" title="Derslik" subTitle="{{'ADD' | translate}}"></app-breadcrumb>
+<app-breadcrumb *ngIf="isEditMode" title="Derslik" subTitle="{{'EDIT' | translate}}"></app-breadcrumb>
+
+<section class="listing-area mb-30">
+    <div class="tab-content" id="myTabContent" >
+        <div class="tab-pane fade show active" id="all-listing" role="tabpanel">
+            <div class="add-listing-box mb-30">
+                <h3>Derslik Bilgileri</h3>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form [formGroup]="classroomForm">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div formArrayName="classroomRecords">
+                                        <div class="row">
+                                          <div *ngFor="let name of classroomRecords.controls; let i=index" class="m-bottom-10 col-md-6">Derslik Adı
+                                            <div class="form-inline" [formGroupName]="i">
+                                              <div class="form-group">
+                                                <input class="form-control mb-2" type="text" formControlName="name">
+                                               
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="form-group ">
+                                    <label><i class='bx bx-book-open'></i>  {{'CLASSROOMTYPE' | translate}}</label>
+                                    <select  formControlName="classroomTypeId" name="classroomTypeId" class="form-control" placeholder="Tur Seçiniz">
+                                      <option value="">Sınıf Türü Seçiniz</option>
+                                    <option *ngFor="let type of classroomTypes" [value]="type.id">
+                                        {{type.classroomTypeRecords[0].name}}
+                                      </option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="form-group ">
+                                    <label><i class='bx bx-book-open'></i>  {{'CAPACITY' | translate}}</label>
+                                    <input formControlName="capacity" class="form-control" />
+                                  </div>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="form-group ">
+                                    <label><i class='bx bx-book-open'></i>  {{'FLOOR' | translate}}</label>
+                                    <input formControlName="floor" class="form-control" />
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="m-top-10 col-md-12">
+                                <ng-container *ngIf="isEditMode">
+                                  <button *hasClaim="'campus_edit'" class="btn btn-success btn-sm m-right-10" (click)="saveClassroomForm()"
+                                    cdkFocusInitial><i class="fas fa-save"></i> {{'SAVE' | translate}}</button>
+                                </ng-container>
+                                <ng-container *ngIf="!isEditMode">
+                                  <button *hasClaim="'campus_add'" class="btn btn-success btn-sm m-right-10" (click)="saveClassroomForm()"
+                                    cdkFocusInitial><i class="fas fa-save"></i> {{'SAVE' | translate}}</button>
+                                </ng-container>
+                                <button type="button" class="btn btn-danger btn-sm" [routerLink]="['/admin/users']"><i
+                                    class="fas fa-times-circle"></i>
+                                  {{'CANCEL' | translate}}</button>
+                              </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,33 @@
+<div class="courses-table">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">{{'HOMEPAGE.COURSE_NAME' | translate}}</th>
+                    <th scope="col">{{'OPENEDCOURSETYPE' | translate}}</th>
+                    <th scope="col">{{'CATEGORY' | translate}}</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let course of courses">
+                    <th scope="row">
+                        <a routerLink="/course-details">
+                            {{course.openedCourseTitle}}
+                        </a>
+                    </th>
+                    <td>
+                        {{course.openedCourseTypeName}}
+                    </td>
+                    <td>
+                        {{course.openedCourseCategoryName}}
+                    </td>
+                    
+                    <td>
+                        <a routerLink="/dashboard/course-detail/{{course.code}}/{{course.openedCourseSlug}}" class="default-btn two">{{'HOMEPAGE.DETAIL' | translate}}</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

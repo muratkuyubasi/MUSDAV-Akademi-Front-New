@@ -1,0 +1,229 @@
+<div
+    class="page-banner-area ptb-50"
+    style="background-image: url(assets/images/shapes/page-banner-bg.jpg);"
+>
+    <div class="container">
+        <div class="container">
+            <div class="page-banner-content text-center">
+                <h1>{{'HOMEPAGE.REGISTER' | translate}}</h1>
+                <h2>{{course?.title}}</h2>
+                <ul class="ps-0 mb-0 list-unstyled">
+                    <li class="d-inline-block position-relative"><a routerLink="/">{{'HOMEPAGE.HOME' | translate}}</a></li>
+                    <li class="d-inline-block position-relative">{{'HOMEPAGE.REGISTER' | translate}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="profile-authentication-area ptb-50">
+    <div class="container">
+        <div class="forgot-password-box" *ngIf="showUserForm">
+            <form [formGroup]="userRegisterForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>{{'FIRST_NAME' | translate}}</label>
+                            <input type="text" formControlName="firstName" class="form-control" placeholder="{{'FIRST_NAME' | translate}}">
+                        </div>
+                        <div *ngIf="userRegisterForm.get('firstName').touched">
+                            <div class="text-danger" *ngIf="userRegisterForm.get('firstName').errors?.required">
+                                Adınız
+                              </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>{{'LAST_NAME' | translate}}</label>
+                            <input type="text" formControlName="lastName" class="form-control" placeholder="{{'LAST_NAME' | translate}}">
+                        </div>
+                        <div *ngIf="userRegisterForm.get('lastName').touched">
+                            <div class="text-danger" *ngIf="userRegisterForm.get('lastName').errors?.required">
+                                Soyadınız
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>{{'EMAIL' | translate}}</label>
+                            <input type="email" formControlName="email" class="form-control" placeholder="{{'EMAIL' | translate}}">
+                        </div>
+                        <div *ngIf="userRegisterForm.get('email').touched">
+                            <div class="text-danger" *ngIf="userRegisterForm.get('email').errors?.required">
+                                E-posta adresiniz
+                              </div>
+                              <div class="text-danger" *ngIf="userRegisterForm.get('email').errors?.email">
+                                Lütfen geçerli bir e-posta giriniz
+                              </div>
+                        </div>
+                        <div class="text-danger" *ngIf="successCode==409" [innerHTML]="message">
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>{{'PASSWORD' | translate}}</label>
+                            <input type="password" formControlName="password" class="form-control" placeholder="{{'PASSWORD' | translate}}">
+                        </div>
+                        <div *ngIf="userRegisterForm.get('password').touched">
+                            <div class="text-danger" *ngIf="userRegisterForm.get('password').errors?.required">
+                                Lütfen şifre belirleyiniz
+                              </div>
+                              <div class="text-danger" *ngIf="userRegisterForm.get('password').errors?.pattern">
+                                Şifreniz ne az 6 karakter, Büyük ve  Küçük harf ve rakam içermelidir
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button type="submit" (click)="registerUser()" class="default-btn">{{'HOMEPAGE.REGISTER' | translate}}</button>
+                    </div>
+                    <div class="col-md-6" style="text-align: right;">
+                        <a routerLink="/profile-authentication" class="default-btn two">{{'HOMEPAGE.LOGIN' | translate}}</a>
+                    </div>
+                </div>
+                
+                
+                
+            </form>
+        </div>
+        <div class="forgot-password-box" *ngIf="showCourseForm">
+            <form [formGroup]="courseRegisterForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>{{'HOMEPAGE.FULLNAME' | translate}}</label>
+                            <input type="text" formControlName="fullName" class="form-control" placeholder="{{'FULLNAME' | translate}}" >
+                            <div *ngIf="courseRegisterForm.get('fullName').errors">
+                                <div class="text-danger" *ngIf="courseRegisterForm.get('fullName').errors?.required ">
+                                    Lütfen Kursiyer Adını Giriniz
+                                  </div>
+                            </div>
+                            <input class="form-checkbox" (change)="defaultStudent($event)" type="checkbox" /> Farklı bir isim için kayıt yapmak istiyorum
+
+                            
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mt-3">
+                            <label>{{'EMAIL' | translate}}</label>
+                            <input type="text" formControlName="email" class="form-control" placeholder="{{'EMAIL' | translate}}">
+                        </div>
+                        <div *ngIf="courseRegisterForm.get('email').errors">
+                            <div class="text-danger" *ngIf="userRegisterForm.get('email').errors?.required">
+                                Lütfen e-posta giriniz
+                              </div>
+                              <div class="text-danger" *ngIf="userRegisterForm.get('email').errors?.email">
+                                Lütfen Geçerli bir e-posta giriniz
+                              </div>
+                             
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mt-3">
+                            <label>{{'PHONE_NUMBER' | translate}}</label>
+                            <input type="text" formControlName="phoneNumber" class="form-control" placeholder="{{'PHONE_NUMBER' | translate}}">
+                        </div>
+                        <div *ngIf="courseRegisterForm.get('phoneNumber').touched && courseRegisterForm.get('phoneNumber').errors">
+                            <div class="text-danger" *ngIf="courseRegisterForm.get('phoneNumber').errors?.required ">
+                                Lütfen Telefon No Giriniz
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mt-3">
+                            <label>{{'HOMEPAGE.BIRTHDAY' | translate}}</label>
+                            <input type="date" formControlName="birthDay" class="form-control" placeholder="{{'HOMEPAGE.BIRTHDAY' | translate}}">
+                        </div>
+                        <div *ngIf="courseRegisterForm.get('birthDay').touched && courseRegisterForm.get('birthDay').errors">
+                            <div class="text-danger" *ngIf="courseRegisterForm.get('birthDay').errors?.required ">
+                                Lütfen Doğum Tarihinizi Giriniz
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mt-3">
+                            <label>{{'HOMEPAGE.GENDER' | translate}}</label>
+                            <select formControlName="gender" class="form-control form-select">
+                                <option value="">Seçiniz</option>
+                                <option value="1">Erkek</option>
+                                <option value="2">Kadın</option>
+                            </select>
+                        </div>
+                        <div *ngIf="courseRegisterForm.get('gender').touched && courseRegisterForm.get('gender').errors">
+                            <div class="text-danger" *ngIf="courseRegisterForm.get('gender').errors?.required ">
+                                Lütfen Cinsiyet Giriniz
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group mt-3">
+                            <label>{{'ADDRESS' | translate}}</label>
+                            <input type="text" formControlName="address" class="form-control" placeholder="{{'ADDRESS' | translate}}">
+                        </div>
+                        <div *ngIf="courseRegisterForm.get('address').touched && courseRegisterForm.get('cityName').errors">
+                            <div class="text-danger" *ngIf="courseRegisterForm.get('address').errors?.required ">
+                                Lütfen Adres Giriniz
+                              </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mt-3">
+                            <label>{{'HOMEPAGE.CITY' | translate}}</label>
+                            <input type="text" formControlName="cityName" class="form-control" placeholder="{{'HOMEPAGE.CITY' | translate}}">
+                        </div>
+                        <div *ngIf="courseRegisterForm.get('cityName').touched && courseRegisterForm.get('cityName').errors">
+                            <div class="text-danger" *ngIf="courseRegisterForm.get('cityName').errors?.required ">
+                                Lütfen Şehir Giriniz
+                              </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="form-group mt-3">
+                            <label>{{'HOMEPAGE.COUNTRY' | translate}}</label>
+                            <input type="text" formControlName="countryName" class="form-control" placeholder="{{'HOMEPAGE.COUNTRY' | translate}}">
+                        </div>
+                        <div *ngIf="courseRegisterForm.get('countryName').touched && courseRegisterForm.get('countryName').errors">
+                            <div class="text-danger" *ngIf="courseRegisterForm.get('countryName').errors?.required ">
+                                Lütfen Ülke Giriniz
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3 mb-3">
+                        <hr />
+                    </div>
+                    <div class="col-md-12" *ngIf="course.openedCourseBrancheCount>1">
+                        <h4>{{course.title}}</h4>
+                        <div class="form-group">
+                            <label>{{'HOMEPAGE.BRANCHE' | translate}}</label>
+                            <select formControlName="openedCourseBranchId" class="form-control form-select">
+                                <option value="">Seçiniz</option>
+                                <option *ngFor="let branche of course.openedCourseBranches" [value]="branche.id">
+                                    {{branche.openedCourseBrancheRecords[0].title}}
+                                </option>
+                                
+                            </select>
+                        </div>
+                        <div *ngIf="courseRegisterForm.get('openedCourseBranchId').touched && courseRegisterForm.get('openedCourseBranchId').errors">
+                            <div class="text-danger" *ngIf="courseRegisterForm.get('openedCourseBranchId').errors?.required ">
+                                Lütfen Şube Seçiniz
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+
+                        <button *ngIf="course?.coursePrice=='HOMEPAGE.FREE'" type="submit" (click)="registerUserCourse()" class="default-btn">{{'HOMEPAGE.REGISTER_COMPLETE' | translate}}</button>
+                        <button *ngIf="course?.coursePrice!='HOMEPAGE.FREE'" type="submit" (click)="registerUserCourse()" class="default-btn">{{'HOMEPAGE.REGISTER_COMPLETE_AND_PAYMENT' | translate}}</button>
+                    </div>
+                    
+
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

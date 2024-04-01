@@ -1,0 +1,193 @@
+<app-breadcrumb *ngIf="!isSectionEditMode" title="{{section?.title}}" subTitle="{{'ADD' | translate}}"></app-breadcrumb>
+<app-breadcrumb *ngIf="isSectionEditMode" title="{{section?.title}}" subTitle="{{'EDIT' | translate}}"></app-breadcrumb>
+
+<section class="listing-area mb-30">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="all-listing-tab" data-bs-toggle="tab" data-bs-target="#all-listing" type="button" role="tab" aria-controls="all-listing" aria-selected="true">Bölüm</button>
+        </li>
+        <li class="nav-item" role="section">
+          <button class="nav-link" id="section-tab" data-bs-toggle="tab" data-bs-target="#section" type="button" role="tab" aria-controls="section" aria-selected="true">Dersler</button>
+        </li>
+        
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        
+        <div class="tab-pane fade show active" id="all-listing" role="tabpanel">
+            
+            <div class="add-listing-box mb-30">
+                <div class="row">
+                    <h3>{{section?.title}}</h3>
+                    <div class="col-sm-12">
+                        <form [formGroup]="sectionForm" >
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label><i class='bx bx-book-open'></i>  {{'TITLE' | translate}}</label>
+                                        <input formControlName="title" class="form-control" />
+                                                    <div *ngIf="sectionForm.get('title').touched && sectionForm.get('title').errors">
+                                                        <div class="text-danger" *ngIf="sectionForm.get('title').errors?.required">
+                                                          {{'IS_REQUIRED' | translate}}
+                                                        </div>
+                                                        
+                                                      </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label><i class='bx bx-book-open'></i>  {{'DESCRIPTION' | translate}}</label>
+                                        <div class="NgxEditor__Wrapper">
+                                       
+                                            <ngx-editor-menu [editor]="sectionEditor"> </ngx-editor-menu>
+                                            <ngx-editor [editor]="sectionEditor" formControlName="description" placeholder="Kurs Açıklaması">
+                                            </ngx-editor>
+                                        </div>
+                                        
+                                       
+                                        <div *ngIf="sectionForm.get('description').touched && sectionForm.get('description').errors">
+                                            <div class="text-danger" *ngIf="sectionForm.get('description').errors?.required">
+                                              {{'IS_REQUIRED' | translate}}
+                                            </div>
+                                            
+                                          </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <ng-container *ngIf="isSectionEditMode">
+                                        <button *hasClaim="'course_edit'" class="btn btn-success btn-sm m-right-10" (click)="saveSection()"
+                                          cdkFocusInitial><i class="fas fa-save"></i> {{'EDIT' | translate}}</button>
+                                      </ng-container>
+                                      <ng-container *ngIf="!isSectionEditMode">
+                                        <button *hasClaim="'course_add'" class="btn btn-success btn-sm m-right-10" (click)="saveSection()"
+                                          cdkFocusInitial><i class="fas fa-save"></i> {{'SAVE' | translate}}</button>
+                                      </ng-container>
+                                      <button type="button" class="btn btn-danger btn-sm" (click)=" (isSectionEditMode = !isSectionEditMode)">
+                                         <i class="fas fa-times-circle"></i>
+                                        {{'CANCEL' | translate}}</button>
+                                </div>
+                            </div>
+            
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="tab-pane fade show" id="section" role="tabpanel">
+            <div class="add-listing-box mb-30">
+                <h3> 
+                    <div class="row">
+                    <div class="col-md-10">
+                        Dersler
+                    </div>
+                </div>
+            </h3>
+            <div class="row">
+                <div class="col-md-5">
+                    <form [formGroup]="lessonForm" >
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label><i class='bx bx-book-open'></i>  {{'TITLE' | translate}}</label>
+                                    <input formControlName="title" class="form-control" />
+                                                <div *ngIf="lessonForm.get('title').touched && lessonForm.get('title').errors">
+                                                    <div class="text-danger" *ngIf="lessonForm.get('title').errors?.required">
+                                                      {{'IS_REQUIRED' | translate}}
+                                                    </div>
+                                                    
+                                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label><i class='bx bx-book-open'></i>  {{'DESCRIPTION' | translate}}</label>
+                                    <div class="NgxEditor__Wrapper">
+                                        <textarea class="form-control" formControlName="description" >
+        
+                                        </textarea>
+                                      
+                                    </div>
+                                    
+                                   
+                                    <div *ngIf="lessonForm.get('description').touched && lessonForm.get('description').errors">
+                                        <div class="text-danger" *ngIf="lessonForm.get('description').errors?.required">
+                                          {{'IS_REQUIRED' | translate}}
+                                        </div>
+                                        
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12  mb-30" *ngIf="isLessonEditMode">
+                                <app-vimeo-player [videoSrc]="lesson?.videoPath"></app-vimeo-player>
+                               </div>
+                            <div class="col-md-12 mb-30">
+
+                                <app-vimeo-upload 
+                                [lesson]="section?.course" 
+                                [section]="section" 
+                                (newItemEvent)="setVideoUrl($event)"></app-vimeo-upload>
+
+                                
+                            </div>
+                            <div class="col-md-12  mb-30">
+                               
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <ng-container *ngIf="isLessonEditMode">
+                                    <button *hasClaim="'course_edit'" class="btn btn-success btn-sm m-right-10" (click)="saveLesson()"
+                                      cdkFocusInitial><i class="fas fa-save"></i> {{'EDIT' | translate}}</button>
+                                  </ng-container>
+                                  <ng-container *ngIf="!isLessonEditMode">
+                                    <button *hasClaim="'course_add'" class="btn btn-success btn-sm m-right-10" (click)="saveLesson()"
+                                      cdkFocusInitial><i class="fas fa-save"></i> {{'SAVE' | translate}}</button>
+                                  </ng-container>
+                                  <button type="button" class="btn btn-danger btn-sm" (click)="(showAddLesson =! showAddLesson) && (isLessonEditMode = !isLessonEditMode)">
+                                     <i class="fas fa-times-circle"></i>
+                                    {{'CANCEL' | translate}}</button>
+                            </div>
+                        </div>
+        
+                    </form>
+                </div>
+                <div class="col-md-7">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Ders</th>
+                                    <th>Açıklama</th>
+                                    <th>Dosya</th>
+                                    <td style="text-align:right"></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let les of section?.lessons ; let i = index">
+                                    <td>{{les.title}}</td>
+                                    <td [innerHTML]="les.description"></td>
+                                    <td>
+                                        <input type="file" class="upload" (change)="fileEvent($event,les.id)" #fileInput formControlName="coursePicture">
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-warning btn-sm ng-star-inserted" (click)="lessonDetail(les)">Detay</button>
+                                        <button class="btn btn-danger btn-sm ng-star-inserted" (click)="deleteLesson(les, i)">Sil</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                          </table>
+                      </div>
+                </div>
+            </div>
+
+                  
+                  
+             
+              <!-- <app-manage-video [book]="book" [bookVideo]="bookVideo"></app-manage-video> -->
+            </div>
+        </div>
+    </div>
+</section>
+

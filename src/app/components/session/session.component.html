@@ -1,0 +1,50 @@
+<div class="row align-items-center justify-content-between">
+  <div class="col-md-auto col-sm-auto">
+    <div class="content-header">
+      <h1>{{'CURRENT_LOGGED_USER' | translate}}</h1>
+    </div>
+  </div>
+</div>
+<div class="box box-primary">
+  <div class="box-body">
+    <div class="table-responsive">
+      <table class="table table-container">
+        <tr>
+          <th> {{'FIRST_NAME' | translate}}</th>
+          <th> {{'LAST_NAME' | translate}}</th>
+          <th> {{'EMAIL' | translate}}</th>
+          <th> {{'ACTION' | translate}}</th>
+        </tr>
+        <ng-container *ngIf="onlineUsers && onlineUsers.length>0; else tempNoRecord">
+          <tr *ngFor="let onlineUser of onlineUsers">
+            <td>
+              {{onlineUser.firstName}}
+            </td>
+            <td>
+              {{onlineUser.lastName}}
+            </td>
+            <td>
+              <i class="fas fa-circle text-success"></i>
+              {{onlineUser.email}}
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger btn-sm" (click)="onForceLogout(onlineUser.id)">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="d-none d-sm-inline"> {{'FORCEFULLY_LOGOUT' | translate}}</span>
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-template #tempNoRecord>
+          <tr>
+            <td colspan="4">
+              <b>
+                {{'CURRENTLY_NO_USER_LOGIN_OTHER_THAN_YOU' | translate}}
+              </b>
+            </td>
+          </tr>
+        </ng-template>
+      </table>
+    </div>
+  </div>
+</div>

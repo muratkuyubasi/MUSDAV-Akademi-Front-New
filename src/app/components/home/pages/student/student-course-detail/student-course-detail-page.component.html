@@ -1,0 +1,19 @@
+<app-student-asynchron *ngIf="course.openedCourseTypeId==2" [course]="course"></app-student-asynchron>
+
+<app-student-synchron *ngIf="course.openedCourseTypeId==1" [course]="course"></app-student-synchron>
+
+<app-student-facetoface *ngIf="course.openedCourseTypeId==3" [course]="course"></app-student-facetoface>
+
+
+
+<!-- Course Details -->
+
+<!-- Video Popup -->
+<div class="video-popup" *ngIf="isOpen">
+    <div class="popup-inner">
+        <iframe src="https://www.youtube.com/embed/XNQk1qt__Vw" title="Setup and Local Installation - React Nextjs Online Yoga Coaching &amp; Training Courses System" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <button (click)="closePopup()" type="button" class="close-btn">
+            <i class='bx bx-x'></i>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="row">
+    <form [formGroup]="bookVideoForm">
+    <div class="col-md-5">
+        <div class="form-group col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>{{'ISDOWNLOAD' | translate}}</label>
+                </div>
+                <div class="col-md-4">
+                    <mat-slide-toggle formControlName="isDownload">
+                        <span *ngIf="bookVideoForm.get('isDownload').value">{{'ACTIVE' | translate}}</span>
+                        <span *ngIf="!bookVideoForm.get('isDownload').value">{{'INACTIVE' | translate}}</span>
+                      </mat-slide-toggle>
+                </div>
+                <div class="col-md-8">
+                    <input *ngIf="bookVideoForm.get('isDownload').value" formControlName="downloadCount" class="form-control" placeholder="Toplam İndirme Sayısı" >
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>{{'ISREPLAY' | translate}}</label>
+                </div>
+                <div class="col-md-4">
+                    <mat-slide-toggle formControlName="isReplay">
+                        <span *ngIf="bookVideoForm.get('isReplay').value">{{'ACTIVE' | translate}}</span>
+                        <span *ngIf="!bookVideoForm.get('isReplay').value">{{'INACTIVE' | translate}}</span>
+                      </mat-slide-toggle>
+                </div>
+                <div class="col-md-8">
+                    <input *ngIf="bookVideoForm.get('isReplay').value" formControlName="replayCount" class="form-control" placeholder="Toplam Tekrar İzleme Sayısı" >
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>{{'isSyncronousPlay' | translate}}</label>
+                </div>
+                <div class="col-md-4">
+                    <mat-slide-toggle formControlName="isSyncronousPlay">
+                        <span *ngIf="bookVideoForm.get('isSyncronousPlay').value">{{'ACTIVE' | translate}}</span>
+                        <span *ngIf="!bookVideoForm.get('isSyncronousPlay').value">{{'INACTIVE' | translate}}</span>
+                      </mat-slide-toggle>
+                </div>
+                <div class="col-md-8">
+                    <input *ngIf="bookVideoForm.get('isSyncronousPlay').value" formControlName="syncronousPlayCount" class="form-control" placeholder="Eşzamanlı İzleme Sayısı" >
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>{{'isActive' | translate}}</label>
+                </div>
+                <div class="col-md-4">
+                    <mat-slide-toggle formControlName="isActive">
+                        <span *ngIf="bookVideoForm.get('isActive').value">{{'ACTIVE' | translate}}</span>
+                        <span *ngIf="!bookVideoForm.get('isActive').value">{{'INACTIVE' | translate}}</span>
+                      </mat-slide-toggle>
+                </div>
+                <div class="col-md-5">
+                    <input *ngIf="bookVideoForm.get('isActive').value" formControlName="totalPlayCount" class="form-control" placeholder="Yıllık İzlenme Sınırı" >
+                </div>
+                <div class="col-md-3">
+                   <input [disabled]="true" class="form-control" value="{{totalIssue}}/{{bookVideoForm.get('totalPlayCount').value}}"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <label>{{'totalIssueDate' | translate}}</label>
+                </div>
+                <div class="col-md-8">
+                    <input formControlName="totalIssueDate" class="form-control" placeholder="Ödünç verilme süresi (gün)" >
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-12">
+            <button *hasClaim="'video_books_edit'" class="btn btn-success btn-sm m-right-10" (click)="updatePermission()">İzinleri Düzenle</button>
+        </div>
+    </div>
+</form>
+</div>

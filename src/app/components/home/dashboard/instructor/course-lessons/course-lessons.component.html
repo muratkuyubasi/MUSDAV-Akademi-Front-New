@@ -1,0 +1,12 @@
+<section class="listing-area mb-30">
+    <div class="add-listing-box mb-30">
+        <h3>{{section?.openedCourseSectionRecords[0]?.title}} - Dersler</h3>
+        <a [routerLink]="'/dashboard/course-detail/'+section?.code+'/'+section?.slug">Geri</a>
+    </div>
+
+
+     <!-- SECTIONa TAŞI -->
+           <app-manage-ins-synchron *ngIf="course?.openedCourseTypeId==1" [section]="section" [course]="course"></app-manage-ins-synchron>
+          <app-manage-ins-asynchron *ngIf="course?.openedCourseTypeId==2" [section]="section" [lessons]="lessons" [course]="course"></app-manage-ins-asynchron>
+          <!--<app-manage-facetoface *ngIf="course?.openedCourseTypeId==3"  [section]="section" [course]="course"></app-manage-facetoface> -->
+</section>

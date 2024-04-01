@@ -1,0 +1,66 @@
+
+            <div class="courses-table">
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col">{{'HOMEPAGE.COURSE_NAME' | translate}}</th>
+                                <th scope="col">{{'HOMEPAGE.PRICE' | translate}}</th>
+                                <th scope="col">{{'HOMEPAGE.QUANTITY' | translate}}</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let course of courses">
+                                <th scope="row">
+                                    <a routerLink="/course-details">
+                                        {{course.courseName}}
+                                    </a>
+                                </th>
+                                <td>
+                                    <span *ngIf="course.coursePrice == 'HOMEPAGE.FREE'">0</span>
+                                    <span *ngIf="course.coursePrice != 'HOMEPAGE.FREE'">{{course.coursePrice}} {{course.currency}}</span>
+                                    
+                                </td>
+                                <td>
+                                    <div class="qty-box">
+                                        <div class="input-group">
+                                            <span class="input-group-prepend">
+                                                <button type="button" class="btn quantity-left-minus" data-type="minus" (click)="decrement(course)">
+                                                    <i class="bx bx-minus"></i>
+                                                </button>
+                                            </span>
+                                            <input type="text" name="quantity" class="form-control input-number" disabled [(ngModel)]="course.quantity">
+                                            <span class="input-group-prepend">
+                                                <button type="button" class="btn quantity-right-plus"  data-type="plus" (click)="increment(course)">
+                                                    <i class="bx bx-plus"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                </td>
+                                <td class="action">
+                                    <button type="button" (click)="removeCourse(course)" class="default-btn">
+                                        <i class='bx bx-trash-alt'></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr *ngIf="courses.length>0">
+                                <td colspan="3"> </td>
+                                <th scope="col"><b>{{'HOMEPAGE.TOTAL' | translate}} 
+                                    {{getTotal | async }} {{cartService?.Currency.currency}} </b></th>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                  
+                </div>
+                <div *ngIf="courses.length>0" class="mt-4 d-flex align-items-center justify-content-between">
+                    <span></span>
+                    <button class="default-btn two" type="button" routerLink="/dashboard/checkout">
+                        {{'HOMEPAGE.GOTOPAYMENT' | translate}}
+                    </button>
+                </div>
+            </div>
+

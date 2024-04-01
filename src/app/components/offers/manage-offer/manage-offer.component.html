@@ -1,0 +1,110 @@
+<app-breadcrumb *ngIf="!isEditMode" title="Teklif" subTitle="{{'ADD' | translate}}"></app-breadcrumb>
+<app-breadcrumb *ngIf="isEditMode" title="Teklif" subTitle="{{'EDIT' | translate}}"></app-breadcrumb>
+
+<section class="listing-area mb-30">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button [class]="'nav-link active'" id="all-listing-tab" data-bs-toggle="tab" data-bs-target="#all-listing" type="button" role="tab" aria-controls="all-listing" aria-selected="true">Detay</button>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="isEditMode">
+            <button class="nav-link" id="lesson-tab" data-bs-toggle="tab" data-bs-target="#offers" type="button" role="tab" aria-controls="offers" aria-selected="true">Teklifler</button>
+          </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div [class]="'tab-pane fade show active'" id="all-listing" role="tabpanel">
+            <div class="add-listing-box mb-30">
+
+                <div class="row">
+                    <form [formGroup]="offerForm">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>{{'OFFERCREATOR' | translate}}</label>
+                                    <p class="form-control" style="padding-top:10px;">{{offerUser?.user.firstName}} {{offerUser?.user.lastName}}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>{{'OPENEDCOURSETYPE' |translate}}</label>
+                                    <select formControlName="openedCourseTypeId" class="form-control form-select">
+                                        <option value="">Kurs Türü Seçiniz</option>
+                                        <option *ngFor="let type of courseTypes" [value]="type.id">
+                                            {{type.title}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="offerForm.get('openedCourseTypeId').touched">
+                                        <div class="text-danger" *ngIf="offerForm.get('openedCourseTypeId').errors?.required">
+                                            {{'HOMEPAGE.REQUIRED'| translate}}
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label>{{'HOMEPAGE.COURSE_NAME' |translate}}</label>
+                                    <input formControlName="offerTitle" class="form-control" />
+                                         
+                                  <div *ngIf="offerForm.get('offerTitle').touched">
+                                    <div class="text-danger" *ngIf="offerForm.get('offerTitle').errors?.required">
+                                        {{'HOMEPAGE.REQUIRED'| translate}}
+                                      </div>
+                                </div>
+                                    <!-- <input formControlName="courseId" type="text" class="form-control"> -->
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>{{'HOMEPAGE.OFFER_DETAIL' |translate}}</label>
+                                    <textarea class="form-control" formControlName="offerDetail" placeholder="{{'HOMEPAGE.OFFER_DETAIL_DESCRIPTION' | translate}}"></textarea>
+                                    <div *ngIf="offerForm.get('offerDetail').touched">
+                                        <div class="text-danger" *ngIf="offerForm.get('offerDetail').errors?.required">
+                                            {{'HOMEPAGE.REQUIRED'| translate}}
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{'HOMEPAGE.KEYWORDS' |translate}}</label>
+                                    <input formControlName="offerKeywords" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{'HOMEPAGE.PRICE_EXPECTATION' |translate}}</label>
+                                    <input formControlName="offerPrice" type="text" class="form-control">
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <button (click)="saveOffer()" class="default-btn two">{{'SAVE' |translate}}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div  [class]="'tab-pane fade show'" id="offers" role="tabpanel"  *ngIf="isEditMode">
+            <div class="add-listing-box mb-30">
+                <div class="table-responsive">
+                    <table class="table align-middle">
+                        <thead>
+                    <tr>
+                        <th scope="col">{{'MAKEOFFER' | translate}}</th>
+                        <th scope="col">{{'HOMEPAGE.OFFER_PRICE' | translate}}</th>
+                        <th scope="col">{{'STATUS' | translate}}</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of offer.giveOffers">
+                        <td>{{user.user.firstName}} {{user.user.lastName}}</td>
+                        <td>{{user.offerPrice}}</td>
+                        <td>{{user.validtyPeriod | date:'dd-MM-YYYY' }}</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

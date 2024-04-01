@@ -1,0 +1,236 @@
+<div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+      <div class="content-header">
+        <h1>{{book.name}}</h1>
+        <span class="badge badge-success badge-md m-right-10" *ngFor="let aut of book.authors">{{aut.authorName}}</span>
+        <!-- <h6 *ngFor="let aut of book.authors">{{aut.authorName}}</h6> -->
+      </div>
+    </div>
+
+  </div>
+  <div class="box box-primary">
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row align-items-center">
+                    <div class="col-md-4 col-sm-12">
+                        <h4 class="widget-title">{{'SOURCE_FILE' | translate}}</h4>
+                    </div>
+                    <!-- <div class="col-12">
+                        <h4 class="widget-title">{{'UPLOAD_VIMEO' | translate}}</h4>
+                        <app-vimeo-upload [bookData]="bookVideo" [book]="book"></app-vimeo-upload>
+                    </div> -->
+                    <div class="col-12">
+                        <h4 class="widget-title">{{'UPLOAD_SERVER' | translate}}</h4>
+                            <div ng2FileDrop
+                            [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+                            (fileOver)="fileOverBase($event)"
+                            [uploader]="uploader"
+                            class="well my-drop-zone">
+                           Sürükle Bırak veya <input type="file" ng2FileSelect [uploader]="uploader" />
+                           
+               </div>
+
+                            <div class="col-12" style="margin-top:10px;margin-bottom: 10px">
+                     
+                                <h3>Dosya Yükleme</h3>
+                                <p>Dosya Sayısı: {{ uploader?.queue?.length }}</p>
+                     
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th width="50%">Dosya Adı</th>
+                                        <th>Boyutu</th>
+                                        <th>İşlem</th>
+                                        <th>Durum</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let item of uploader.queue">
+                                        <td><strong>{{ item?.file?.name }}</strong></td>
+                                        <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                                        <td *ngIf="uploader.options.isHTML5">
+                                            <div class="progress" style="margin-bottom: 0;">
+                                                <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                            <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                            <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                        </td>
+                                        <td nowrap>
+                                            <button type="button" class="btn btn-success btn-xs"
+                                                    (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                                                <span class="glyphicon glyphicon-upload"></span> Yükle
+                                            </button>
+                                            <button type="button" class="btn btn-warning btn-xs"
+                                                    (click)="item.cancel()" [disabled]="!item.isUploading">
+                                                <span class="glyphicon glyphicon-ban-circle"></span> Vazgeç
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-xs"
+                                                    (click)="item.remove()">
+                                                <span class="glyphicon glyphicon-trash"></span> Kaldır
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                     
+                                <div>
+                                    <div>
+                                        İlerleme:
+                                        <div class="progress" style="">
+                                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                                        </div>
+                                    </div>
+                                    <!-- <button type="button" class="btn btn-success btn-s"
+                                            (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                                        <span class="glyphicon glyphicon-upload"></span> Upload all
+                                    </button>
+                                    <button type="button" class="btn btn-warning btn-s"
+                                            (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+                                        <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-s"
+                                            (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                                        <span class="glyphicon glyphicon-trash"></span> Remove all
+                                    </button> -->
+                                </div>
+                     
+                            </div>
+                     
+    <div class="row">
+        <!-- <video [src]="blobData | safeHT:'url'" id="audio" controls></video> -->
+        <!-- <div class="col-md-12" *ngIf="showPermission">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div mat-card-image plyr plyrTitle="Custom video" [plyrPlaysInline]="true" [plyrCrossOrigin]="true"
+                    [plyrPoster]="poster" [plyrSources]="vimeoSources" [plyrTracks]="tracks" (plyrInit)="player = $event"
+                    (plyrPlay)="played($event)"></div>
+                </div>
+            </div>
+        </div> -->
+        <div class="col-md-12" *ngIf="showPermission && bookVideo.mediaFile">
+            <div class="panel panel-default">
+                <!-- <div class="panel-heading">{{'SOURCE_FILE' | translate}}</div> -->
+                <div class="panel-body">
+                    <div mat-card-image plyr plyrTitle="Custom video" [plyrPlaysInline]="true" [plyrCrossOrigin]="true"
+                    [plyrSources]="videoSources"  (plyrInit)="player = $event"
+                    (plyrPlay)="played($event)"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row align-items-center">
+                    <div class="col-md-12 col-sm-12" *ngIf="showPermission">
+                        <h4 class="widget-title">{{'PERMISSION' | translate}}</h4>
+                        <form [formGroup]="bookVideoForm">
+                            <h4>{{bookVideo?.title}}</h4>
+                            <div class="form-group col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>{{'ISDOWNLOAD' | translate}}</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-slide-toggle formControlName="isDownload">
+                                            <span *ngIf="bookVideoForm.get('isDownload').value">{{'ACTIVE' | translate}}</span>
+                                            <span *ngIf="!bookVideoForm.get('isDownload').value">{{'INACTIVE' | translate}}</span>
+                                          </mat-slide-toggle>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input *ngIf="bookVideoForm.get('isDownload').value" formControlName="downloadCount" class="form-control" placeholder="Toplam İndirme Sayısı" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>{{'ISREPLAY' | translate}}</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-slide-toggle formControlName="isReplay">
+                                            <span *ngIf="bookVideoForm.get('isReplay').value">{{'ACTIVE' | translate}}</span>
+                                            <span *ngIf="!bookVideoForm.get('isReplay').value">{{'INACTIVE' | translate}}</span>
+                                          </mat-slide-toggle>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input *ngIf="bookVideoForm.get('isReplay').value" formControlName="replayCount" class="form-control" placeholder="Toplam Tekrar İzleme Sayısı" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>{{'isSyncronousPlay' | translate}}</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-slide-toggle formControlName="isSyncronousPlay">
+                                            <span *ngIf="bookVideoForm.get('isSyncronousPlay').value">{{'ACTIVE' | translate}}</span>
+                                            <span *ngIf="!bookVideoForm.get('isSyncronousPlay').value">{{'INACTIVE' | translate}}</span>
+                                          </mat-slide-toggle>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input *ngIf="bookVideoForm.get('isSyncronousPlay').value" formControlName="syncronousPlayCount" class="form-control" placeholder="Eşzamanlı İzleme Sayısı" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>{{'isActive' | translate}}</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-slide-toggle formControlName="isActive">
+                                            <span *ngIf="bookVideoForm.get('isActive').value">{{'ACTIVE' | translate}}</span>
+                                            <span *ngIf="!bookVideoForm.get('isActive').value">{{'INACTIVE' | translate}}</span>
+                                          </mat-slide-toggle>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input *ngIf="bookVideoForm.get('isActive').value" formControlName="totalPlayCount" class="form-control" placeholder="Yıllık İzlenme Sınırı" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>{{'totalIssueDate' | translate}}</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input formControlName="totalIssueDate" class="form-control" placeholder="Ödünç verilme süresi (gün)" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <button *hasClaim="'video_book_edit'" class="btn btn-success btn-sm m-right-10" (click)="updatePermission()">İzinleri Düzenle</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+<!-- 
+             
+  <div class="col-md-4">
+    <div class="form-group">
+      
+    <div class="add-list-media-wrap">
+      <div class="text">
+          <span>
+              <i class='bx bx-image-add'></i>
+             Kitap kapak görseli seçiniz
+          </span>
+      </div>
+      <input type="file" class="upload">
+  </div>
+    </div>
+  </div> -->
+
+  

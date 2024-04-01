@@ -1,0 +1,107 @@
+<div class="add-listing-box mb-30">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+          <div class="content-header">
+            <h3>{{course?.openedCourseRecords?.title}}</h3>
+          </div>
+        </div>
+        <div class="col-md-auto col-sm-auto">
+          <h4 class="widget-title">
+            <button class="btn btn-warning btn-sm m-right-10">
+              <i class="fas fa-plus"></i> 
+               {{course?.openedCourseType?.openedCourseTypeRecords[0].title}}
+            </button>
+          </h4>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <form [formGroup]="detailForm">
+            <div class="row">
+              <div class="col-md-12">
+                <div formArrayName="openedCourseSectionRecords">
+                  <div class="row">
+                    <div *ngFor="let title of openedCourseSectionRecords.controls; let i=index" class="m-bottom-10 col-md-6">
+                      <div>
+                        Bölüm Adı ({{openedCourseSectionRecords.controls[i].get('languageCode').value}})
+                        <div class="form-inline" [formGroupName]="i">
+                          <div class="form-group">
+                            <input class="form-control mb-2" type="text" formControlName="title">
+                           
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        Açıklama ({{openedCourseSectionRecords.controls[i].get('languageCode').value}})
+                        <div class="form-inline" [formGroupName]="i">
+                            <div class="form-group">
+                              <textarea class="form-control mb-2"  formControlName="description"></textarea>
+                             
+                            </div>
+                          </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="m-top-10 col-md-12 mb-3">
+          
+              <ng-container *ngIf="!isEditMode">
+                <button *hasClaim="'campus_add'" class="btn btn-success btn-sm m-right-10" (click)="saveSection()"
+                  cdkFocusInitial><i class="fas fa-save"></i> {{'SAVE' | translate}}</button>
+              </ng-container>
+              <ng-container *ngIf="isEditMode">
+                <button *hasClaim="'campus_add'" class="btn btn-success btn-sm m-right-10" (click)="saveSection()"
+                  cdkFocusInitial><i class="fas fa-save"></i> {{'EDIT' | translate}}</button>
+              </ng-container>
+            </div>
+          </form>
+
+
+        </div>
+        <div class="col-md-12">
+            <div *ngIf="openedCourseSections.length>0">
+
+                
+                <table mat-table [dataSource]="dataSource" matSort matSortDisableClear>
+
+                  <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        {{'TITLE'| translate}}
+                    </th>
+                    <td mat-cell *matCellDef="let section"> 
+                      {{section?.openedCourseSectionRecords[0].title}}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="lesson">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        {{'LESSONS'| translate}}
+                    </th>
+                    <td mat-cell *matCellDef="let section"> 
+                      <a [routerLink]="'/admin/opened-courses/lessons/'+section.code" >{{'LESSONS' | translate}} {{section?.openedCourseLessons.length}}</a>
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="option">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        
+                    </th>
+                    <td mat-cell *matCellDef="let section"> 
+                      <ng-container>
+                        <button  class="btn btn-warning btn-sm m-right-10" (click)="sectionDetail(section)"
+                          cdkFocusInitial><i class="fas fa-save"></i> {{'EDIT' | translate}} <i class='bx bx-arrow-right'></i></button>
+                        <button  class="btn btn-danger btn-sm m-right-10" (click)="deleteSection(section)"
+                          cdkFocusInitial><i class="fas fa-save"></i> {{'DELETE' | translate}} <i class='bx bx-arrow-right'></i></button>
+                      </ng-container>
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                  </tr>
+                </table>
+                <!-- <mat-paginator [pageSizeOptions]="[5]"></mat-paginator> -->
+              </div>
+        </div>
+      </div>
+</div>

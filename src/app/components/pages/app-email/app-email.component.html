@@ -1,0 +1,406 @@
+<div class="email-content-area mt-20">
+    <div class="sidebar-left">
+        <div class="sidebar">
+            <div class="sidebar-content d-flex email-sidebar" data-simplebar>
+                <div class="email-menu">
+                    <a routerLink="/admin/app-email-compose" class="btn btn-primary btn-block compose-btn mb-4"><i class='bx bx-plus'></i> Compose</a>
+
+                    <div class="list-group list-group-messages">
+                        <a routerLink="/app-email" class="list-group-item active">
+                            <i class='bx bx-envelope'></i>
+                            Inbox
+                            <span class="badge badge-success d-inline-block">5</span>
+                        </a>
+
+                        <a routerLink="/app-email" class="list-group-item">
+                            <i class='bx bx-paper-plane'></i>
+                            Sent
+                        </a>
+
+                        <a routerLink="/app-email" class="list-group-item">
+                            <i class='bx bx-edit'></i>
+                            Drafts
+                        </a>
+
+                        <a routerLink="/app-email" class="list-group-item">
+                            <i class='bx bx-star'></i>
+                            Starred
+                            <span class="badge badge-primary d-inline-block">3</span>
+                        </a>
+
+                        <a routerLink="/app-email" class="list-group-item">
+                            <i class='bx bxs-time-five'></i>
+                            Snoozed
+                        </a>
+
+                        <a routerLink="/app-email" class="list-group-item">
+                            <i class='bx bx-info-square'></i>
+                            Spam
+                        </a>
+
+                        <a routerLink="/app-email" class="list-group-item">
+                            <i class='bx bx-trash'></i>
+                            Trash
+                            <span class="badge badge-danger d-inline-block">8</span>
+                        </a>
+                    </div>
+
+                    <label class="d-block list-group-label text-uppercase">Labels</label>
+
+                    <div class="list-group list-group-labels">
+                        <a routerLink="/app-email" class="list-group-item">
+                            Categories
+                        </a>
+
+                        <a routerLink="/app-email" class="list-group-item">
+                            Social
+                        </a>
+
+                        <a routerLink="/app-email" class="list-group-item">
+                            Updates
+                        </a>
+
+                        <a routerLink="/app-email" class="list-group-item">
+                            Forums
+                        </a>
+
+                        <a routerLink="/app-email" class="list-group-item">
+                            Promotions
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-right">
+        <div class="email-area">
+            <div class="email-list-wrapper">
+                <div class="email-list">
+                    <div class="email-list-header d-flex align-items-center">
+                        <div class="header-left d-flex align-items-center mr-3">
+                            <div class="checkbox mr-3">
+                                <input class="inp-cbx" id="cbx-all" type="checkbox" style="display: none;"/>
+                                <label class="cbx" for="cbx-all">
+                                    <span>
+                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg>
+                                    </span>
+                                </label>
+                            </div>
+
+                            <ul class="list-inline m-0 d-flex">
+                                <li class="list-inline-item email-delete">
+                                    <button type="button" class="btn-icon">
+                                        <i class='bx bx-trash'></i>
+                                    </button>
+                                </li>
+
+                                <li class="list-inline-item email-unread">
+                                    <button type="button" class="btn-icon">
+                                        <i class='bx bx-envelope'></i>
+                                    </button>
+                                </li>
+
+                                <li class="list-inline-item email-unread">
+                                    <div class="dropdown">
+                                        <button class="dropdown-toggle btn-icon" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class='bx bx-info-square'></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                                <i class='bx bx-edit'></i> Drafts
+                                            </a>
+                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                                <i class='bx bx-info-square'></i> Spam
+                                            </a>
+                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                                <i class='bx bx-trash'></i> Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="list-inline-item email-unread">
+                                    <div class="dropdown">
+                                        <button class="dropdown-toggle btn-icon" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class='bx bx-purchase-tag-alt'></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                                <i class='bx bx-duplicate'></i> Categories
+                                            </a>
+                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                                <i class='bx bxs-user-detail'></i> Social
+                                            </a>
+                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                                <i class='bx bx-up-arrow'></i> Updates
+                                            </a>
+                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                                <i class='bx bx-chat'></i> Forums
+                                            </a>
+                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                                <i class='bx bx-trending-up'></i> Promotions
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="header-right w-100">
+                            <form>
+                                <label><i class="bx bx-search"></i></label>
+                                <input type="text" class="form-control" placeholder="Search email...">
+                            </form>
+                        </div>
+                    </div>
+
+                    <ul class="list-wrapper" data-simplebar>
+                        <li class="email-list-item">
+                            <div class="email-list-actions mr-3">
+                                <div class="checkbox">
+                                    <input class="inp-cbx" id="cbx" type="checkbox" style="display: none;"/>
+                                    <label class="cbx" for="cbx">
+                                        <span>
+                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <span class="favorite">
+                                    <i class='bx bx-star'></i>
+                                </span>
+                            </div>
+
+                            <a routerLink="/app-email-read" class="email-list-detail">
+                                <div>
+                                    <img src="assets/img/user1.jpg" alt="image">
+                                    <span class="from d-block">Codecademy Pro</span>
+                                    <p class="mb-0 msg">Black Friday Sale on Codecademy Pro</p>
+                                </div>
+
+                                <span class="date d-block">01:50 PM</span>
+                            </a>
+                        </li>
+
+                        <li class="email-list-item">
+                            <div class="email-list-actions mr-3">
+                                <div class="checkbox">
+                                    <input class="inp-cbx" id="cbx2" type="checkbox" style="display: none;"/>
+                                    <label class="cbx" for="cbx2">
+                                        <span>
+                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <span class="favorite">
+                                    <i class='bx bx-star'></i>
+                                </span>
+                            </div>
+
+                            <a routerLink="/app-email-read" class="email-list-detail">
+                                <div>
+                                    <img src="assets/img/user2.jpg" alt="image">
+                                    <span class="from d-block">Font Awesome</span>
+                                    <p class="mb-0 msg">Confirm Your Font Awesome Account Email Address</p>
+                                </div>
+
+                                <span class="date d-block">02 Dec</span>
+                            </a>
+                        </li>
+
+                        <li class="email-list-item read">
+                            <div class="email-list-actions mr-3">
+                                <div class="checkbox">
+                                    <input class="inp-cbx" id="cbx3" type="checkbox" style="display: none;"/>
+                                    <label class="cbx" for="cbx3">
+                                        <span>
+                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <span class="favorite">
+                                    <i class='bx bx-star'></i>
+                                </span>
+                            </div>
+
+                            <a routerLink="/app-email-read" class="email-list-detail">
+                                <div>
+                                    <img src="assets/img/user3.jpg" alt="image">
+                                    <span class="from d-block">Stack Overflow</span>
+                                    <p class="mb-0 msg">Reputation values have changed across Stack Overflow</p>
+                                </div>
+
+                                <span class="date d-block">05 Dec</span>
+                            </a>
+                        </li>
+
+                        <li class="email-list-item">
+                            <div class="email-list-actions mr-3">
+                                <div class="checkbox">
+                                    <input class="inp-cbx" id="cbx4" type="checkbox" style="display: none;"/>
+                                    <label class="cbx" for="cbx4">
+                                        <span>
+                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <span class="favorite">
+                                    <i class='bx bx-star'></i>
+                                </span>
+                            </div>
+
+                            <a routerLink="/app-email-read" class="email-list-detail">
+                                <div>
+                                    <img src="assets/img/user4.jpg" alt="image">
+                                    <span class="from d-block">Envato Market</span>
+                                    <p class="mb-0 msg">[ThemeForest] EnvyTheme replied to your comment!</p>
+                                </div>
+
+                                <span class="date d-block">02 Dec</span>
+                            </a>
+                        </li>
+
+                        <li class="email-list-item">
+                            <div class="email-list-actions mr-3">
+                                <div class="checkbox">
+                                    <input class="inp-cbx" id="cbx5" type="checkbox" style="display: none;"/>
+                                    <label class="cbx" for="cbx5">
+                                        <span>
+                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <span class="favorite">
+                                    <i class='bx bx-star'></i>
+                                </span>
+                            </div>
+
+                            <a routerLink="/app-email-read" class="email-list-detail">
+                                <div>
+                                    <img src="assets/img/user5.jpg" alt="image">
+                                    <span class="from d-block">EnvyTheme Market</span>
+                                    <p class="mb-0 msg">[ThemeForest] EnvyTheme replied to your comment!</p>
+                                </div>
+
+                                <span class="date d-block">05 Dec</span>
+                            </a>
+                        </li>
+
+                        <li class="email-list-item">
+                            <div class="email-list-actions mr-3">
+                                <div class="checkbox">
+                                    <input class="inp-cbx" id="cbx6" type="checkbox" style="display: none;"/>
+                                    <label class="cbx" for="cbx6">
+                                        <span>
+                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <span class="favorite">
+                                    <i class='bx bx-star'></i>
+                                </span>
+                            </div>
+
+                            <a routerLink="/app-email-read" class="email-list-detail">
+                                <div>
+                                    <img src="assets/img/user6.jpg" alt="image">
+                                    <span class="from d-block">ThemeForest Market</span>
+                                    <p class="mb-0 msg">[ThemeForest] EnvyTheme replied to your comment!</p>
+                                </div>
+
+                                <span class="date d-block">08 Dec</span>
+                            </a>
+                        </li>
+
+                        <li class="email-list-item read">
+                            <div class="email-list-actions mr-3">
+                                <div class="checkbox">
+                                    <input class="inp-cbx" id="cbx7" type="checkbox" style="display: none;"/>
+                                    <label class="cbx" for="cbx7">
+                                        <span>
+                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <span class="favorite">
+                                    <i class='bx bx-star'></i>
+                                </span>
+                            </div>
+
+                            <a routerLink="/app-email-read" class="email-list-detail">
+                                <div>
+                                    <img src="assets/img/user1.jpg" alt="image">
+                                    <span class="from d-block">Envato Market</span>
+                                    <p class="mb-0 msg">[ThemeForest] EnvyTheme replied to your comment</p>
+                                </div>
+
+                                <span class="date d-block">15 Dec</span>
+                            </a>
+                        </li>
+
+                        <li class="email-list-item">
+                            <div class="email-list-actions mr-3">
+                                <div class="checkbox">
+                                    <input class="inp-cbx" id="cbx8" type="checkbox" style="display: none;"/>
+                                    <label class="cbx" for="cbx8">
+                                        <span>
+                                            <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                            </svg>
+                                        </span>
+                                    </label>
+                                </div>
+
+                                <span class="favorite">
+                                    <i class='bx bx-star'></i>
+                                </span>
+                            </div>
+
+                            <a routerLink="/app-email-read" class="email-list-detail">
+                                <div>
+                                    <img src="assets/img/user2.jpg" alt="image">
+                                    <span class="from d-block">Instagram</span>
+                                    <p class="mb-0 msg">New login to Instagram from Chrome on Windows</p>
+                                </div>
+
+                                <span class="date d-block">20 Dec</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="email-list-footer d-flex justify-content-between align-items-center">
+                        <p class="mb-0">Show: 1 - 10 of 590</p>
+
+                        <div class="email-pagination-btn">
+                            <button type="submit" class="email-pagination-prev d-inline-block"><i class='bx bx-arrow-to-left'></i></button>
+                            <button type="submit" class="email-pagination-next d-inline-block"><i class='bx bx-arrow-to-right'></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

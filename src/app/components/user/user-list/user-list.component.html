@@ -1,0 +1,125 @@
+<div class="row align-items-center justify-content-between">
+  <div class="col-md-auto col-sm-auto">
+    <div class="content-header">
+      <h1>{{'USERS' | translate}}</h1>
+    </div>
+  </div>
+  <div class="col-md-auto col-sm-auto">
+    <h4 class="widget-title">
+      <button *hasClaim="'user_add'" class="btn btn-success btn-sm m-right-10" [routerLink]="['/admin/users/manage']">
+        <i class="fas fa-plus"></i> {{'ADD_USER' | translate}} </button>
+    </h4>
+  </div>
+</div>
+
+<div class="loading-shade" *ngIf="dataSource.loading$ | async">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="box box-primary">
+  <div class="box-body">
+    <div class="table-responsive">
+      <!-- <div class="ml-2 col-sm-5">
+      <mat-form-field class="w-100">
+        <input matInput placeholder="{{'SEARCH_BY_EMAIL_FIRST_NAME_LAST_NAME_PHONE_NUMBER' | translate}}" #input>
+      </mat-form-field>
+    </div> -->
+      <table mat-table [dataSource]="dataSource" matSort matSortActive="email" class="table">
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>
+            <span> {{'ACTION' | translate}} </span>
+          </th>
+          <td mat-cell *matCellDef="let user">
+            <button class="btn btn-primary btn-sm" [matMenuTriggerFor]="menu" aria-label="Action">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button class="btn btn-light btn-sm m-0" *hasClaim="'user_edit'" mat-menu-item
+                (click)="editUser(user.id)">
+                <i class="fas fa-pencil-alt"></i>
+                <span class="ml-1">{{'EDIT' | translate}}</span>
+              </button>
+              <button class="btn btn-light btn-sm m-0" *hasClaim="'user_delete'" mat-menu-item
+                (click)="deleteUser(user)">
+                <i class="fas fa-trash-alt"></i> <span class="ml-1">{{'DELETE' | translate}}</span>
+              </button>
+              <button class="btn btn-light btn-sm m-0" *hasClaim="'user_permission_edit'" mat-menu-item
+                (click)="userPermission(user.id)">
+                <i class="fas fa-user-friends"></i>
+                <span class="ml-1">{{'PERMISSION' | translate}}</span>
+              </button>
+              <button class="btn btn-light btn-sm m-0" *hasClaim="'rest_password_edit'" mat-menu-item
+                (click)="resetPassword(user)">
+                <i class="fas fa-lock"></i>
+                <span class="ml-1">{{'RESET_PASSWORD' | translate}}</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'EMAIL' | translate}} </th>
+          <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+        </ng-container>
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'FULL_NAME' | translate}} </th>
+          <td mat-cell *matCellDef="let user"> {{user.firstName}} {{user.lastName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="phoneNumber">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'PHONE_NUMBER' | translate}} </th>
+          <td mat-cell *matCellDef="let user"> {{user.phoneNumber}} </td>
+        </ng-container>
+        <ng-container matColumnDef="isActive">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'STATUS' | translate}} </th>
+          <td mat-cell *matCellDef="let user">
+            <span *ngIf="user.isActive" class="badge badge-success">{{'ACTIVE' | translate}}</span>
+            <span *ngIf="!user.isActive" class="badge badge-warning">{{'INACTIVE' | translate}}</span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action-search">
+          <th mat-header-cell *matHeaderCellDef>
+          </th>
+        </ng-container>
+        <ng-container matColumnDef="email-search">
+          <th mat-header-cell *matHeaderCellDef>
+            <input type="text" class="form-control w-90" [formControl]="emilFilterCtl">
+          </th>
+        </ng-container>
+        <ng-container matColumnDef="full-name-search">
+          <th mat-header-cell *matHeaderCellDef>
+            <input type="text" class="form-control w-90" [formControl]="fullNameFilterCtl">
+          </th>
+        </ng-container>
+        <ng-container matColumnDef="phone-number-search">
+          <th mat-header-cell *matHeaderCellDef>
+            <input type="text" class="form-control w-90" [formControl]="phoneNumberSearchFilterCtl">
+          </th>
+        </ng-container>
+        <ng-container matColumnDef="is-active-search">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-slide-toggle [formControl]="isActiveSearchFilterCtl">
+            </mat-slide-toggle>
+          </th>
+        </ng-container>
+        <ng-container matColumnDef="footer">
+          <td mat-footer-cell colspan="5" *matFooterCellDef>
+            <mat-paginator [length]="userResource.totalCount" [pageSize]="userResource.pageSize"
+              [pageSizeOptions]="[10, 20, 30]"></mat-paginator>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+        <tr mat-header-row
+          *matHeaderRowDef="['action-search','email-search','full-name-search','phone-number-search','is-active-search'];sticky: true">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="footerToDisplayed;sticky: true"></tr>
+      </table>
+      <ng-container *ngIf="dataSource.count === 0">
+        <div class="row">
+          <div class="col-sm-12 ml-4 mt-3">
+            <label class="font-weight-bold"> {{'NO_DATA_FOUND' | translate}}</label>
+          </div>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+</div>

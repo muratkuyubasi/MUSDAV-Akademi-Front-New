@@ -1,0 +1,35 @@
+<div class="row align-items-center justify-content-between">
+  <div class="col-md-auto col-sm-auto">
+    <div class="content-header">
+      <h1>{{'PAGE_ACTION' | translate}}</h1>
+    </div>
+  </div>
+</div>
+<div class="box box-primary">
+  <div class="box-body">
+    <div class="table-responsive">
+      <table class="table table-bordered table-sm">
+        <thead>
+          <tr class="table-active">
+            <th>#</th>
+            <th *ngFor='let action of actions;' scope="col">
+              {{action.name}}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let page of pages;'>
+            <td>
+              {{page.name}} ({{page.url}})
+            </td>
+            <td *ngFor='let action of actions'>
+              <mat-slide-toggle (change)="onPageActionChange($event,page.id,action.id)"
+                [checked]="onCheck(page.id,action.id)">
+              </mat-slide-toggle>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,131 @@
+<div class="edit-profile-box">
+    <form [formGroup]="examForm">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.COURSES' |translate}}</label>
+                    <select formControlName="openedCourseId" class="form-control form-select">
+                        <option value="">Kurs Seçiniz</option>
+                        <option *ngFor="let course of courses" [value]="course.id">{{course.openedCourseTitle}} ({{course.openedCourseTypeName}})</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                <label>{{'HOMEPAGE.STARTDATE' |translate}}</label>
+                <input  class="form-control" type="datetime-local" formControlName="startDateTime" />
+                <!-- <mat-form-field>
+                    <mat-label>{{'HOMEPAGE.STARTANDDATE' |translate}}</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                      <input matStartDate formControlName="startDateTime" type="datetime" placeholder="{{'HOMEPAGE.STARTDATE' | translate}}">
+                      <input matEndDate formControlName="dueDateTime" placeholder="{{'HOMEPAGE.ENDDATE' | translate}}">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                  </mat-form-field> -->
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.ENDDATE' |translate}}</label>
+                    <input class="form-control" type="datetime-local" formControlName="dueDateTime" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.RANDOMIZEQUESTION' |translate}}</label>
+                    <mat-slide-toggle formControlName="randomizeQuestion">
+                        <span *ngIf="examForm.get('randomizeQuestion').value">{{'YES' | translate}}</span>
+                        <span *ngIf="!examForm.get('randomizeQuestion').value">{{'NO' | translate}}</span>
+                    </mat-slide-toggle>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.SCHEDULEQUESTION' |translate}}</label>
+                    <mat-slide-toggle formControlName="scheduleQuestion">
+                        <span *ngIf="examForm.get('scheduleQuestion').value">{{'YES' | translate}}</span>
+                        <span *ngIf="!examForm.get('scheduleQuestion').value">{{'NO' | translate}}</span>
+                    </mat-slide-toggle>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.ISACTIVEQUESTION' |translate}}</label>
+                    <mat-slide-toggle formControlName="isActive">
+                        <span *ngIf="examForm.get('isActive').value">{{'YES' | translate}}</span>
+                        <span *ngIf="!examForm.get('isActive').value">{{'NO' | translate}}</span>
+                    </mat-slide-toggle>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div formArrayName="examRecords">
+                    <div class="row">
+                        <div *ngFor="let name of examRecords.controls; let i=index" class="m-bottom-10 col-md-12">
+                            {{'TITLE' | translate}} ({{examRecords.controls[i].get('languageCode').value.toUpperCase()}})
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-inline" [formGroupName]="i">
+                                        <div class="form-group">
+                                          <input class="form-control mb-2" type="text" formControlName="title">
+                                        </div>
+                                      </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-inline" [formGroupName]="i">
+                                        <div class="form-group">
+                                            <ckeditor 
+                                                  [editor]="Editor"
+                                                  formControlName="description"
+                                                  [config]="config"
+                                                  (ready)="onReady($event)"
+                                                  ></ckeditor>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-6"></div>
+        </div>
+        <div class="m-top-10 col-md-12">
+            <ng-container *ngIf="isEditMode">
+              <button *hasClaim="'exam_edit'" class="btn btn-success btn-sm m-right-10" (click)="saveExam()"
+                cdkFocusInitial><i class="fas fa-save"></i> {{'SAVE' | translate}}</button>
+            </ng-container>
+            <ng-container *ngIf="!isEditMode">
+              <button *hasClaim="'exam_add'" class="btn btn-success btn-sm m-right-10" (click)="saveExam()"
+                cdkFocusInitial><i class="fas fa-save"></i> {{'EDIT' | translate}}</button>
+            </ng-container>
+          </div>
+    </form>
+</div>
+<div class="courses-table">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                <th></th>
+                <th scope="col">{{'HOMEPAGE.QUESTIONDURATION' | translate}}</th>
+                <th scope="col">{{'HOMEPAGE.QUESTIONSCORE' | translate}}</th>
+                <th scope="col">{{'HOMEPAGE.QUESTIONTYPE' | translate}}</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let q of exam?.questions; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{q.questionDuration}}sn</td>
+                    <td>{{q.questionScore}}p</td>
+                    <td>{{q.questionTypeId}}</td>
+                    <td>
+                        <a routerLink="/dashboard/manage-question/{{q.code}}" class="default-btn two">{{'HOMEPAGE.DETAIL' | translate}}</a> 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

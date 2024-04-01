@@ -1,0 +1,42 @@
+<div class="courses-table">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+          <div class="content-header">
+            <h6>{{'HOMEPAGE.EXAM' | translate}}: {{exam?.examRecords[0].title}}</h6>
+          </div>
+        </div>
+        <div class="col-md-auto col-sm-auto">
+          <h4 class="widget-title">
+            <button class="btn btn-danger btn-sm m-right-10" routerLink="/dashboard/manage-question/{{exam?.code}}">
+              <i class="fas fa-plus"></i> 
+              {{'HOMEPAGE.ADDQUESTION' | translate}}
+            </button>
+          </h4>
+        </div>
+      </div>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th scope="col">{{'HOMEPAGE.QUESTIONDURATION' | translate}}</th>
+                    <th scope="col">{{'HOMEPAGE.QUESTIONSCORE' | translate}}</th>
+                    <th scope="col">{{'HOMEPAGE.QUESTIONTYPE' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let q of questions; let i=index">
+                    <td>{{i+1}}</td>
+                    <td>{{q.questionDuration}} sn</td>
+                    <td>{{q.questionScore}} p</td>
+                    <td>{{q.questionType?.questionTypeRecords[0].title}} {{q.multipleQuestion ? '(Ortak Soru Kökü)':''}}</td>
+                    <td>
+                        <a routerLink="/dashboard/detail-question/{{q.code}}" class="btn btn-sm btn-warning mr-2">{{'HOMEPAGE.DETAIL' | translate}}</a> 
+                         <a *ngIf="q.multipleQuestion" routerLink="/dashboard/manage-question/{{q.code}}" class="btn btn-sm btn-danger">{{'HOMEPAGE.ADDQUESTION' | translate}}</a> 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,125 @@
+<div class="add-listing-box mb-30">
+    <h3> 
+        <div class="row">
+        <div class="col-md-10">
+            Dersler
+        </div>
+    </div>
+</h3>
+<div class="row">
+    <div class="col-md-12">
+        <form [formGroup]="lessonForm" >
+            <div class="row">
+                <div formArrayName="openedCourseLessonRecords">
+                    <div class="row">
+                        <div *ngFor="let title of openedCourseLessonRecords.controls; let i=index" class="m-bottom-10 col-md-6">
+                          <div>
+                              Kurs Adı ({{openedCourseLessonRecords.controls[i].get('languageCode').value}})
+                              <div class="form-inline" [formGroupName]="i">
+                                  <div class="form-group">
+                                    <input class="form-control mb-2" type="text" formControlName="title">
+                                   
+                                  </div>
+                                </div>
+                          </div>
+                          <div>
+                              Açıklama ({{openedCourseLessonRecords.controls[i].get('languageCode').value}})
+                              <div class="form-inline" [formGroupName]="i">
+                                  <div class="form-group">
+                                    <textarea class="form-control mb-2"  formControlName="description"></textarea>
+                                   
+                                  </div>
+                                </div>
+                          </div>
+                          
+                         
+                          
+                        </div>
+                      </div>
+                </div>
+                
+                
+                <div class="col-md-6 mb-30">
+                   <app-vimeo-instructor-upload 
+                    [lesson]="course" 
+                    (newItemEvent)="setVideoUrl($event)"></app-vimeo-instructor-upload> 
+
+                    
+                </div>
+                <div class="col-md-6  mb-30" *ngIf="isLessonEditMode">{{course?.videoUrl}}
+                    <app-vimeo-instructor-player [videoSrc]="lesson?.videoUrl"></app-vimeo-instructor-player>
+                </div>
+                
+                <div class="col-md-12">
+                    
+                      <ng-container *ngIf="!isLessonEditMode">
+                        <button  [disabled]="!showButton" *hasClaim="'instructor_add'" class="btn btn-success btn-sm m-right-10" (click)="saveLesson()"
+                          cdkFocusInitial><i class="fas fa-save"></i> {{'SAVE' | translate}}</button>
+                         
+
+
+                      </ng-container>
+                      <ng-container *ngIf="isLessonEditMode">
+                        <button  *hasClaim="'instructor_add'" class="btn btn-success btn-sm m-right-10" (click)="saveLesson()"
+                          cdkFocusInitial><i class="fas fa-save"></i> {{'EDIT' | translate}}</button>
+                         
+
+                          
+                      </ng-container>
+                      <button type="button" class="btn btn-danger btn-sm" (click)="clearForm()">
+                         <i class="fas fa-times-circle"></i>
+                        {{'CANCEL' | translate}}</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="col-md-12">
+      <div class="courses-table">
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">{{'HOMEPAGE.LESSON_TITLE' | translate}}</th>
+                        <th scope="col">{{'HOMEPAGE.LESSON_VIDEO' | translate}}</th>
+                        <th scope="col">{{'HOMEPAGE.LESSON_FILE' | translate}}</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let lesson of lessons">
+                        <th scope="row">
+                            <a (click)="lessonDetail(lesson)">
+                                {{lesson.openedCourseLessonRecords[0].title}}
+                            </a>
+                        </th>
+                        <td>
+                          <a (click)="lessonDetail(lesson)">Video</a>
+                        </td>
+                        <td>
+                          Yüklü dosya sayısı: {{lesson.openedCourseLessonFiles.length}} 
+                          <input 
+                          id="file" 
+                          type="file" 
+                          class="form-control"
+                          (change)="onFileChange($event, lesson)">
+                           
+                        </td>
+                        <td>
+                          <ng-container>
+                            <button  class="btn btn-warning btn-sm m-right-10" (click)="lessonDetail(lesson)"
+                              cdkFocusInitial><i class="fas fa-save"></i> {{'EDIT' | translate}} <i class='bx bx-arrow-right'></i></button>
+                            <button  class="btn btn-danger btn-sm m-right-10" (click)="deleteLesson(lesson)"
+                              cdkFocusInitial><i class="fas fa-save"></i> {{'DELETE' | translate}} <i class='bx bx-arrow-right'></i></button>
+                          </ng-container>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+  
+    </div>
+</div>
+
+</div>

@@ -1,0 +1,48 @@
+<div
+    class="categories-area courses-area  extra-top position-relative z-1 pb-75 d-block"
+>
+    <div class="container">
+        <div class="section-title text-center">
+            <h2 class="mb-0">{{courseType | translate}} {{'HOMEPAGE.COURSES' |translate}}</h2>
+        </div>
+         <!-- <div class="section-title d-sm-flex justify-content-between">
+            <h2 class="mb-0"></h2>
+            <a routerLink="/courses-grid" class="default-btn two">{{'HOMEPAGE.VIEWALL' | translate}}</a>
+        </div> -->
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-xl-3 col-sm-6 col-md-6" *ngFor="let course of courses">
+                <div class="course-item position-relative">
+                    <a routerLink="/course/{{course.code}}/{{course.title | seoslugify}}" class="d-block image">
+                        <img [src]="course['coursePicture']" [alt]="course['title']">
+                    </a>
+                    <div class="content">
+                        <div class="meta justify-content-between align-items-center d-flex">
+                            <a  class="user d-flex align-items-center">
+                                <img [src]="course.teacherPicture" width="30" height="30" class="rounded-circle" [alt]="course.teacherFullName">
+                                {{course.teacherFullName}}
+                            </a>
+                            <span>{{course.openedCourseTypeName}}</span>
+                        </div>
+                        <h3>
+                            <a  routerLink="/course/{{course.code}}/{{course.title | seoslugify}}">
+                                {{course['title']}}
+                            </a>
+                        </h3>
+                        <!-- <div class="rating">
+                            <i class='bx bxs-star'></i>
+                            5.0 (239 Reviews)
+                        </div> -->
+                        <div class="info d-flex align-items-center justify-content-between ps-0 mb-0 list-unstyled">
+                            <div class="price">
+                               {{course.coursePrice | translate}} {{course.coursePrice !='HOMEPAGE.FREE' ?course.priceSymbol: ''}} 
+                               <!-- <span>$99</span> -->
+                            </div>
+                            <span class="sub-title">Kontenjan: {{course.courseQuota}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

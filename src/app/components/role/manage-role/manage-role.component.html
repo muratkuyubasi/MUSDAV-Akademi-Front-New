@@ -1,0 +1,12 @@
+<div class="row align-items-center justify-content-between">
+    <div class="col-md-auto col-sm-auto">
+        <div class="content-header">
+            <h1 *ngIf="!isEditMode">{{'ADD_ROLE' | translate}}</h1>
+            <h1 *ngIf="isEditMode">{{'EDIT_ROLE' | translate}}</h1>
+        </div>
+    </div>
+</div>
+<app-manage-role-presentation [pages]="pages$ | async" [actions]="actions$ | async" [pageActions]="pageActions$ | async"
+    [loading]="loading$ | async" [loadingPage]="loadingPage$ | async" [loadingAction]="loadingAction$ | async"
+    [role]="role" (onManageRoleAction)="manageRole($event)">
+</app-manage-role-presentation>

@@ -1,0 +1,166 @@
+<div class="add-listing-box mb-30">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+          <div class="content-header">
+            <h3>{{lesson?.openedCourseLessonRecords[0].title}}</h3>
+          </div>
+        </div>
+        
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+            <form [formGroup]="lessonForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div formArrayName="openedCourseLessonRecords">
+                            <div class="row">
+                              <div *ngFor="let title of openedCourseLessonRecords.controls; let i=index" class="m-bottom-10 col-md-6">
+                                <div>
+                                    
+                                    Kurs Adı ({{openedCourseLessonRecords.controls[i].get('languageCode').value}})
+                                    <div class="form-inline" [formGroupName]="i">
+                                        <div class="form-group">
+                                          <input class="form-control mb-2" type="text" formControlName="title">
+                                         
+                                        </div>
+                                      </div>
+                                </div>
+                                <div>
+                                    Açıklama ({{openedCourseLessonRecords.controls[i].get('languageCode').value}})
+                                    <div class="form-inline" [formGroupName]="i">
+                                        <div class="form-group">
+                                          <textarea class="form-control mb-2"  formControlName="description"></textarea>
+                                         
+                                        </div>
+                                      </div>
+                                </div>
+                                
+                               
+                                
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-inline" >
+                            <div class="form-group">
+                                <label><i class='bx bx-book-open'></i>  {{'DATE' | translate}}</label>
+                                <input matInput class="form-control mb-2" type="date" formControlName="startLessonTime" >
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-inline" >
+                            <div class="form-group">
+                                <label><i class='bx bx-book-open'></i>  {{'HOUR' | translate}}</label>
+                                <input matInput class="form-control mb-2"  formControlName="hour" >
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-inline" >
+                            <div class="form-group">
+                                <label><i class='bx bx-book-open'></i>  {{'DAY' | translate}}</label>
+                                <input matInput class="form-control mb-2" formControlName="day" >
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-inline" >
+                            <div class="form-group">
+                                <label><i class='bx bx-book-open'></i>  {{'DURATION' | translate}}</label>
+                                <input matInput class="form-control mb-2" formControlName="duration" >
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-12" *ngIf="lesson.isSynchronous">
+                        <div class="form-inline" >
+                            <div class="form-group">
+                                <label><i class='bx bx-book-open'></i>  {{'VIRTUALCLASS' | translate}}</label>
+                                <input matInput class="form-control mb-2" formControlName="virtualClassUrl" >
+                            </div>
+                          </div>
+                    </div>
+                    
+                    <div class="col-md-12" *ngIf="lesson.isFacetoFace">
+                        <div class="row">
+                            <div class="col-md-3" *ngIf="!selectClass">
+                                <div class="form-group">
+                                    <label><i class='bx bx-book-open'></i>  {{'CLASSROOM' | translate}}</label>
+                                    <input type="text" [value]="classroom" class="form-control" />  
+                                    
+                                <button class=" m-top-10 btn btn-info btn-sm m-right-10" (click)="selectClass = !selectClass">
+                                    Değiştir
+                                </button>
+                                </div>
+                            </div>
+                            <div class="col-md-12"  *ngIf="selectClass">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                          <label><i class='bx bx-book-open'></i>  {{'CAMPUS' | translate}}</label>
+                                          <select (change)="getAcademicUnits($event.target)" class="form-control mb-2 form-select" placeholder="Tur Seçiniz">
+                                            <option value="">Kampüs Seçiniz</option>
+                                          <option *ngFor="let campus of campuses" [value]="campus.code">
+                                              {{campus.campusRecords[0].name}}
+                                            </option>
+                                          </select>
+                                        </div>
+                                        
+                                      <button class=" m-top-10 btn btn-danger btn-sm m-right-10" (click)="selectClass = !selectClass">
+                                        Vazgeç
+                                    </button>
+                                      </div>
+                                      <div class="col-md-3" >
+                                        <div class="form-group">
+                                          <label><i class='bx bx-book-open'></i>  {{'ACADEMICUNITS' | translate}}</label>
+                                          <select  (change)="getBuildings($event.target)" class="form-control mb-2 form-select" placeholder="Tur Seçiniz">
+                                            <option value="">Birim Seçiniz</option>
+                                          <option *ngFor="let au of academicUnits" [value]="au.code">
+                                              {{au.academicUnitRecords[0].name}}
+                                            </option>
+                                          </select>
+                                        </div>
+                                      </div>
+                    
+                                      <div class="col-md-3" >
+                                        <div class="form-group">
+                                          <label><i class='bx bx-book-open'></i>  {{'ACADEMICUNITS' | translate}}</label>
+                                          <select formControlName="buildingId" (change)="getClassrooms($event.target)" class="form-control mb-2 form-select" placeholder="Tur Seçiniz">
+                                            <option value="">Bina Seçiniz</option>
+                                          <option *ngFor="let built of buildings" [value]="built.code">
+                                              {{built.buildingRecords[0].name}}
+                                            </option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3" >
+                                        <div class="form-group">
+                                          <label><i class='bx bx-book-open'></i>  {{'ACADEMICUNITS' | translate}}</label>
+                                          <select formControlName="classroomId" class="form-control mb-2 form-select" placeholder="Tur Seçiniz" (change)="checkClassroom($event.target)">
+                                            <option value="">Sınıf Seçiniz</option>
+                                          <option *ngFor="let class of classrooms" [value]="class.id">
+                                              {{class.classroomRecords[0].name}} ({{class.capacity}} kişi)
+                                            </option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+                            
+                          </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group" style="padding-top: 40px;">
+                          <button   class=" m-top-10 btn btn-success btn-sm m-right-10" (click)="editLesson()"
+                            cdkFocusInitial><i class="fas fa-save"></i> {{'EDIT' | translate}}</button>
+                        </div>
+                        
+                      </div>
+                </div>
+
+            </form>
+            
+        </div>
+      </div>
+</div>

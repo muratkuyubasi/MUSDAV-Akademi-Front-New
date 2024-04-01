@@ -1,0 +1,28 @@
+<div class="edit-profile-box">
+<div class="courses-table">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">{{'HOMEPAGE.EXAM' | translate}}</th>
+                    <th scope="col">{{'HOMEPAGE.COURSE' | translate}}</th>
+                    <th scope="col">{{'HOMEPAGE.STARTANDDATE' | translate}}  </th>
+                    <th scope="col">{{'HOMEPAGE.QUESTIONCOUNT' | translate}}</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let exam of exams">
+                    <th>{{exam.examRecord.title}}</th>
+                    <td>{{exam.openedCourseTitle}}</td>
+                    <td>{{exam.startDateTime | date:'dd-MM-YYYY HH:mm'}}<br/>{{exam.dueDateTime | date:'dd MM yyyy HH:mm'}}</td>
+                    <td><a routerLink="/dashboard/question-list/{{exam.code}}"> Sorular ({{exam.questionCount}})</a></td>
+                    <td>
+                         <a routerLink="/dashboard/manage-exam/{{exam.code}}" class="default-btn two">{{'HOMEPAGE.DETAIL' | translate}}</a> 
+                    </td> 
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>

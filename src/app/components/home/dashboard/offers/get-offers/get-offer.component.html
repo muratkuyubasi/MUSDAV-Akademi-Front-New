@@ -1,0 +1,110 @@
+<div class="edit-profile-box">
+    <form [formGroup]="offerForm">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>{{'OPENEDCOURSETYPE' |translate}}</label>
+                    <select formControlName="openedCourseTypeId" class="form-control form-select">
+                        <option value="">Kurs Türü Seçiniz</option>
+                        <option *ngFor="let type of courseTypes" [value]="type.id">
+                            {{type.title}}
+                        </option>
+                    </select>
+                    <div *ngIf="offerForm.get('openedCourseTypeId').touched">
+                        <div class="text-danger" *ngIf="offerForm.get('openedCourseTypeId').errors?.required">
+                            {{'HOMEPAGE.REQUIRED'| translate}}
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.COURSE_NAME' |translate}}</label>
+                        <ng-autocomplete #ngAutoCompleteStatic class="form-control" style="box-shadow:none"
+                        [data]="courses"
+                        name="searchKey"
+                        [(ngModel)]="searchKey"
+                        [initialValue]=""
+                        [placeholder]="'HOMEPAGE.COURSE_NAME' | translate"
+                        [searchKeyword]="keyword"
+                        [notFoundText]="notFoundText"
+                        [itemTemplate]="itemTemplateStatic"
+                        formControlName="offerTitle">
+                </ng-autocomplete>
+                <ng-template #itemTemplateStatic let-item>
+                    <a  [innerHTML]="item.courseName"></a>
+                  </ng-template>
+                  <div *ngIf="offerForm.get('offerTitle').touched">
+                    <div class="text-danger" *ngIf="offerForm.get('offerTitle').errors?.required">
+                        {{'HOMEPAGE.REQUIRED'| translate}}
+                      </div>
+                </div>
+                    <!-- <input formControlName="courseId" type="text" class="form-control"> -->
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.OFFER_DETAIL' |translate}}</label>
+                    <textarea class="form-control" formControlName="offerDetail" placeholder="{{'HOMEPAGE.OFFER_DETAIL_DESCRIPTION' | translate}}"></textarea>
+                    <div *ngIf="offerForm.get('offerDetail').touched">
+                        <div class="text-danger" *ngIf="offerForm.get('offerDetail').errors?.required">
+                            {{'HOMEPAGE.REQUIRED'| translate}}
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.KEYWORDS' |translate}}</label>
+                    <input formControlName="offerKeywords" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.PRICE_EXPECTATION' |translate}}</label>
+                    <input formControlName="offerPrice" type="text" class="form-control">
+                </div>
+            </div>
+            
+        </div>
+        <button (click)="saveOffer()" class="default-btn two">{{'SAVE' |translate}}</button>
+    </form>
+
+    <div class="courses-table mt-5">
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">{{'HOMEPAGE.COURSE_NAME' | translate}}</th>
+                        <th scope="col">{{'OPENEDCOURSETYPE' | translate}}</th>
+                        <th scope="col">{{'HOMEPAGE.STATUS' | translate}}</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let mo of myOffers">
+                        <th scope="col">
+                            {{mo.offerTitle}}
+                        </th>
+                        <td>
+                            {{mo.openedCourseType.openedCourseTypeRecords[0].title}}
+                        </td>
+                        <td>
+                            <span class="btn btn-warning btn-sm" *ngIf="mo.offerStatus==0">{{'HOMEPAGE.NEW' | translate}}</span>
+                            <span class="btn btn-success btn-sm" *ngIf="mo.offerStatus==1">{{'HOMEPAGE.PUBLISHED' | translate}}</span>
+                            <span class="btn btn-primary btn-sm" *ngIf="mo.offerStatus==2">{{'HOMEPAGE.COMPLETED' | translate}}</span>
+                            <span class="btn btn-warning btn-sm" *ngIf="mo.offerStatus==3">{{'HOMEPAGE.SUSPEND' | translate}}</span>
+                            <span class="btn btn-danger btn-sm" *ngIf="mo.offerStatus==4">{{'HOMEPAGE.CANCELLED' | translate}}</span>
+                        </td>
+                        <td class="action">
+                            <button *ngIf="mo.offerStatus==0" (click)="updateOffer(mo)" type="button" class="default-btn two"><i class='bx bx-edit-alt'></i></button>
+                            <button *ngIf="mo.offerStatus !=1" type="button" (click)="showOffer(mo)" title="detail" class="default-btn two ms-2"><i class='bx bx-message-alt-detail'></i></button>
+                            <button *ngIf="mo.offerStatus==2" type="button" (click)="deleteOffer(mo)" class="default-btn ms-2"><i class='bx bx-trash'></i>
+                            </button> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

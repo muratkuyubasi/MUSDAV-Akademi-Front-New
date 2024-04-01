@@ -1,0 +1,177 @@
+<div class="add-listing-box mb-30">
+    <h3>Kurs Bilgileri</h3>
+    <div class="row">
+        <div class="col-sm-12">
+            <form [formGroup]="courseForm">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label><i class='bx bx-book-open'></i>  {{'COURSE' | translate}}</label>
+                      <select  formControlName="courseId" name="openedCourseTypeId" class="form-control mb-2 form-select" placeholder="Kurs Seçiniz">
+                        <option value="">Kurs Seçiniz</option>
+                      <option *ngFor="let course of mainCourses" [value]="course.id">
+                          {{course.courseRecords[0].name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>  
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label><i class='bx bx-book-open'></i>  {{'OPENEDCOURSETYPE' | translate}}</label>
+                      <select  formControlName="openedCourseTypeId" name="openedCourseTypeId" class="form-control mb-2 form-select" placeholder="Tur Seçiniz">
+                        <option value="">Ders Türü Seçiniz</option>
+                      <option *ngFor="let type of types" [value]="type.id">
+                          {{type.openedCourseTypeRecords[0].title}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label><i class='bx bx-book-open'></i>  {{'QUOTA' | translate}}</label>
+                      <div class="form-group">
+                        <input class="form-control mb-2" type="text" formControlName="courseQuota">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label><i class='bx bx-book-open'></i>  {{'PICTURE' | translate}}</label>
+                      <div class="form-group">
+                        <input 
+formControlName="file"
+id="file" 
+type="file" 
+class="form-control"
+(change)="onFileChange($event)">
+                        <!-- <input class="form-control mb-2" type="text" formControlName="coursePicture"> -->
+                      </div>
+                    </div>
+                  </div>
+                    <div class="col-md-12">
+                       
+                        <div formArrayName="openedCourseRecords">
+                            <div class="row">
+                              <div *ngFor="let name of openedCourseRecords.controls; let i=index" class="m-bottom-10 col-md-12">
+                                ({{openedCourseRecords.controls[i].get('languageCode').value.toUpperCase()}})
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-inline" [formGroupName]="i">
+                                      Kurs Adı 
+                                      <div class="form-group">
+                                        <input class="form-control mb-2" type="text" formControlName="title">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div class="form-inline" [formGroupName]="i">
+                                      Ücret 
+                                      <div class="form-group">
+                                        <input class="form-control mb-2" type="text" formControlName="coursePrice">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <div class="form-inline" [formGroupName]="i">
+                                      Para Birimi 
+                                      <div class="form-group">
+                                        <input class="form-control mb-2" type="text" formControlName="priceSymbol">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <div class="form-inline" [formGroupName]="i">
+                                      Kısa Açıklama 
+                                      <div class="form-group">
+                                        <input class="form-control mb-2" type="text" formControlName="shortDescription">
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <div class="form-inline" [formGroupName]="i">
+                                      Açıklama 
+                                     <div class="form-group cked">
+                                      <ckeditor 
+                                      [editor]="Editor"
+                                      [config]="config" 
+                                      formControlName="description"
+                                      ></ckeditor>
+                                      <!-- <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+                                <ngx-editor [editor]="editor" formControlName="description" placeholder="Kurs Açıklaması">
+                                </ngx-editor> -->
+                                       <!-- <input class="form-control mb-2" type="text" formControlName="description">  -->
+                                     </div>
+                                   </div>
+                                  </div>
+                                  
+                                </div>
+                                
+                                
+
+                               
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    <!-- <div class="col-md-3" *ngIf="isEditMode">
+                        <div class="form-inline" >
+                            <div class="form-group">
+                                <label><i class='bx bx-book-open'></i>  {{'IS_PUBLISH' | translate}}</label>
+                                <mat-slide-toggle formControlName="isPublish">
+                                    <span *ngIf="courseForm.get('isPublish').value">{{'YES' | translate}}</span>
+                                    <span *ngIf="!courseForm.get('isPublish').value">{{'NO' | translate}}</span>
+                                </mat-slide-toggle>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-3" *ngIf="isEditMode">
+                        <div class="form-inline" >
+                            <div class="form-group">
+                                <label><i class='bx bx-book-open'></i>  {{'IS_CONFIRM' | translate}}</label>
+                                <mat-slide-toggle formControlName="isConfirmed">
+                                    <span *ngIf="courseForm.get('isConfirmed').value">{{'YES' | translate}}</span>
+                                    <span *ngIf="!courseForm.get('isConfirmed').value">{{'NO' | translate}}</span>
+                                </mat-slide-toggle>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-3" *ngIf="isEditMode">
+                        <div class="form-inline" >
+                            <div class="form-group">
+                                <label><i class='bx bx-book-open'></i>  {{'IS_POPULER' | translate}}</label>
+                                <mat-slide-toggle formControlName="isPopuler">
+                                    <span *ngIf="courseForm.get('isPopuler').value">{{'YES' | translate}}</span>
+                                    <span *ngIf="!courseForm.get('isPopuler').value">{{'NO' | translate}}</span>
+                                </mat-slide-toggle>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-3" *ngIf="isEditMode">
+                        <div class="form-inline" >
+                            <div class="form-group">
+                                <label><i class='bx bx-book-open'></i>  {{'IS_RECOMMEND' | translate}}</label>
+                                <mat-slide-toggle formControlName="isRecommend">
+                                    <span *ngIf="courseForm.get('isRecommend').value">{{'YES' | translate}}</span>
+                                    <span *ngIf="!courseForm.get('isRecommend').value">{{'NO' | translate}}</span>
+                                </mat-slide-toggle>
+                            </div>
+                          </div>
+                    </div> -->
+                </div>
+                <div class="m-top-10 col-md-12">
+                    <ng-container *ngIf="isEditMode">
+                      <button *hasClaim="'instructor_edit'" class="btn btn-success btn-sm m-right-10" (click)="saveCourse()"
+                        cdkFocusInitial><i class="fas fa-save"></i> {{'SAVE' | translate}}</button>
+                    </ng-container>
+                    <ng-container *ngIf="!isEditMode">
+                      <button *hasClaim="'instructor_add'" class="btn btn-success btn-sm m-right-10" (click)="saveCourse()"
+                        cdkFocusInitial><i class="fas fa-save"></i> {{'SAVE' | translate}}</button>
+                    </ng-container>
+                    <button type="button" class="btn btn-danger btn-sm" [routerLink]="['/dashboard']"><i
+                        class="fas fa-times-circle"></i>
+                      {{'CANCEL' | translate}}</button>
+                  </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="edit-profile-box">
+    <div *ngIf="isEditMode">
+        <ul class="ps-0 mb-0 list-unstyled">
+            <li>
+                <span>{{'HOMEPAGE.COURSE_NAME' |translate}}:</span>
+                {{offer.offerTitle}}
+            </li>
+            <li>
+                <span>{{'HOMEPAGE.OFFER_DETAIL' |translate}}:</span>
+                {{offer.offerDetail}}
+            </li>
+            <li>
+                <span>{{'OPENEDCOURSETYPE' |translate}}:</span>
+                {{offer.openedCourseType.openedCourseTypeRecords[0].title}}
+            </li>
+        </ul>
+        <div class="mt-3">
+            <div  *ngIf="isBeforeOffer">
+                <h4 class="text-danger" style="text-align: center;">{{'HOMEPAGE.BEFORE_OFFER' |translate}}</h4>
+                <p>{{'HOMEPAGE.OFFER_PRICE' |translate}} : {{beforeOffer.offerPrice}} ₺</p>
+                <p>{{'HOMEPAGE.OFFER_CREATED' |translate}} : {{beforeOffer.createdDate | date:'dd-MM-yyyy'}}</p>
+                <p>{{'HOMEPAGE.OFFER_VALIDITY_PERIOD' |translate}} : {{beforeOffer.validityPeriod | date:'dd-MM-yyyy'}}</p>
+            </div>
+            <form [formGroup]="offerForm" *ngIf="!isBeforeOffer">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>{{'HOMEPAGE.OFFER_PRICE' |translate}}</label>
+                            
+                            <input formControlName="offerPrice" suffix=" ₺/saat" mask="99999" class="form-control">
+                            <div *ngIf="offerForm.get('offerPrice').touched">
+                                <div class="text-danger" *ngIf="offerForm.get('offerPrice').errors?.required">
+                                    {{'HOMEPAGE.REQUIRED'| translate}}
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>{{'HOMEPAGE.OFFER_VALIDITY_PERIOD' |translate}}</label>
+
+                            <input formControlName="validityDate" suffix=" gün" mask="999" class="form-control">
+                            <!-- <input formControlName="validityPeriod"  type="text" suffix=" gün" mask="0000000"  class="form-control">
+                           
+                                <div class="text-danger" *ngIf="offerForm.get('validityPeriod').errors?.required">
+                                    {{'HOMEPAGE.REQUIRED'| translate}}
+                                  </div> -->
+                            
+                        </div>
+                    </div>
+                </div>
+                <button (click)="saveOffer()" class="default-btn two">{{'SAVE' |translate}}</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="courses-table mt-5">
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">{{'HOMEPAGE.COURSE_NAME' | translate}}</th>
+                        <th scope="col">{{'OPENEDCOURSETYPE' | translate}}</th>
+                        <th scope="col">{{'HOMEPAGE.STATUS' | translate}}</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let mo of offers">
+                        <th scope="col">
+                            {{mo.offerTitle}}
+                        </th>
+                        <td>
+                            {{mo.openedCourseType.openedCourseTypeRecords[0].title}}
+                        </td>
+                        <td>
+                            <span class="btn btn-warning btn-sm" *ngIf="mo.offerStatus==0">{{'HOMEPAGE.NEW' | translate}}</span>
+                            <span class="btn btn-success btn-sm" *ngIf="mo.offerStatus==1">{{'HOMEPAGE.PUBLISHED' | translate}}</span>
+                            <span class="btn btn-primary btn-sm" *ngIf="mo.offerStatus==2">{{'HOMEPAGE.COMPLETED' | translate}}</span>
+                            <span class="btn btn-warning btn-sm" *ngIf="mo.offerStatus==3">{{'HOMEPAGE.SUSPEND' | translate}}</span>
+                            <span class="btn btn-danger btn-sm" *ngIf="mo.offerStatus==4">{{'HOMEPAGE.CANCELLED' | translate}}</span>
+                        </td>
+                        <td class="action">
+                            <button *ngIf="mo.offerStatus==1" (click)="showOffer(mo)" type="button" class="default-btn two"><i class='bx bx-message-alt-detail'></i></button>
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

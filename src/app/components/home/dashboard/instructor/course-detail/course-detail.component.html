@@ -1,0 +1,48 @@
+<div class="course-details-desc">
+    <ul class="nav nav-tabs d-block">
+        <li class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab1'}">
+            <button type="button" class="nav-link position-relative shadow-none border-0 mb-0 rounded-0" (click)="switchTab($event, 'tab1')">
+                {{'HOMEPAGE.OVERVIEW' | translate}}
+            </button>
+        </li>
+        <li class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab2'}" *ngIf="isEditMode">
+            <button type="button" class="nav-link position-relative shadow-none border-0 mb-0 rounded-0" (click)="switchTab($event, 'tab2')">
+                {{'HOMEPAGE.COURSE_CONTENT' | translate}}
+            </button>
+        </li>
+        <li class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab3'}" *ngIf="isEditMode">
+            <button type="button" class="nav-link position-relative shadow-none border-0 mb-0 rounded-0" (click)="switchTab($event, 'tab3')">
+                {{'HOMEPAGE.DOCUMENTS' | translate}}
+            </button>
+        </li>
+        <li  class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab4'}" *ngIf="isEditMode">
+            <button type="button" class="nav-link position-relative shadow-none border-0 mb-0 rounded-0" (click)="switchTab($event, 'tab4')">
+                {{'HOMEPAGE.QUESTIONS' | translate}}
+            </button>
+        </li>
+        <li  class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab5'}" *ngIf="isEditMode">
+            <button type="button" class="nav-link position-relative shadow-none border-0 mb-0 rounded-0" (click)="switchTab($event, 'tab5')">
+                {{'HOMEPAGE.STUDENTS' | translate}}
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade" id="tab1" *ngIf="currentTab === 'tab1'">
+            <h4>{{course?.title}}</h4>
+            <app-instructor-course-record [course]="course" [userId]="appUserAuth.id"></app-instructor-course-record>
+        </div>
+        <div class="tab-pane fade" id="tab2" *ngIf="currentTab === 'tab2'">
+            
+            <app-instructor-section [course]="course"></app-instructor-section>
+        </div>
+        <div class="tab-pane fade" id="tab3" *ngIf="currentTab === 'tab3'">
+            <app-instructor-course-file  [course]="course"></app-instructor-course-file>
+        </div>
+        <div class="tab-pane fade" id="tab4" *ngIf="currentTab === 'tab4'">
+            <app-instructor-course-questions [course]="course"></app-instructor-course-questions>
+        </div>
+        <div class="tab-pane fade" id="tab5" *ngIf="currentTab === 'tab5'">
+            <app-instructor-course-students [course]="course"></app-instructor-course-students>
+        </div>
+    </div>
+</div>

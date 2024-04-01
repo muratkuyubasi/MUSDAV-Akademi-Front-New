@@ -1,0 +1,33 @@
+<section class="listing-area mb-30">
+    <div class="add-listing-box mb-30">
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">{{'HOMEPAGE.SECTIONNAME' | translate}}</th>
+                        <th scope="col">{{'HOMEPAGE.LESSONNAME' | translate}}</th>
+                        <th scope="col">{{'HOMEPAGE.FILENAME' | translate}}</th>
+                        <th scope="col">{{'HOMEPAGE.FILE' | translate}}</th>
+                        <th scope="col">{{'HOMEPAGE.ISPUBLISH' | translate}}</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let file of files">
+                        <td>{{file.sectionName}}</td>
+                        <td>{{file.lessonName}}</td>
+                        <td>{{file.fileTitle}}</td>
+                        <td><a href="{{file.filePath}}">{{'HOMEPAGE.FILE' | translate}}</a></td>
+                        <td>
+                            <span *ngIf="file.isPublish">{{'HOMEPAGE.YES' |translate}}</span>
+                            <span *ngIf="!file.isPublish">{{'HOMEPAGE.NO' |translate}}</span>
+                        </td>    
+                    </tr>
+                   
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</section>
+

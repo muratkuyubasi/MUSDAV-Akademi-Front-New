@@ -1,0 +1,491 @@
+<!-- Page Banner -->
+<div
+    class="page-banner-area ptb-100"
+    style="background-image: url(assets/images/shapes/page-banner-bg.jpg);"
+>
+    <div class="container">
+        <div class="page-banner-content">
+            <div class="list d-sm-flex align-items-center">
+                <div class="list-item d-block position-relative">
+                    <div class="d-flex align-items-center">
+                        <img [src]="course?.teacherPicture" class="rounded-circle" width="30" alt="user">
+                        {{course?.teacherFullName}}
+                    </div>
+                </div>
+                <div class="list-item d-inline-block position-relative">
+                    {{course?.openedCourseTypeName}}
+                </div>
+                <div class="list-item d-inline-block position-relative" *ngIf="course.isReview">
+                    <i class='bx bxs-star'></i> 5.0 (223 Reviews)
+                </div>
+            </div>
+            <h1>{{course?.title}}</h1>
+            <ul class="ps-0 mb-0 list-unstyled">
+                <li class="d-inline-block position-relative"><a routerLink="/">{{'HOMEPAGE.HOME' | translate}}</a></li>
+                <li class="d-inline-block position-relative">{{course?.title}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Course Details -->
+<div class="course-details-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <div class="course-details-desc">
+                    <ul class="nav nav-tabs d-block">
+                        <li class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab1'}">
+                            <button type="button" class="nav-link position-relative shadow-none border-0 mb-0 rounded-0" (click)="switchTab($event, 'tab1')">
+                                {{'HOMEPAGE.OVERVIEW' | translate}}
+                            </button>
+                        </li>
+                        <li class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab2'}">
+                            <button type="button" class="nav-link position-relative shadow-none border-0 mb-0 rounded-0" (click)="switchTab($event, 'tab2')">
+                                {{'HOMEPAGE.COURSE_CONTENT' | translate}}
+                            </button>
+                        </li>
+                        <li class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab3'}">
+                            <button type="button" class="nav-link position-relative shadow-none border-0 mb-0 rounded-0" (click)="switchTab($event, 'tab3')">
+                                {{'HOMEPAGE.INSTRUCTOR' | translate}}
+                            </button>
+                        </li>
+                        <li  class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab4'}">
+                            <button type="button" class="nav-link position-relative shadow-none border-0 mb-0 rounded-0" (click)="switchTab($event, 'tab4')">
+                                {{'HOMEPAGE.REVIEWS' | translate}}
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade" id="tab1" *ngIf="currentTab === 'tab1'">
+                            <div class="overview-details-content" [innerHTML]="course.description">
+                            </div>
+                            <div class="course-details-content">
+                                <h4>{{'HOMEPAGE.COURSE_CONTENT' |translate}}</h4>
+                                <div class="accordion">
+                                    <div class="accordion-section" *ngFor="let section of course?.openedCourseSections; let i=index">
+                                        <div class="accordion-header" (click)="toggleSection(i)" [ngClass]="{ 'open': isSectionOpen(i) }">
+                                            {{section.sectionName}}
+                                            <span>{{section.lessonCount}} {{'HOMEPAGE.LESSON' | translate}}</span>
+                                        </div>
+                                        <div class="accordion-content" [ngClass]="{ 'open': isSectionOpen(0) }">
+                                            <ul class="ps-0 mb-0 list-unstyled">
+                                                <li class="d-sm-flex align-items-center justify-content-between" *ngFor="let lesson of section.sectionLessons">
+                                                    {{lesson.title}}
+                                                    <span><i class='bx bx-lock-alt'></i> • {{lesson.duration}} {{'HOMEPAGE.MINUTE' | translate}}</span> 
+                                                </li>
+                                                <!-- <li class="d-sm-flex align-items-center justify-content-between">
+                                                    The Complete Python Bootcamp
+                                                    <span><i class='bx bx-lock-alt'></i> • 06:39</span>
+                                                </li>
+                                                <li class="d-sm-flex align-items-center justify-content-between">
+                                                    Course Curriculum Overview
+                                                    <span><i class='bx bx-lock-alt'></i> • 04:00</span>
+                                                </li>
+                                                <li class="d-sm-flex align-items-center justify-content-between">
+                                                    Why Python?
+                                                    <span><i class='bx bx-lock-alt'></i> • 05:17</span>
+                                                </li>
+                                                <li class="d-sm-flex align-items-center justify-content-between">
+                                                    Course FAQs
+                                                    <span><i class='bx bx-lock-alt'></i> • 02:33</span>
+                                                </li> -->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="course-details-instructor">
+                                <h4>{{'HOMEPAGE.INSTRUCTOR' | translate}} </h4>
+                                <div *ngFor="let teacher of course.teachers">
+                                    <div class="user d-md-flex align-items-center" >
+                                        <img [src]="teacher.profilePhoto" class="rounded-circle" width="80" [alt]="teacher.fullName">
+                                        <div>
+                                            <h6>{{teacher.fullName}}</h6>
+                                            <span class="designation d-block">{{teacher.academicTitle}}</span>
+                                            <ul class="social-links ps-0 mb-0 list-unstyled">
+                                                <li class="d-inline-block">
+                                                    <a href="https://www.facebook.com/{{teacher.profile.facebook}}" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                                        <i class="bx bxl-facebook"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="d-inline-block">
+                                                    <a href="https://linkedin.com/{{teacher.profile.linkedin}}" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                                        <i class="bx bxl-linkedin"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="d-inline-block">
+                                                    <a href="https://twitter.com/{{teacher.profile.twitter}}" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                                        <i class="bx bxl-twitter"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="d-inline-block">
+                                                    <a href="https://www.instagram.com/{{teacher.profile.instagram}}" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                                        <i class='bx bxl-instagram'></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <p [innerHTML]="teacher.profile.biblio"></p>
+                                </div>
+                                
+                               
+                            </div>
+                           
+                        </div>
+                        <div class="tab-pane fade" id="tab2" *ngIf="currentTab === 'tab2'">
+                            <div class="course-details-content mb-0">
+                                <h4>{{'HOMEPAGE.COURSE_CONTENT' | translate}}</h4>
+                                <div class="accordion">
+                                    <div class="accordion-section" *ngFor="let section of course?.openedCourseSections; let i=index">
+                                        <div class="accordion-header" (click)="toggleSection(i)" [ngClass]="{ 'open': isSectionOpen(i) }">
+                                            {{section.sectionName}}
+                                            <span>{{section.lessonCount}} {{'HOMEPAGE.LESSON' | translate}}</span>
+                                        </div>
+                                        <div class="accordion-content" [ngClass]="{ 'open': isSectionOpen(0) }">
+                                            <ul class="ps-0 mb-0 list-unstyled">
+                                                <li class="d-sm-flex align-items-center justify-content-between" *ngFor="let lesson of section.sectionLessons">
+                                                    {{lesson.title}} {{lesson.bracheName}}
+                                                    <span><i class='bx bx-lock-alt'></i> • {{lesson.duration}} {{'HOMEPAGE.MINUTE' | translate}}</span> 
+                                                </li>
+                                                <!-- <li class="d-sm-flex align-items-center justify-content-between">
+                                                    The Complete Python Bootcamp
+                                                    <span><i class='bx bx-lock-alt'></i> • 06:39</span>
+                                                </li>
+                                                <li class="d-sm-flex align-items-center justify-content-between">
+                                                    Course Curriculum Overview
+                                                    <span><i class='bx bx-lock-alt'></i> • 04:00</span>
+                                                </li>
+                                                <li class="d-sm-flex align-items-center justify-content-between">
+                                                    Why Python?
+                                                    <span><i class='bx bx-lock-alt'></i> • 05:17</span>
+                                                </li>
+                                                <li class="d-sm-flex align-items-center justify-content-between">
+                                                    Course FAQs
+                                                    <span><i class='bx bx-lock-alt'></i> • 02:33</span>
+                                                </li> -->
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3" *ngIf="currentTab === 'tab3'">
+                            <div class="course-details-instructor mb-0">
+                                <h4>{{'HOMEPAGE.INSTRUCTOR' |translate}}</h4>
+                                <div class="user d-md-flex align-items-center" *ngFor="let teacher of course.teachers">
+                                    <img [src]="teacher.profilePhoto" class="rounded-circle" width="80" [alt]="teacher.fullName">
+                                   
+                                    <div>
+                                        <h6>{{teacher.fullName}}</h6>
+                                        <span class="designation d-block">{{teacher.academicTitle}}</span>
+                                            <ul class="social-links ps-0 mb-0 list-unstyled">
+                                                <li class="d-inline-block">
+                                                    <a href="https://www.facebook.com/{{teacher.profile.facebook}}" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                                        <i class="bx bxl-facebook"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="d-inline-block">
+                                                    <a href="https://linkedin.com/{{teacher.profile.linkedin}}" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                                        <i class="bx bxl-linkedin"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="d-inline-block">
+                                                    <a href="https://twitter.com/{{teacher.profile.twitter}}" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                                        <i class="bx bxl-twitter"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="d-inline-block">
+                                                    <a href="https://www.instagram.com/{{teacher.profile.instagram}}" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                                        <i class='bx bxl-instagram'></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                    </div>
+                                    <p [innerHTML]="teacher.profile.biblio"></p>
+                                </div>
+                               
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab4" *ngIf="currentTab === 'tab4'">
+                            <div class="course-details-feedback">
+                              
+                                <h4>{{'HOMEPAGE.COMMENTS' | translate}}</h4>
+                                <div class="row align-items-center">
+                                    <div class="col-lg-4 col-md-4">
+                                        <div class="content text-center">
+                                            <h1>{{stars.sumRating}}</h1>
+                                            <div class="rating">
+                                                <i class="bx bx{{stars.sumRating>=1 ?'s':''}}-star"></i>
+                                                <i class="bx bx{{stars.sumRating>=2 ?'s':''}}-star"></i>
+                                                <i class="bx bx{{stars.sumRating>=3 ?'s':''}}-star"></i>
+                                                <i class="bx bx{{stars.sumRating>=4 ?'s':''}}-star"></i>
+                                                <i class="bx bx{{stars.sumRating>=5 ?'s':''}}-star"></i>
+                                            </div>
+                                            <span class="d-block">{{'HOMEPAGE.COURSE_RATING' | translate}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8">
+                                        
+                                        <div class="rating-content">
+                                            <div class="item d-flex align-items-center">
+                                                <div class="w-75">
+                                                    <div class="progress" role="progressbar" aria-label="Basic example" 
+                                                    aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="progress-bar" [style]="'width:'+stars.fivePercent+'%'"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="rating">
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                </div>
+                                                <span>{{stars.fivePercent}}%</span>
+                                            </div>
+                                            <div class="item d-flex align-items-center">
+                                                <div class="w-75">
+                                                    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="progress-bar" [style]="'width:'+stars.fourPercent+'%'"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="rating">
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                </div>
+                                                <span>{{stars.fourPercent}}%</span>
+                                            </div>
+                                            <div class="item d-flex align-items-center">
+                                                <div class="w-75">
+                                                    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="progress-bar" [style]="'width:'+stars.threePercent+'%'"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="rating">
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                </div>
+                                                <span>{{stars.threePercent}}%</span>
+                                            </div>
+                                            <div class="item d-flex align-items-center">
+                                                <div class="w-75">
+                                                    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="progress-bar" [style]="'width:'+stars.twoPercent+'%'"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="rating">
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                </div>
+                                                <span>{{stars.twoPercent}}%</span>
+                                            </div>
+                                            <div class="item d-flex align-items-center">
+                                                <div class="w-75">
+                                                    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="progress-bar" [style]="'width:'+stars.onePercent+'%'"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="rating">
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                </div>
+                                                <span>{{stars.onePercent}}%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="feedback-list">
+                                    <div class="feedback-item" *ngFor="let comment of studentComments">
+                                        <div class="user d-flex align-items-center">
+                                            <img src="assets/images/users/user2.jpg" class="rounded-circle" width="55" alt="user">
+                                            <div>
+                                                <h6>{{comment.fullName}} 
+                                                    <!-- <span>3 days ago</span> -->
+                                                </h6>
+                                                <span class="sub-title">{{comment.title}}</span>
+                                            </div>
+                                        </div>
+                                        <p>{{comment.comment}}</p>
+                                    </div>
+                                   <div class="text-center" *ngIf="showLoadCount<=studentComments.length" >
+                                    <button type="submit" (click)="setStudentComment(showLoadSkip,showLoadCount)" class="default-btn" >{{'HOMEPAGE.LOADMORE' | translate}}</button>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="course-details-write-review">
+                                <h4>{{'HOMEPAGE.WRITECOMMENT' | translate}}</h4>
+                                <p>{{'HOMEPAGE.ABOUT_COURSE' | translate}}</p>
+                                <form [formGroup]="commentForm">
+                                    <div class="rating">
+                                        <input type="radio" formControlName="rating" id="star5" name="rating" value="5" /><label for="star5"></label>
+                                        <input type="radio"  formControlName="rating" id="star4" name="rating" value="4" /><label for="star4"></label>
+                                        <input type="radio"  formControlName="rating" id="star3" name="rating" value="3" /><label for="star3"></label>
+                                        <input type="radio"  formControlName="rating" id="star2" name="rating" value="2"  /><label for="star2"></label>
+                                        <input type="radio"  formControlName="rating" id="star1" name="rating" value="1" /><label for="star1"></label>
+                                        <div *ngIf="commentForm.get('rating').touched && commentForm.get('rating').errors">
+                                            <div class="text-danger" *ngIf="commentForm.get('rating').errors?.required">
+                                              {{'HOMEPAGE.IS_REQUIRED' | translate}}
+                                            </div>
+                                            
+                                          </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" formControlName="title" class="form-control" placeholder="{{'HOMEPAGE.GREAT_COURSE' | translate}}">
+                                        <div *ngIf="commentForm.get('title').touched && commentForm.get('title').errors">
+                                            <div class="text-danger" *ngIf="commentForm.get('title').errors?.required">
+                                              {{'HOMEPAGE.IS_REQUIRED' | translate}}
+                                            </div>
+                                            
+                                          </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" formControlName="comment" cols="30" rows="5" placeholder="{{'HOMEPAGE.YOUR_COMMENT' | translate}}"></textarea>
+                                        <div *ngIf="commentForm.get('comment').touched && commentForm.get('comment').errors">
+                                            <div class="text-danger" *ngIf="commentForm.get('comment').errors?.required">
+                                              {{'HOMEPAGE.IS_REQUIRED' | translate}}
+                                            </div>
+                                            
+                                          </div>
+                                    </div>
+                                    <div class="">
+                                        {{commentMessage}}
+                                    </div>
+                                    <button  type="submit" *ngIf="showCommentForm" class="default-btn" (click)="saveComment()">{{'HOMEPAGE.SUBMIT_REVIEW' | translate}}</button>
+                                    <button type="submit" *ngIf="appUserAuth==null" class="default-btn" routerLink="/profile-authentication" >{{'HOMEPAGE.LOGIN' | translate}}</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="course-details-info">
+
+                    <div class="image position-relative">
+                        <img [src]="course.coursePicture" [alt]="course.title">
+                        <button  *ngIf="course.openedCourseTypeId==2" type="button" class="video-btn p-0 border-0 d-inline-block rounded-circle" routerLink="/course-detail/{{course.code}}/{{course.title | seoslugify}}">
+                            <i class='bx bx-play' ></i>
+                        </button>
+                    </div>
+                    <div class="content">
+                        <h3>{{course.title}}</h3>
+                        <ul class="info ps-0 mb-0 list-unstyled">
+                            <li class="d-flex align-items-center justify-content-between">
+                                <span>{{'HOMEPAGE.PRICE' | translate}}:</span>
+                                {{course.coursePrice | translate}} {{course.coursePrice =="HOMEPAGE.FREE" ? "" : course.priceSymbol | translate}}
+                            </li>
+                            <li class="d-flex align-items-center justify-content-between">
+                                <span>{{'HOMEPAGE.INSTRUCTOR' | translate}}:</span>
+                                {{course.teachers[0]?.fullName}}
+                            </li>
+                            <!-- <li class="d-flex align-items-center justify-content-between">
+                                <span>Duration:</span>
+                                3 weeks
+                            </li> -->
+                            <li class="d-flex align-items-center justify-content-between">
+                                <span>{{'HOMEPAGE.LESSON' | translate}}:</span>
+                                {{course.lessonCount}}
+                            </li>
+                            <li class="d-flex align-items-center justify-content-between">
+                                <span>{{'HOMEPAGE.QUOTA' | translate}}:</span>
+                                {{course.courseQuota}}
+                            </li>
+                            <!-- <li class="d-flex align-items-center justify-content-between">
+                                <span>Language:</span>
+                                English
+                            </li> -->
+                            <li class="d-flex align-items-center justify-content-between">
+                                <span>{{'HOMEPAGE.CERTIFICATE' | translate}}:</span>
+                                <span *ngIf="course.isCertificate">{{'YES' | translate}}</span>
+                                <span *ngIf="!course.isCertificate">{{'NO' | translate}}</span>
+
+                            </li>
+                            <li *ngIf="course.openedCourseTypeId==3" class="d-flex align-items-center justify-content-between">
+                                <span>{{'HOMEPAGE.BRANCHE' | translate}}:</span>
+                                <span *ngIf="course.openedCourseBrancheCount>0">{{course.openedCourseBrancheCount}} {{'HOMEPAGE.BRANCHE' | translate}}</span>
+                                <span *ngIf="course.openedCourseBrancheCount==0"> {{'NO' | translate}}</span>
+                                
+                            </li>
+                        </ul>
+                        <div class="btn-box"  *ngIf="userCourseCheck">
+                            <div *ngIf="userCourseCheck.isCourseRegister">
+                                <div *ngIf="userCourseCheck.isRequiredPayment">
+                                    <a *ngIf="!userCourseCheck.isPayment" routerLink="/dashboard/cart" class="default-btn d-block w-100 text-center">{{'HOMEPAGE.GOTOCART'| translate}}
+                                    </a>
+                                    <a *ngIf="userCourseCheck.isPayment" routerLink="/course-detail/{{course.code}}/{{course.title | seoslugify}}" class="default-btn d-block w-100 text-center">{{'HOMEPAGE.STARTNOW'| translate}}
+                                    </a>
+                                </div>
+                                <div *ngIf="!userCourseCheck.isRequiredPayment">
+                                    <a  routerLink="/course-detail/{{course.code}}/{{course.title | seoslugify}}" class="default-btn d-block w-100 text-center">{{'HOMEPAGE.STARTNOW'| translate}}
+                                    </a>
+                                </div>
+                            </div>
+                            <div *ngIf="!userCourseCheck.isCourseRegister">
+                                <div *ngIf="!userCourseCheck.isRequiredPayment">
+                                    <a routerLink="/register-course/{{course.code}}/{{course.title | seoslugify}}" class="default-btn d-block w-100 text-center two">{{'HOMEPAGE.REGISTER' | translate}}</a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="btn-box"  *ngIf="!userCourseCheck">
+                            <a routerLink="/register-course/{{course.code}}/{{course.title | seoslugify}}" class="default-btn d-block w-100 text-center two">{{'HOMEPAGE.REGISTER' | translate}}</a>
+                        </div>
+                        
+                        <span class="d-block fw-medium">{{'HOMEPAGE.SHAREON' | translate}}:</span>
+                        <ul class="social-links ps-0 mb-0 list-unstyled">
+                            <li class="d-inline-block">
+                                <a href="https://www.facebook.com/" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                    <i class="bx bxl-facebook"></i>
+                                </a>
+                            </li>
+                            <li class="d-inline-block">
+                                <a href="https://linkedin.com/" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                    <i class="bx bxl-linkedin"></i>
+                                </a>
+                            </li>
+                            <li class="d-inline-block">
+                                <a href="https://twitter.com/" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                    <i class="bx bxl-twitter"></i>
+                                </a>
+                            </li>
+                            <li class="d-inline-block">
+                                <a href="https://www.instagram.com/" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                    <i class='bx bxl-instagram'></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- <div class="course-details-box text-center">
+                    <h3>We Help You Learn While Staying Home</h3>
+                    <a routerLink="/courses-grid" class="default-btn">Get Started Now</a>
+                    <img src="assets/images/man.png" class="d-block ms-auto me-auto" alt="man">
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Video Popup -->
+<div class="video-popup" *ngIf="isOpen">
+    <div class="popup-inner">
+        <iframe src="https://www.youtube.com/embed/XNQk1qt__Vw" title="Setup and Local Installation - React Nextjs Online Yoga Coaching &amp; Training Courses System" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <button (click)="closePopup()" type="button" class="close-btn">
+            <i class='bx bx-x'></i>
+        </button>
+    </div>
+</div>

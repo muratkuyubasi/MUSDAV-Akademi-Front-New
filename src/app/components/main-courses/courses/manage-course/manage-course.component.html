@@ -1,0 +1,71 @@
+<app-breadcrumb *ngIf="!isEditMode" title="Kurs" subTitle="{{'ADD' | translate}}"></app-breadcrumb>
+<app-breadcrumb *ngIf="isEditMode" title="Kurs" subTitle="{{'EDIT' | translate}}"></app-breadcrumb>
+
+<section class="listing-area mb-30">
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="all-listing" role="tabpanel">
+            <div class="add-listing-box mb-30">
+                <h3>Kurs Bilgileri</h3>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form [formGroup]="courseForm">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label><i class='bx bx-book-open'></i>  {{'CATEGORY' | translate}}</label>
+                                  <select  formControlName="courseCategoryId" name="courseCategoryId" class="form-control mb-2 form-select" placeholder="Kurs Kategorisi Seçiniz">
+                                    <option value="">Kurs Kategorisi Seçiniz</option>
+                                  <option *ngFor="let type of categories" [value]="type.id">
+                                      {{type.courseCategoryRecords[0].name}}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-inline" >
+                                    <div class="form-group">
+                                        <label><i class='bx bx-book-open'></i>  {{'IS_CONFIRM' | translate}}</label>
+                                        <mat-slide-toggle formControlName="isConfirm">
+                                            <span *ngIf="courseForm.get('isConfirm').value">{{'YES' | translate}}</span>
+                                            <span *ngIf="!courseForm.get('isConfirm').value">{{'NO' | translate}}</span>
+                                        </mat-slide-toggle>
+                                    </div>
+                                  </div>
+                            </div>
+                                <div class="col-md-12">
+                                   
+                                    <div formArrayName="courseRecords">
+                                        <div class="row">
+                                          <div *ngFor="let name of courseRecords.controls; let i=index" class="m-bottom-10 col-md-6">Kurs Adı ({{courseRecords.controls[i].get('languageCode').value}})
+                                            <div class="form-inline" [formGroupName]="i">
+                                              <div class="form-group">
+                                                <input class="form-control mb-2" type="text" formControlName="name">
+                                               
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                </div>
+                                
+                            </div>
+                            <div class="m-top-10 col-md-12">
+                                <ng-container *ngIf="isEditMode">
+                                  <button *hasClaim="'campus_edit'" class="btn btn-success btn-sm m-right-10" (click)="saveCourse()"
+                                    cdkFocusInitial><i class="fas fa-save"></i> {{'SAVE' | translate}}</button>
+                                </ng-container>
+                                <ng-container *ngIf="!isEditMode">
+                                  <button *hasClaim="'campus_add'" class="btn btn-success btn-sm m-right-10" (click)="saveCourse()"
+                                    cdkFocusInitial><i class="fas fa-save"></i> {{'SAVE' | translate}}</button>
+                                </ng-container>
+                                <button type="button" class="btn btn-danger btn-sm" [routerLink]="['/admin/courses']"><i
+                                    class="fas fa-times-circle"></i>
+                                  {{'CANCEL' | translate}}</button>
+                              </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

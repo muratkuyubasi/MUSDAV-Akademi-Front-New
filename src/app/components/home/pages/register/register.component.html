@@ -1,0 +1,83 @@
+<div
+    class="page-banner-area ptb-50"
+    style="background-image: url(assets/images/shapes/page-banner-bg.jpg);"
+>
+    <div class="container">
+        <div class="container">
+            <div class="page-banner-content text-center">
+                <h1>{{'HOMEPAGE.REGISTER' | translate}}</h1>
+               
+                <ul class="ps-0 mb-0 list-unstyled">
+                    <li class="d-inline-block position-relative"><a routerLink="/">{{'HOMEPAGE.HOME' | translate}}</a></li>
+                    <li class="d-inline-block position-relative">{{'HOMEPAGE.REGISTER' | translate}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="profile-authentication-area ptb-50">
+    <div class="container">
+        <div class="forgot-password-box">
+            <form [formGroup]="userRegisterForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>{{'FIRST_NAME' | translate}}</label>
+                            <input type="text" formControlName="firstName" class="form-control" placeholder="{{'FIRST_NAME' | translate}}">
+                        </div>
+                        <div *ngIf="userRegisterForm.get('firstName').touched">
+                            <div class="text-danger" *ngIf="userRegisterForm.get('firstName').errors?.required">
+                                Adınız
+                              </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>{{'LAST_NAME' | translate}}</label>
+                            <input type="text" formControlName="lastName" class="form-control" placeholder="{{'LAST_NAME' | translate}}">
+                        </div>
+                        <div *ngIf="userRegisterForm.get('lastName').touched">
+                            <div class="text-danger" *ngIf="userRegisterForm.get('lastName').errors?.required">
+                                Soyadınız
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>{{'EMAIL' | translate}}</label>
+                            <input type="email" formControlName="email" class="form-control" placeholder="{{'EMAIL' | translate}}">
+                        </div>
+                        <div *ngIf="userRegisterForm.get('email').touched">
+                            <div class="text-danger" *ngIf="userRegisterForm.get('email').errors?.required">
+                                E-posta adresiniz
+                              </div>
+                              <div class="text-danger" *ngIf="userRegisterForm.get('email').errors?.email">
+                                Lütfen geçerli bir e-posta giriniz
+                              </div>
+                        </div>
+                        <div class="text-danger" *ngIf="successCode==409" [innerHTML]="message">
+                            
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>{{'PASSWORD' | translate}}</label>
+                            <input type="password" formControlName="password" class="form-control" placeholder="{{'PASSWORD' | translate}}">
+                        </div>
+                        <div *ngIf="userRegisterForm.get('password').touched">
+                            <div class="text-danger" *ngIf="userRegisterForm.get('password').errors?.required">
+                                Lütfen şifre belirleyiniz
+                              </div>
+                              <div class="text-danger" *ngIf="userRegisterForm.get('password').errors?.pattern">
+                                Şifreniz ne az 6 karakter, Büyük ve  Küçük harf ve rakam içermelidir
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" (click)="registerUser()" class="default-btn">{{'HOMEPAGE.REGISTER' | translate}}</button>
+            </form>
+        </div>
+    </div>
+</div>

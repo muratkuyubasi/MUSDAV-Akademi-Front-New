@@ -1,0 +1,300 @@
+<div class="sidemenu-area">
+    <div class="sidemenu-header">
+        <a href="/" class="navbar-brand d-flex align-items-center">
+            <img src="assets/img/logo.png" alt="image" width="100px">
+            <!-- <span>Tour&Travel</span> -->
+        </a>
+
+        <div class="burger-menu d-none d-lg-block">
+            <span class="top-bar"></span>
+            <span class="middle-bar"></span>
+            <span class="bottom-bar"></span>
+        </div>
+
+        <div class="responsive-burger-menu d-block d-lg-none">
+            <span class="top-bar"></span>
+            <span class="middle-bar"></span>
+            <span class="bottom-bar"></span>
+        </div>
+    </div>
+
+    <div class="sidemenu-body">
+        <ul class="sidemenu-nav metisMenu h-100" id="sidemenu-nav" data-simplebar>
+          
+
+            <li class="nav-item">
+                <a routerLink="/admin" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <span class="icon"><i class='bx bx-home-circle'></i></span>
+                    <span class="menu-title">{{'HOME' | translate}}</span>
+                </a>
+            </li>
+
+            <li class="nav-item-title">
+                {{'OPENED_COURSES' | translate}}
+            </li>
+            <li class="nav-item">
+                <a *hasClaim="['opened_course_add', 'opened_course_list']" href="#" class="collapsed-nav-link nav-link" aria-expanded="false">
+                    <span class="icon"><i class='bx bx-menu'></i></span>
+                    <span class="menu-title">{{'OPENED_COURSE' | translate}}</span>
+                </a>
+
+                <ul class="sidemenu-nav-second-level">
+                    <li class="nav-item" *hasClaim="'opened_course_list'">
+                        <a [routerLink]="['/admin/opened-courses']" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'List' | translate}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" *hasClaim="'opened_course_add'">
+                        <a [routerLink]="['/admin/opened-courses/manage-opened-course']" class="nav-link" aria-expanded="false">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'ADD_NEW' | translate}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item-title">
+                {{'OFFERS' | translate}}
+            </li>
+            <li class="nav-item">
+                <a *hasClaim="['offer_add', 'offer_list']" href="#" class="collapsed-nav-link nav-link" aria-expanded="false">
+                    <span class="icon"><i class='bx bx-menu'></i></span>
+                    <span class="menu-title">{{'OFFER' | translate}}</span>
+                </a>
+                <ul class="sidemenu-nav-second-level">
+                    <li class="nav-item" *hasClaim="'offer_list'">
+                        <a [routerLink]="['/admin/offers']" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'List' | translate}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" *hasClaim="'offer_add'">
+                        <a [routerLink]="['/admin/offers/manage-offer']" class="nav-link" aria-expanded="false">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'ADD_NEW' | translate}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item-title">
+                {{'DEFINATIONS' | translate}}
+            </li>
+
+            <li class="nav-item">
+                <a *hasClaim="['campus_add', 'campus_list']" href="#" class="collapsed-nav-link nav-link" aria-expanded="false">
+                    <span class="icon"><i class='bx bx-menu'></i></span>
+                    <span class="menu-title">{{'CAMPUSES' | translate}}</span>
+                </a>
+
+                <ul class="sidemenu-nav-second-level">
+                    <li class="nav-item" *hasClaim="'campus_list'">
+                        <a [routerLink]="['/admin/campuses']" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'List' | translate}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" *hasClaim="'campus_add'">
+                        <a [routerLink]="['/admin/campuses/manage']" class="nav-link" aria-expanded="false">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'ADD_NEW' | translate}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a *hasClaim="['course_add', 'course_list']" href="#" class="collapsed-nav-link nav-link" aria-expanded="false">
+                    <span class="icon"><i class='bx bx-menu'></i></span>
+                    <span class="menu-title">{{'CATEGORIES' | translate}}</span>
+                </a>
+                <ul class="sidemenu-nav-second-level">
+                    <li class="nav-item" *hasClaim="'course_list'">
+                        <a [routerLink]="['/admin/courses/categories']" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'List' | translate}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" *hasClaim="'course_add'">
+                        <a [routerLink]="['/admin/courses/category/manage']" class="nav-link" aria-expanded="false">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'ADD_NEW' | translate}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a *hasClaim="['course_add', 'course_list']" href="#" class="collapsed-nav-link nav-link" aria-expanded="false">
+                    <span class="icon"><i class='bx bx-menu'></i></span>
+                    <span class="menu-title">{{'COURSES' | translate}}</span>
+                </a>
+                <ul class="sidemenu-nav-second-level">
+                    <li class="nav-item" *hasClaim="'course_list'">
+                        <a [routerLink]="['/admin/courses']" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'List' | translate}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" *hasClaim="'course_add'">
+                        <a [routerLink]="['/admin/courses/manage-course']" class="nav-link" aria-expanded="false">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'ADD_NEW' | translate}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item-title">
+                {{'SITE_SETTINGS' | translate}}
+            </li>
+               
+            <li class="nav-item">
+                <a *hasClaim="['role_add', 'role_list']" href="#" class="collapsed-nav-link nav-link" aria-expanded="false">
+                    <span class="icon"><i class='bx bx-menu'></i></span>
+                    <span class="menu-title">{{'ROLES' | translate}}</span>
+                </a>
+
+                <ul class="sidemenu-nav-second-level">
+                    <li class="nav-item" *hasClaim="'role_list'">
+                        <a [routerLink]="['/admin/roles']" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'List' | translate}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" *hasClaim="'role_add'">
+                        <a [routerLink]="['/admin/roles/manage']" class="nav-link" aria-expanded="false">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'ADD_NEW' | translate}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a *hasClaim="['user_list', 'user_add', 'user_role_edit']" href="#" class="collapsed-nav-link nav-link" aria-expanded="false">
+                    <span class="icon"><i class='bx bx-menu'></i></span>
+                    <span class="menu-title">{{'USERS' | translate}}</span>
+                </a>
+
+                <ul class="sidemenu-nav-second-level">
+                    <li class="nav-item" *hasClaim="'user_list'">
+                        <a [routerLink]="['/admin/users']" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'List' | translate}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" *hasClaim="'user_add'">
+                        <a [routerLink]="['/admin/users/manage']" class="nav-link" aria-expanded="false">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'ADD_NEW' | translate}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" *hasClaim="'user_role_edit'">
+                        <a [routerLink]="['/admin/roles/users']" class="nav-link" aria-expanded="false">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'USER_ROLES' | translate}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a *hasClaim="['email_template_list', 'send_email_list', 'email_smtp_list']" href="#" class="collapsed-nav-link nav-link" aria-expanded="false">
+                    <span class="icon"><i class='bx bx-menu'></i></span>
+                    <span class="menu-title">{{'EMAIL' | translate}}</span>
+                </a>
+
+                <ul class="sidemenu-nav-second-level">
+                    <li class="nav-item" *hasClaim="'email_smtp_list'">
+                        <a [routerLink]="['/admin/email-smtp']" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'SMTP_SETTINGS' | translate}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" *hasClaim="'email_template_list'">
+                        <a [routerLink]="['/admin/email-template']" class="nav-link" aria-expanded="false">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'EMAIL_TEMPLATE' | translate}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" *hasClaim="'send_email_list'">
+                        <a [routerLink]="['/admin/send-email']" class="nav-link" aria-expanded="false">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'SEND_EMAIL' | translate}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a *hasClaim="['app_settings_list', 'action_list', 'page_list', 'page_action_edit']" href="#" class="collapsed-nav-link nav-link" aria-expanded="false">
+                    <span class="icon"><i class='bx bx-menu'></i></span>
+                    <span class="menu-title">{{'SETTINGS' | translate}}</span>
+                </a>
+
+                <ul class="sidemenu-nav-second-level">
+                    <li class="nav-item" *hasClaim="'app_settings_list'">
+                        <a [routerLink]="['/admin/appsettings']" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'APP_SETTINGS' | translate}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" *hasClaim="'action_list'">
+                        <a [routerLink]="['/admin/actions']" class="nav-link" aria-expanded="false">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'ACTION' | translate}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" *hasClaim="'page_list'">
+                        <a [routerLink]="['/admin/pages']" class="nav-link" aria-expanded="false">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'PAGES' | translate}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" *hasClaim="'page_action_edit'">
+                        <a [routerLink]="['/admin/page-action']" class="nav-link" aria-expanded="false">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'PAGE_ACTION' | translate}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a *hasClaim="['login_audit_list', 'system_logs_list']" href="#" class="collapsed-nav-link nav-link" aria-expanded="false">
+                    <span class="icon"><i class='bx bx-menu'></i></span>
+                    <span class="menu-title">{{'LOGS' | translate}}</span>
+                </a>
+
+                <ul class="sidemenu-nav-second-level">
+                    <li class="nav-item" *hasClaim="'login_audit_list'">
+                        <a [routerLink]="['/admin/login-audit']" class="nav-link">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'LOGIN_AUDIT' | translate}}</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item" *hasClaim="'system_logs_list'">
+                        <a [routerLink]="['/admin/logs']" class="nav-link" aria-expanded="false">
+                            <span class="icon"><i class='bx bx-right-arrow-alt'></i></span>
+                            <span class="menu-title">{{'ERROR_LOGS' | translate}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

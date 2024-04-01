@@ -1,0 +1,111 @@
+<div class="add-listing-box mb-30">
+    <h3> 
+        <div class="row">
+        <div class="col-md-10">
+            Dersler
+        </div>
+    </div>
+</h3>
+<div class="row">
+    <div class="col-md-12">
+        <form [formGroup]="lessonForm" >
+            <div class="row">
+                <div formArrayName="openedCourseLessonRecords">
+                    <div class="row">
+                        <div *ngFor="let title of openedCourseLessonRecords.controls; let i=index" class="m-bottom-10 col-md-6">
+                          <div>
+                              Kurs Adı ({{openedCourseLessonRecords.controls[i].get('languageCode').value}})
+                              <div class="form-inline" [formGroupName]="i">
+                                  <div class="form-group">
+                                    <input class="form-control mb-2" type="text" formControlName="title">
+                                   
+                                  </div>
+                                </div>
+                          </div>
+                          <div>
+                              Açıklama ({{openedCourseLessonRecords.controls[i].get('languageCode').value}})
+                              <div class="form-inline" [formGroupName]="i">
+                                  <div class="form-group">
+                                    <textarea class="form-control mb-2"  formControlName="description"></textarea>
+                                   
+                                  </div>
+                                </div>
+                          </div>
+                          
+                         
+                          
+                        </div>
+                      </div>
+                </div>
+                
+                
+                <div class="col-md-6 mb-30">
+                   <app-vimeo-upload 
+                    [lesson]="course" 
+                    (newItemEvent)="setVideoUrl($event)"></app-vimeo-upload> 
+
+                    
+                </div>
+                <div class="col-md-6  mb-30" *ngIf="isLessonEditMode">{{course?.videoUrl}}
+                    <app-vimeo-player [videoSrc]="lesson?.videoUrl"></app-vimeo-player>
+                </div>
+                
+                <div class="col-md-12">
+                    
+                      <ng-container *ngIf="!isLessonEditMode">
+                        <button  [disabled]="!showButton" *hasClaim="'course_add'" class="btn btn-success btn-sm m-right-10" (click)="saveLesson()"
+                          cdkFocusInitial><i class="fas fa-save"></i> {{'SAVE' | translate}}</button>
+                      </ng-container>
+                      <button type="button" class="btn btn-danger btn-sm" (click)="clearForm()">
+                         <i class="fas fa-times-circle"></i>
+                        {{'CANCEL' | translate}}</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="col-md-12">
+        <table mat-table [dataSource]="dataSource" matSort matSortDisableClear>
+            <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{'VIMEO LINK'| translate}}
+              </th>
+              <td mat-cell *matCellDef="let lesson"> 
+                {{lesson?.videoUrl | json}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="file">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{'FILE'| translate}}
+              </th>
+              <td mat-cell *matCellDef="let lesson"> 
+                <input 
+                id="file" 
+                type="file" 
+                class="form-control"
+                (change)="onFileChange($event, lesson)">
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="option">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  
+              </th>
+              <td mat-cell *matCellDef="let lesson"> 
+                <ng-container>
+                  <button  class="btn btn-warning btn-sm m-right-10" (click)="lessonDetail(lesson)"
+                    cdkFocusInitial><i class="fas fa-save"></i> {{'DETAIL' | translate}} <i class='bx bx-arrow-right'></i></button>
+                </ng-container>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+          </table>
+    </div>
+</div>
+
+      
+      
+ 
+  <!-- <app-manage-video [book]="book" [bookVideo]="bookVideo"></app-manage-video> -->
+</div>

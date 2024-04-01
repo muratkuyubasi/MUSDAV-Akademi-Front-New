@@ -1,0 +1,31 @@
+<section class="listing-area mb-30">
+    <div class="add-listing-box mb-30">
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>{{'HOMEPAGE.STUDENT' | translate}}</th>
+                        <th>{{'HOMEPAGE.QUESTION' | translate}}</th>
+                        <th>{{'HOMEPAGE.ANSWER' | translate}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let question of questions">
+                        <td>{{question.studentName}}</td>
+                        <td>{{question.questionDate | date:'dd-MM-yyyy HH:mm'}}<br />
+                            {{question.question}}</td>
+                        <td>
+                            <span *ngIf="question.answerDate !=null">{{question.answerDate | date:'dd-MM-yyyy HH:mm'}}</span><br/>
+                            <textarea class="form-control" [(ngModel)]="question.answer">{{question.answer}}</textarea>
+                            </td>
+                        <td>
+                            <button [disabled]="!question.answer" class="btn btn-success btn-sm m-right-10" (click)="sendAnswer(question)"
+                            cdkFocusInitial><i class="fas fa-save"></i> {{'SEND' | translate}}</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

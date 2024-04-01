@@ -1,0 +1,67 @@
+{
+    "HataBilgisi": "",
+    "TCKimlikNo": "127******58",
+    "EsTCKimlikNo": "",
+    "BabaTCKimlikNo": "",
+    "AnneTCKimlikNo": "",
+    "KayitYeriBilgisi": {
+        "Il": {
+            "Kod": 58,
+            "Aciklama": "Sivas"
+        }
+    },
+    "TemelBilgisi": {
+        "Cinsiyet": {
+            "Kod": 1,
+            "Aciklama": "Erkek"
+        },
+        "Ad": "AL***",
+        "Soyad": "AL********",
+        "BabaAd": "HA***",
+        "AnneAd": "ÖZ***",
+        "DogumYer": "Sİ***",
+        "DogumTarih": {
+            "Gun": 12,
+            "Ay": 4,
+            "Yil": 1978
+        }
+    },
+    "DurumBilgisi": {
+        "OlumTarih": {
+            "Gun": "",
+            "Ay": "",
+            "Yil": ""
+        },
+        "Durum": {
+            "Kod": 1,
+            "Aciklama": "Açık"
+        },
+        "MedeniHal": {
+            "Kod": 2,
+            "Aciklama": "Evli"
+        }
+    },
+    "Kaynak": "TCVatandasiKisiKutukleri.KisiBilgisi"
+}
+
+
+{
+    "SorgulaResponse": {
+        "SorgulaResult": {
+            "SorguSonucu": {
+                "BilesikKutukBilgileri": {
+                    "MaviKartliKisiKutukleri": "",
+                    "HataBilgisi": {
+                        "Kod": 5,
+                        "Aciklama": "Kimlik No alanına girdiğiniz değer geçerli bir T.C. Kimlik Numarası değildir."
+                    },
+                    "YabanciKisiKutukleri": "",
+                    "DoluBilesenler": "",
+                    "KimlikNo": 12782369588,
+                    "TCVatandasiKisiKutukleri": ""
+                }
+            },
+            "HataBilgisi": ""
+        }
+    }
+}

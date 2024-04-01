@@ -1,0 +1,49 @@
+<div class="edit-profile-box">
+    <form [formGroup]="instructorForm">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.FIRST_NAME' | translate}}</label>
+                    <input type="text" formControlName="firstName" class="form-control" >
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.LAST_NAME' | translate}}</label>
+                    <input type="text"  formControlName="lastName" class="form-control" >
+                </div>
+            </div>
+            <!-- <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" value="@johndoe">
+                </div>
+            </div> -->
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.EMAIL' | translate}}</label>
+                    <input type="email" formControlName="email" class="form-control" >
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.PHONENUMBER' | translate}}</label>
+                    <input type="text" formControlName="phoneNumber" class="form-control" >
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.KEYWORDS' | translate}}</label>
+                    <input type="text" class="form-control" formControlName="keywords" >
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.BIBLIO' | translate}}</label>
+                    <textarea class="form-control" cols="30" rows="5" formControlName="biblio" placeholder=""></textarea>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="default-btn two" (click)="saveInstructor()">{{'SAVE' | translate}}</button>
+    </form>
+</div>

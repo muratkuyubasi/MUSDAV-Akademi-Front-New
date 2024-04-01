@@ -1,0 +1,51 @@
+<div
+    class="hero-area position-relative z-1"
+    style="background-image: url(assets/images/banner/banner-bg2.jpg);"
+>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="hero-image">
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <div class="image">
+                                <img src="assets/images/banner/ftf1.jpg" alt="banner-image">
+                            </div>
+                            <div class="image">
+                                <img src="assets/images/banner/async6.jpg" alt="banner-image">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="image">
+                                <img src="assets/images/banner/sync6.jpg" alt="banner-image" >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="hero-content">
+                    <span class="sub-title">{{'HOMEPAGE.START_TO_LEARN' | translate}}</span>
+                    <h1>{{'HOMEPAGE.SLOGAN' | translate}}</h1>
+                    <div class="btn-box" *ngIf="onlyLesson">
+                        <a routerLink="/profile-authentication" class="default-btn">{{'HOMEPAGE.GET_LESSON' | translate}}
+
+                        </a>
+                        <a routerLink="/profile-authentication" class="default-btn">
+                            {{'HOMEPAGE.GIVE_LESSON' | translate}}
+                        </a>
+                    </div>
+                    <div class="btn-box">
+                        <a routerLink="/dashboard/get-offer" class="default-btn">{{'HOMEPAGE.GETOFFER' | translate}}
+                            
+                        </a>
+                        <a routerLink="/dashboard/give-offer" class="default-btn">
+                            {{'HOMEPAGE.GIVEOFFER' | translate}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img src="assets/images/banner/banner-shape.webp" class="shape" alt="banner-shape">
+</div>

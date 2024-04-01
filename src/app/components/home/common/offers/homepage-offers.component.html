@@ -1,0 +1,105 @@
+<!-- Default Courses Section -->
+<div
+    class="courses-area ptb-10"
+    style="background-image: url(assets/images/features/feature-bg.jpg); margin-bottom:25px;"
+>
+    <div class="container">
+        <div class="courses-tabs">
+            <div class="d-lg-flex align-items-center justify-content-between">
+                    <h2 class="mb-0">{{'HOMEPAGE.OFFER_BOARD' | translate}}</h2>
+                <ul class="nav nav-tabs d-block border-0">
+                    <li class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab1'}">
+                        <button type="button" class="nav-link shadow-none border-0 mb-0 rounded-0" routerLink="/profile-authentication">
+                            {{'HOMEPAGE.GETOFFER' | translate}}
+                        </button>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade" id="tab1" *ngIf="currentTab === 'tab1'">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="faq-content-input">
+                                <div class="faq-item" >
+                                    <div class="faq-header" >
+                                        <input [formControl]="searchKeyCtl" class="form-control"  placeholder="{{'HOMEPAGE.SEARCH_OFFERS' | translate}}" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-12">
+                            <div class="faq-content">
+                                <div class="faq-item" >
+                                    <div class="faq-header" >
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                {{'HOMEPAGE.COURSE_NAME' | translate}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {{'HOMEPAGE.OFFER_DETAIL' | translate}}
+                                            </div>
+                                            <div class="col-md-3">
+                                                {{'OPENEDCOURSETYPE' | translate}}
+                                            </div>
+                                            <div class="col-md-2">
+                                             
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" *ngFor="let offer of offers | paginate :{ itemsPerPage:offerResource.pageSize, currentPage:offerResource.skip+1, totalItems:offerResource.totalCount }; let i = index;">
+                                <div class="faq-content">
+                                    <div class="faq-item" >
+                                        <div class="faq-header" >
+                                            <div class="row">
+                                                <div class="col-md-3 title">
+                                                    {{offer.offerTitle}}
+                                                </div>
+                                                <div class="col-md-4 detail">
+                                                    {{offer.offerDetail}}
+                                                </div>
+                                                <div class="col-md-3 detail">
+                                                    {{offer.openedCourseType.openedCourseTypeRecords[0].title}}
+                                                </div>
+                                                <div class="col-md-2 "  >
+                                                    <ul class="nav nav-tabs d-block border-0" style="margin-bottom: 0;">
+                                                        <li class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab1'}">
+                                                            <button type="button" class="nav-link shadow-none border-0 mb-0 rounded-0" routerLink="/profile-authentication">
+                                                                {{'HOMEPAGE.GIVEOFFER' | translate}}
+                                                            </button>
+                                                        </li>
+                                    
+                                                    </ul>
+                                                    
+                                                </div>
+                                            </div>
+                                            
+                                           
+                                        </div>
+                                      
+                                    </div>
+                                </div>
+                        </div>
+                        <nav class="pagination-area text-center">
+                            <pagination-controls
+                            class="pagination mb-0 list-unstyled ps-0 d-block border-0 rounded-0"
+                            (pageChange)="renderPage($event)"
+                            previousLabel=""
+                            nextLabel=''>
+                            </pagination-controls>
+                        </nav>
+                        <!-- <i class="flaticon-left-arrow"></i> -->
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

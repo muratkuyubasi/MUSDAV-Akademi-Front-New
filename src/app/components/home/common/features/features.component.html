@@ -1,0 +1,44 @@
+<!-- Default Features Section -->
+<div
+    class="features-area pt-100 pb-75"
+    style="background-image: url(assets/images/features/feature-bg.jpg);"
+>
+    <div class="container">
+        <div class="row align-items-center" *ngFor="let content of featuresContent;">
+            <div class="col-lg-6 col-md-12">
+                <div class="features-image">
+                    <div class="row align-items-end">
+                        <div class="col-7">
+                            <div class="image">
+                                <img [src]="content.image1" alt="features-image">
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="image">
+                                <img [src]="content.image2" alt="features-image">
+                            </div>
+                            <div class="image">
+                                <img [src]="content.image3" alt="features-image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="features-content">
+                    <h2>{{content.title | translate}}</h2>
+                    <p>{{content.paragraph | translate}}</p>
+                    <ul class="features-list ps-0 list-unstyled d-flex flex-wrap">
+                        <li *ngFor="let item of content.list;">
+                            <span>
+                                <i class="flaticon-check-mark"></i>
+                                {{item.title | translate}}
+                            </span>
+                        </li>
+                    </ul>
+                    <a routerLink="{{content.buttonLink}}" class="default-btn">{{content.buttonText | translate}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

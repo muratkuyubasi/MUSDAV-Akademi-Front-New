@@ -1,0 +1,112 @@
+<!-- Page Banner -->
+<div
+    class="page-banner-area ptb-100"
+    style="background-image: url(assets/images/shapes/page-banner-bg.jpg);"
+>
+    <div class="container">
+        <div class="container">
+            <div class="page-banner-content text-center">
+                <h1>{{'HOMEPAGE.USER_LOGIN' | translate}}</h1>
+                <ul class="ps-0 mb-0 list-unstyled">
+                    <li class="d-inline-block position-relative"><a routerLink="/">{{'HOMEPAGE.HOME' | translate}}</a></li>
+                    <li class="d-inline-block position-relative">{{'HOMEPAGE.USER_LOGIN' | translate}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Authentication -->
+<div class="profile-authentication-area ptb-100">
+    <div class="container">
+        <div class="row align-items-center">
+            
+                
+           
+            <div class="col-lg-6 col-md-12" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="100">
+                <div class="login-form">
+                    <h2>{{'HOMEPAGE.Sign_into_your_account' | translate}}</h2>
+                    <form  [formGroup]="loginFormGroup" (submit)="onLoginSubmit()">
+                        <div class="form-group">
+                            <label>{{'EMAIL' | translate}}</label>
+                            <input formControlName="userName" placeholder="{{'EMAIL' | translate }}" class="form-control">
+                            <div class="text-danger" *ngIf="loginFormGroup.get('userName').errors?.required">
+                                zorunlu alan
+                              </div>
+                              <div class="text-danger" *ngIf="loginFormGroup.get('userName').errors?.email">
+                                {{'PLEASE_ENTER_VALID_EMAIL' | translate }}
+                              </div>
+                        </div>
+                        <div class="form-group">
+                            <label>{{'PASSWORD' | translate}}</label>
+                            <input [type]="fieldTextType ? 'text' : 'password'" formControlName="password" placeholder=" {{'PASSWORD' | translate }}" class="form-control">
+                                    
+                                    
+                                    <div *ngIf="loginFormGroup.get('password').touched && loginFormGroup.get('password').errors?.required"
+                                        class="k-tooltip-validation">
+                                        <div class="text-danger" *ngIf="loginFormGroup.get('password').errors?.required">
+                                            {{'PASSWORD_IS_REQUIRED' | translate }}
+                                        </div>
+                                    </div>
+                        </div>
+                        <!-- <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="remember-me">
+                            <label class="form-check-label" for="remember-me">
+                                Remember me
+                            </label>
+                        </div> -->
+                        <button type="submit" class="default-btn">{{'LOGIN' | translate}}</button>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a routerLink="/forgot-password" class="forgot-password">{{'HOMEPAGE.FORGOT_PASSWORD' | translate}}</a>
+                            </div>
+                            <div class="col-md-6" style="text-align:right">
+                                <a routerLink="/register" class="forgot-password text-right">{{'HOMEPAGE.REGISTER' | translate}}</a>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="200">
+                <div class="login-image text-center">
+                    <img src="assets/images/login.gif" alt="login-image">
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!-- <div class="ptb-100">
+            <hr>
+        </div> -->
+        <!-- <div class="row align-items-center">
+            <div class="col-lg-6 col-md-12" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="100">
+                <div class="register-image text-center">
+                    <img src="assets/images/register.gif" alt="register-image">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12" data-aos="fade-in" data-aos-duration="1000" data-aos-delay="200">
+                <div class="register-form">
+                    <h2>Create an account</h2>
+                    <form>
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control">
+                        </div>
+                        <button type="submit" class="default-btn">Register Now</button>
+                        <p>The password should be at least eight characters long. To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ &amp; )</p>
+                    </form>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>

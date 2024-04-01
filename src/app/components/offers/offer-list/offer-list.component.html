@@ -1,0 +1,108 @@
+<app-breadcrumb title="Teklifler" subTitle="{{'ADD' | translate}}"></app-breadcrumb>
+
+<section class="listing-area mb-30">
+    <div class="add-listing-box mb-30">
+        <div class="row align-items-center justify-content-between">
+            <div class="col-md-auto col-sm-auto">
+              <div class="content-header">
+                <!-- <h3>{{course?.openedCourseRecords.title}}</h3> -->
+              </div>
+            </div>
+            <div class="col-md-auto col-sm-auto">
+              <h4 class="widget-title">
+                <button class="btn btn-warning btn-sm m-right-10">
+                  <i class="fas fa-plus"></i> s</button>
+              </h4>
+            </div>
+          </div>
+    </div>
+
+    <div class="loading-shade" *ngIf="dataSource.loading$ | async">
+        <mat-spinner></mat-spinner>
+      </div>
+      <table mat-table [dataSource]="dataSource" matSort matSortActive="title" class="table">
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef>
+              <span> {{'ACTION' | translate}} </span>
+            </th>
+            <td mat-cell *matCellDef="let offer">
+              <button class="btn btn-primary btn-sm" [matMenuTriggerFor]="menu" aria-label="Action">
+                <i class="fas fa-ellipsis-v"></i>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button class="btn btn-light btn-sm m-0" *hasClaim="'offer_edit'" mat-menu-item
+                  (click)="detail(offer.code)">
+                  <i class="fas fa-pencil-alt"></i>
+                  <span class="ml-1">{{'DETAIL' | translate}}</span>
+                </button>
+              </mat-menu>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="offerUser">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'MAKEOFFER' | translate}} </th>
+            <td mat-cell *matCellDef="let offer"> {{userOffer(offer.offerUsers) ? this.offerUser.firstName+" "+this.offerUser.lastName : ""}} </td>
+          </ng-container>
+          <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'TITLE' | translate}} </th>
+            <td mat-cell *matCellDef="let offer"> {{offer.offerTitle
+            }} </td>
+          </ng-container>
+          <ng-container matColumnDef="course">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'OPENEDCOURSETYPE' | translate}} </th>
+            <td mat-cell *matCellDef="let offer"> {{offer.openedCourseType.openedCourseTypeRecords[0].title}} </td>
+          </ng-container>
+          <ng-container matColumnDef="offers">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'OFFERS' | translate}} </th>
+            <td mat-cell *matCellDef="let offer"> {{offer.offerUsers.length}} Teklif  </td>
+          </ng-container>
+          <ng-container matColumnDef="isActive">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{'STATUS' | translate}} </th>
+            <td mat-cell *matCellDef="let offer">
+              <span *ngIf="offer.isActive" class="badge badge-success">{{'ACTIVE' | translate}}</span>
+              <span *ngIf="!offer.isActive" class="badge badge-warning">{{'INACTIVE' | translate}}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="action-search">
+            <th mat-header-cell *matHeaderCellDef>
+            </th>
+          </ng-container>
+          <ng-container matColumnDef="makeoffer-search">
+            <th mat-header-cell *matHeaderCellDef>
+              <!-- <input type="text" class="form-control w-90" [formControl]="titleFilterCtl"> -->
+            </th>
+          </ng-container>
+          <ng-container matColumnDef="title-search">
+            <th mat-header-cell *matHeaderCellDef>
+              <input type="text" class="form-control w-90" [formControl]="titleFilterCtl">
+            </th>
+          </ng-container>
+          <ng-container matColumnDef="course-search">
+            <th mat-header-cell *matHeaderCellDef>
+              <!-- <input type="text" class="form-control w-90" [formControl]="titleFilterCtl"> -->
+            </th>
+          </ng-container>
+          <ng-container matColumnDef="offers-search">
+            <th mat-header-cell *matHeaderCellDef>
+              <!-- <input type="text" class="form-control w-90" [formControl]="titleFilterCtl"> -->
+            </th>
+          </ng-container>
+          <ng-container matColumnDef="is-active-search">
+            <th mat-header-cell *matHeaderCellDef>
+              <mat-slide-toggle [formControl]="isActiveSearchFilterCtl">
+              </mat-slide-toggle>
+            </th>
+          </ng-container>
+          <ng-container matColumnDef="footer">
+            <td mat-footer-cell colspan="5" *matFooterCellDef>
+              <mat-paginator [length]="offerResource.totalCount" [pageSize]="offerResource.pageSize"
+                [pageSizeOptions]="[10, 20, 30]"></mat-paginator>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"></tr>
+        <tr mat-header-row
+          *matHeaderRowDef="['action-search','makeoffer-search','title-search','course-search','offers-search','is-active-search'];sticky: true">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="footerToDisplayed;sticky: true"></tr>
+      </table>
+</section>

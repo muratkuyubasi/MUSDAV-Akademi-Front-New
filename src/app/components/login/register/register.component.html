@@ -1,0 +1,89 @@
+<section class="login-area">
+    <div class="row m-0">
+        <div class="col-lg-6 col-md-12 p-0">
+            <div class="login-image">
+                <img src="https://parantezteknoloji.com.tr/img/res/1593766299-res4.jpg" alt="image">
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-12 p-0">
+            <div class="login-content">
+                <div class="d-table">
+                    <div class="d-table-cell">
+                        <div class="login-form">
+                            <div class="logo">
+                                <a routerLink="/admin"><img width="70%" src="assets/img/logo.png" alt="image"></a>
+                            </div>
+
+                            <h3>Yönetim Paneli</h3>
+                            <p *ngIf="step==1">Lütfen TC Kimlik no Giriniz</p>
+                            <p *ngIf="step==2">Lütfen Doğum tarihinizi gün/ay/yıl şeklinde giriniz</p>
+                            <p *ngIf="step==3">Merhaba, <strong>{{mUserData?.Ad}}</strong><br />lütfen aşağıdaki bilgileri eksiksiz doldurunuz</p>
+                            <form [formGroup]="checkUserForm" 
+                            (submit)="step ==1 ? checkUser() : step== 2 ?  confirmation(): onRegisterSubmit()">
+                                <div class="form-group mb-3" *ngIf="step==1">
+                                    <input formControlName="identification" [readonly]="step>1" placeholder="TC Kimlik No" class="form-control">
+                                    <div class="text-danger" *ngIf="checkUserForm.get('identification').errors?.required">
+                                        Lütfen Kimlik No Giriniz
+                                      </div>
+
+                                      <div class="text-danger" *ngIf="message">
+                                        {{message}}
+                                      </div>
+
+                                </div>
+                                
+                                <div class="form-group mb-3" *ngIf="step==2">
+                                    <input [(ngModel)]="birthDay"  formControlName="birthDay" placeholder="Doğum Tarihi (dd-mm-yyyy)" class="form-control" mask="00-00-0000">
+                                    <div class="text-danger" *ngIf="checkUserForm.get('birthDay').errors?.required">
+                                        Lütfen Doğum tarihinizi gün/ay/yıl olarak giriniz
+                                    </div>
+                                    <div class="text-danger" *ngIf="!checkUserForm.get('birthDay').errors?.required && checkUserForm.get('birthDay').errors">
+                                        Lütfen Nüfus cüzdanınızda yer alan doğum tarihini giriniz
+                                    </div>
+                                </div>
+                                <div class="form-group mb-3" *ngIf="step==3">
+                                    <input formControlName="email" type="email" placeholder="E-posta giriniz" class="form-control">
+                                    <div class="text-danger" *ngIf="checkUserForm.get('email').touched && checkUserForm.get('email').errors?.required">
+                                        Lütfen e-posta adresinizi giriniz
+                                      </div>
+                                      <div class="text-danger" *ngIf="checkUserForm.get('email').errors?.email">
+                                        {{'PLEASE_ENTER_VALID_EMAIL' | translate }}
+                                      </div>
+                                </div>
+                                <div class="form-group mb-3" *ngIf="step==3">
+                                    <!-- <span>{{'5325426198' | mask: '(000) 000 0000'}}</span> -->
+                                    <input formControlName="phoneNumber"  placeholder="Telefon No" class="form-control" prefix="0" mask="000 0000000" >
+                                    <div class="text-danger" *ngIf="checkUserForm.get('phoneNumber').touched && checkUserForm.get('phoneNumber').errors?.required">
+                                        Lütfen telefon numaranızı giriniz
+                                      </div>
+                                </div>
+                                <div class="form-group mb-3" *ngIf="step==3">
+                                    <input formControlName="password" type="password" placeholder="Şifre giriniz" class="form-control">
+                                    <div class="text-danger" *ngIf="checkUserForm.get('password').touched && checkUserForm.get('password').errors?.required">
+                                        Lütfen şifre giriniz
+                                      </div>
+                                </div>
+
+                                <div class="form-group mb-3" *ngIf="step==3">
+                                   
+                                            <label class="checkbox">
+                                                <input type="checkbox" formControlName="isDisabled" value="true" >
+                                                <span>İşitme Engellisiyim</span>
+                                            </label>
+                                  
+                                </div>
+                               
+                                <button type="submit" [disabled]="!checkUserForm.valid">
+                                    {{step==1 ? 'KONTROL ET' : step==2 ? 'DOĞRULA ': 'KAYDI TAMAMLA'}}
+                                </button>
+                            </form>
+
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

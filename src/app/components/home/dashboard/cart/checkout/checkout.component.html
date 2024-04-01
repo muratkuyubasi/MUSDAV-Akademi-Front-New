@@ -1,0 +1,142 @@
+<div class="edit-profile-box">
+        <div class="checkout-page">
+            <div class="checkout-form">
+                <form [formGroup]="checkoutForm">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12 col-xs-12">
+                            <div class="checkout-title">
+                                <h3>{{'HOMEPAGE.BILLINGDETAIL' | translate}}</h3>
+                            </div>
+                           <div class="row check-out">
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <div class="field-label">{{'FIRST_NAME' |translate}}</div>
+                                    <input type="text" class="form-control"  name="firstname" formControlName="firstName" placeholder="" autocomplete="off">
+                                   <div *ngIf="checkoutForm.get('firstName').touched && checkoutForm.get('firstName').errors?.required" class="text text-danger">
+                                    {{'HOMEPAGE.IS_REQUIRED' |translate}}
+                                    </div>
+                                    <div *ngIf="checkoutForm.get('firstName').touched && checkoutForm.get('firstName').errors?.pattern" class="text text-danger">
+                                        {{'HOMEPAGE.IS_ALPHABET' |translate}}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <div class="field-label">{{'LAST_NAME' |translate}} </div>
+                                    <input type="text" class="form-control"  name="lastname" formControlName="lastName"  placeholder="" autocomplete="off">
+                                    <div *ngIf="checkoutForm.get('lastName').touched && checkoutForm.get('lastName').errors?.required" class="text text-danger">
+                                        {{'HOMEPAGE.IS_REQUIRED' |translate}}
+                                        </div>
+                                        <div *ngIf="checkoutForm.get('lastName').touched && checkoutForm.get('lastName').errors?.pattern" class="text text-danger">
+                                            {{'HOMEPAGE.IS_ALPHABET' |translate}}
+                                        </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <div class="field-label">{{'PHONE_NUMBER' |translate}}</div>
+                                    <input type="text" class="form-control" name="phone" formControlName="phoneNumber"  placeholder="" autocomplete="off">
+                                    <div *ngIf="checkoutForm.get('phoneNumber').touched && checkoutForm.get('phoneNumber').errors?.required" class="text text-danger">
+                                        {{'HOMEPAGE.IS_REQUIRED' |translate}}
+                                    </div>
+                                    <div *ngIf="checkoutForm.get('phoneNumber').touched && checkoutForm.get('phoneNumber').errors?.pattern" class="text text-danger">
+                                            {{'HOMEPAGE.IS_NUMBER' |translate}}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                    <div class="field-label">{{'EMAIL' |translate}}</div>
+                                    <input type="text" class="form-control"  name="email" formControlName="email"   placeholder="" autocomplete="off">
+                                    <div *ngIf="checkoutForm.get('email').touched && checkoutForm.get('email').errors?.required" class="text text-danger">
+                                        {{'HOMEPAGE.IS_REQUIRED' |translate}}
+                                    </div>
+                                    <div *ngIf="checkoutForm.get('email').touched && checkoutForm.get('email').errors?.email" class="text text-danger">
+                                        {{'PLEASE_ENTER_VALID_EMAIL' |translate}}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <div class="field-label">{{'ADDRESS' |translate}}</div>
+                                    <textarea type="text" class="form-control"  name="address" formControlName="address"  placeholder="" autocomplete="off"></textarea>
+                                    <div *ngIf="checkoutForm.get('address').touched && checkoutForm.get('address').errors?.required" class="text text-danger">
+                                        {{'HOMEPAGE.IS_REQUIRED' |translate}}
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group col-md-4 col-sm-6 col-xs-12">
+                                    <div class="field-label">{{'HOMEPAGE.STATE' | translate}}</div>
+                                    <input type="text"  class="form-control" name="state" formControlName="state" placeholder="" autocomplete="off">
+                                    <div *ngIf="checkoutForm.get('state').touched && checkoutForm.get('state').errors?.required" class="text text-danger">
+                                        {{'HOMEPAGE.IS_REQUIRED' |translate}}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-5 col-sm-6 col-xs-12">
+                                    <div class="field-label">{{'HOMEPAGE.CITY' | translate}}</div>
+                                    <input type="text"  formControlName="city" class="form-control" placeholder="" autocomplete="off">
+                                    <div *ngIf="checkoutForm.get('city').touched && checkoutForm.get('city').errors?.required" class="text text-danger">
+                                        {{'HOMEPAGE.IS_REQUIRED' |translate}}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-3 col-sm-6 col-xs-6">
+                                    <div class="field-label">{{'HOMEPAGE.POSTALCODE' | translate}}</div>
+                                    <input type="text" name="town" formControlName="postalCode" class="form-control" placeholder="" autocomplete="off">
+                                  
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12 col-xs-12">
+                            <div class="checkout-details">
+                                <div class="order-box">
+                                    <div class="title-box">
+                                        <div>{{'HOMEPAGE.PRODUCT' | translate}} <span> {{'HOMEPAGE.TOTAL' | translate}}</span></div>
+                                    </div>
+                                    <ul class="qty" *ngIf='courses.length'>
+                                        <li *ngFor="let course of courses">
+                                        	 {{ course.courseName }} × {{ course.quantity }}
+                                        	<span>
+                                                {{ (course.coursePrice) * course.quantity }}{{cartService?.Currency.currency}}
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <ul class="qty" *ngIf='!courses.length'>
+                                        <li class="empty-checkout"> There are no products in cart </li>
+                                    </ul>
+                                    <ul class="sub-total">
+                                       <li>
+                                        {{'HOMEPAGE.SUBTOTAL' | translate}} <span class="count">{{ getTotal | async }}{{cartService?.Currency.currency}}</span>
+                                        </li>
+                                        
+                                    </ul>
+                                    <ul class="total">
+                                        <li>{{'HOMEPAGE.TOTAL' | translate}} <span class="count">{{ getTotal | async}}{{cartService?.Currency.currency}}</span></li>
+                                    </ul>
+                                </div>
+
+                                <div class="payment-box" *ngIf='courses.length'>
+                                    <div class="upper-box">
+                                        <div class="payment-options">
+                                            <div >
+                                                <div class="field-label">{{'HOMEPAGE.CARDNUMBER' | translate}}</div>
+                                                <input [hiddenInput]="true" type="text" mask="XXX0 XXX0 XXX0 0000" class="form-control" formControlName="cardLastNumbers" />
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="field-label">{{'HOMEPAGE.SKT' | translate}}</div>
+                                                    <input type="text" mask="M0/00" class="form-control" formControlName="expirationDate" placeholder="1224" />
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="field-label">{{'HOMEPAGE.CCV' | translate}}</div>
+                                                    <input  [hiddenInput]="true" mask="XX0" class="form-control" formControlName="ccv" placeholder="Kart Numarası" />
+                                                </div>
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <button type="submit" class=" btn default-btn two btn-solid" [disabled]="!checkoutForm.valid" (click)="ccCheckOut()" >
+                                            {{'HOMEPAGE.PLACE_ORDER' | translate}}
+                                        </button>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

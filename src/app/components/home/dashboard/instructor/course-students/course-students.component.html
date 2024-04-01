@@ -1,0 +1,20 @@
+<section class="listing-area mb-30">
+    <div class="add-listing-box mb-30">
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">{{'HOMEPAGE.FULLNAME' | translate}}</th>
+                        <th scope="col">{{'HOMEPAGE.REGISTRATIONDATE' | translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let student of students">
+                        <td>{{student.fullName}}</td>
+                        <td>{{student.registrationDate | date:'dd-MM-yyyy'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,21 @@
+<div class="row">
+    <table>
+        <thead>
+            <tr>
+                <th>Ad Soyad</th>
+                <th> Ödünç Tarihi</th>
+                <th> İade Tarihi</th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of history">
+                <td>{{item.fullName}}</td>
+                <td>{{item.issueDate | date:'dd-MM-yyyy'}}</td>
+                <td>{{item.returnDate | date:'dd-MM-yyyy'}}</td>
+                <td><button *ngIf="!item.returnDate" (click)="checkIn(item)">İade Al</button></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

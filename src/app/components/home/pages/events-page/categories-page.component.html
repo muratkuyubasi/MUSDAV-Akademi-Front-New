@@ -1,0 +1,43 @@
+<!-- Page Banner -->
+<div
+    class="page-banner-area ptb-100"
+    style="background-image: url(assets/images/shapes/page-banner-bg.jpg);"
+>
+    <div class="container">
+        <div class="page-banner-content text-center">
+            <h1>{{'HOMEPAGE.CATEGORIES' | translate}}</h1>
+            <ul class="ps-0 mb-0 list-unstyled">
+                <li class="d-inline-block position-relative"><a routerLink="/">{{'HOMEPAGE.HOME' | translate}}</a></li>
+                <li class="d-inline-block position-relative">{{'HOMEPAGE.CATEGORIES' | translate}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Events -->
+<div class="events-area pt-100 pb-75">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let category of categories">
+                <div class="single-event-box">
+                    <img [src]="'/'+category.categoryPicture" alt="DERS - {{category.categoryName}}">
+                    <div class="content">
+                        <!-- <ul class="info ps-0 list-unstyled">
+                            <li class="d-inline-block position-relative">
+                                <i class="flaticon-calendar"></i>
+                                22 May 2023
+                            </li>
+                            <li class="d-inline-block position-relative">
+                                <i class="flaticon-pin"></i>
+                                London, UK
+                            </li>
+                        </ul> -->
+                        <h3><a [routerLink]="'/courses/'+category.slug">{{category.categoryName}}</a></h3>
+                        <a [routerLink]="'/courses/'+category.slug" class="link-btn">{{'COURSES' | translate}}</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

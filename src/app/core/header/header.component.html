@@ -1,0 +1,142 @@
+<nav class="navbar top-navbar navbar-expand">
+    <div class="collapse navbar-collapse" id="navbarSupportContent">
+        <div class="responsive-burger-menu d-block d-lg-none">
+            <span class="top-bar"></span>
+            <span class="middle-bar"></span>
+            <span class="bottom-bar"></span>
+        </div>
+        <ul class="navbar-nav left-nav align-items-center">
+            <!-- <li class="nav-item">
+                <a routerLink="/app-email" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Email">
+                    <i class="bx bx-envelope"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/app-message" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Message">
+                    <i class='bx bx-message'></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/app-calendar" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Calendar">
+                    <i class='bx bx-calendar'></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/app-todo" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Todo List">
+                    <i class='bx bx-edit'></i>
+                </a>
+            </li> -->
+            <!-- <li class="nav-item dropdown apps-box">
+                <button class="nav-link dropdown-toggle" role="button" (click)="toggleClass()">
+                    <i class='bx bxs-grid' ></i>
+                </button>
+                <div class="dropdown-menu" [class.active]="classApplied">
+                    <div class="dropdown-header d-flex justify-content-between align-items-center">
+                        <span class="title d-inline-block">Web Apps</span>
+                        <span class="edit-btn d-inline-block">Edit</span>
+                    </div>
+                    <div class="dropdown-body">
+                        <div class="d-flex flex-wrap align-items-center">
+                            <a href="#" class="dropdown-item">
+                                <img src="assets/img/icon-account.png" alt="image">
+                                <span class="d-block mb-0">Account</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <img src="assets/img/icon-google.png" alt="image">
+                                <span class="d-block mb-0">Search</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <img src="assets/img/icon-map.png" alt="image">
+                                <span class="d-block mb-0">Maps</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <img src="assets/img/icon-youtube.png" alt="image">
+                                <span class="d-block mb-0">YouTube</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <img src="assets/img/icon-playstore.png" alt="image">
+                                <span class="d-block mb-0">Play</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <img src="assets/img/icon-gmail.png" alt="image">
+                                <span class="d-block mb-0">Gmail</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <img src="assets/img/icon-drive.png" alt="image">
+                                <span class="d-block mb-0">Drive</span>
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <img src="assets/img/icon-calendar.png" alt="image">
+                                <span class="d-block mb-0">Calendar</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="dropdown-footer">
+                        <a href="#" class="dropdown-item">View All</a>
+                    </div>
+                </div>
+            </li> -->
+        </ul>
+        <form class="nav-search-form d-none ml-auto d-md-block">
+            <!-- <label><i class='bx bx-search'></i></label> -->
+            <!-- <input type="text" class="form-control" placeholder="{{'SEARCH' | translate}}"> -->
+        </form>
+        <ul class="navbar-nav right-nav align-items-center">
+            <!-- <li class="nav-item dropdown language-switch-nav-item">
+                <button class="nav-link dropdown-toggle" role="button" (click)="toggleClass2()">
+                    <img [src]="language.flag" alt="image">
+                    <span>{{ language.name }} <i class='bx bx-chevron-down'></i></span>
+                </button>
+                <div class="dropdown-menu" [class.active]="classApplied2">
+                    <a *ngFor="let language of languages" (click)="setNewLanguageRefresh(language.lang)" class="dropdown-item d-flex justify-content-between align-items-center">
+                        <span>{{ language.name }}</span>
+                        <img [src]="language.flag" alt="flag">
+                    </a>
+                   
+                </div>
+            </li> -->
+
+            
+            <li class="nav-item dropdown profile-nav-item">
+                <button class="nav-link dropdown-toggle" role="button" (click)="toggleClass5()">
+                    <div class="menu-profile">
+                        <span class="name">{{'HI' | translate}}! {{appUserAuth.firstName}}</span>
+                        <img *ngIf="appUserAuth.profilePhoto" class="rounded-circle" [src]="appUserAuth.profilePhoto">
+                        <img *ngIf="!appUserAuth.profilePhoto" src="assets/img/user1.jpg" class="rounded-circle" alt="image">
+                    </div>
+                </button>
+                <div class="dropdown-menu" [class.active]="classApplied5">
+                    <div class="dropdown-header d-flex flex-column align-items-center">
+                        <div class="figure mb-3">
+                            <img *ngIf="appUserAuth.profilePhoto" class="rounded-circle" [src]="appUserAuth.profilePhoto">
+                        <img *ngIf="!appUserAuth.profilePhoto" src="assets/img/user1.jpg" class="rounded-circle" alt="image">
+                        </div>
+                        <div class="info text-center">
+                            <span class="name">{{appUserAuth.firstName}} {{appUserAuth.lastName}}</span>
+                            <p class="mb-3 email">{{appUserAuth.email}}</p>
+                        </div>
+                    </div>
+                    <div class="dropdown-body">
+                        <ul class="profile-nav p-0 pt-3">
+                            <li class="nav-item">
+                                <a [routerLink]="['/admin/my-profile']" class="nav-link">
+                                    <i class='bx bx-user'></i> <span>{{'PROFILE' | translate}}</span>
+                                </a>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                    <div class="dropdown-footer">
+                        <ul class="profile-nav">
+                            <li class="nav-item">
+                                <a (click)="onLogout()" class="nav-link">
+                                    <i class='bx bx-log-out'></i> <span>{{'LOGOUT' | translate}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

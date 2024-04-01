@@ -1,0 +1,285 @@
+<app-breadcrumb *ngIf="!isEditMode" title="Kitap" subTitle="{{'ADD' | translate}}"></app-breadcrumb>
+<app-breadcrumb *ngIf="isEditMode" title="Kitap" subTitle="{{'EDIT' | translate}}"></app-breadcrumb>
+
+<section class="listing-area mb-30">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="all-listing-tab" data-bs-toggle="tab" data-bs-target="#all-listing" type="button" role="tab" aria-controls="all-listing" aria-selected="true">Kitaplar</button>
+    </li>
+    <li class="nav-item" role="presentation" *ngIf="isEditMode">
+      <button class="nav-link" id="video-tab" data-bs-toggle="tab" data-bs-target="#video" type="button" role="tab" aria-controls="video" aria-selected="true">Video</button>
+    </li>
+    <li class="nav-item" role="presentation" *ngIf="isEditMode && showPermission">
+      <button class="nav-link" id="permission-tab" data-bs-toggle="tab" data-bs-target="#permission" type="button" role="tab" aria-controls="permission" aria-selected="true">Telif Ayarları</button>
+    </li>
+    <li class="nav-item" role="history" *ngIf="isEditMode">
+      <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab" aria-controls="history" aria-selected="true">Okuma Geçmişi</button>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="all-listing" role="tabpanel">
+      <div class="add-listing-box mb-30">
+        <h3>Künye Bilgileri</h3>
+        <div class="row">
+          <div class="col-sm-12">
+            <form [formGroup]="bookForm">
+      
+                  <div class="row">
+                    <div class="col-md-5">
+                      <div class="form-group ">
+                        <label><i class='bx bx-book-open'></i>  {{'ISBN' | translate}}</label>
+                        <input formControlName="isbn" class="form-control" type="isbn" >
+                        <div *ngIf="bookForm.get('isbn').touched && bookForm.get('isbn').errors">
+                          <div class="text-danger" *ngIf="bookForm.get('isbn').errors?.required">
+                            {{'ISBN_IS_REQUIRED' | translate}}
+                          </div>
+                          <div class="text-danger" *ngIf="bookForm.get('isbn').errors?.pattern">
+                            {{'ISBN_MUST_HAVE_13_DIGITS' | translate}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-7">
+                      <div class="form-group " >
+                        <label *ngIf="searchMessage"> {{searchMessage}}</label><mat-spinner *ngIf="isSearch"></mat-spinner></div>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="form-group ">
+                        <label><i class='bx bx-book-open'></i> {{'BOOK_NAME' | translate}}</label>
+                        <input formControlName="name" class="form-control" type="text">
+                        <div *ngIf="bookForm.get('name').touched && bookForm.get('name').errors">
+                          <div class="text-danger" *ngIf="bookForm.get('name').errors?.required">
+                            {{'BOOK_NAME_IS_REQUIRED' | translate}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group ">
+                        <label><i class='bx bx-book-open'></i> {{'SUB_BOOK_NAME' | translate}}</label>
+                        <input formControlName="subName" class="form-control" type="text">
+                        
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group ">
+                        <label><i class='bx bx-book-open'></i> {{'TARGET' | translate}}</label>
+                        <input formControlName="target" class="form-control" type="text">
+                        <div *ngIf="bookForm.get('target').touched && bookForm.get('target').errors">
+                          <div class="text-danger" *ngIf="bookForm.get('target').errors?.required">
+                            {{'TARGET_IS_REQUIRED' | translate}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group ">
+                        <label><i class='bx bx-book-open'></i> {{'SUB_TARGET' | translate}}</label>
+                        <input formControlName="subTarget" class="form-control" type="text">
+                        <div *ngIf="bookForm.get('target').touched && bookForm.get('target').errors">
+                          <div class="text-danger" *ngIf="bookForm.get('target').errors?.required">
+                            {{'TARGET_IS_REQUIRED' | translate}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group ">
+                        <label><i class='bx bx-book-open'></i> {{'MATERIAL_TITLE' | translate}}</label>
+                        <input formControlName="topic" class="form-control" type="text">
+                        <div *ngIf="bookForm.get('topic').touched && bookForm.get('topic').errors">
+                          <div class="text-danger" *ngIf="bookForm.get('topic').errors?.required">
+                            {{'TARGET_IS_REQUIRED' | translate}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group ">
+                        <label><i class='bx bx-book-open'></i> {{'TOPIC_TITLE' | translate}}</label>
+                        <input formControlName="topicTitle" class="form-control" type="text">
+                        <div *ngIf="bookForm.get('target').touched && bookForm.get('target').errors">
+                          <div class="text-danger" *ngIf="bookForm.get('target').errors?.required">
+                            {{'TARGET_IS_REQUIRED' | translate}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group ">
+                        <label><i class='bx bx-book-open'></i> {{'ALPHABET_NAME' | translate}}</label>
+                        <input formControlName="alphabetName" class="form-control" type="text">
+                        <div *ngIf="bookForm.get('target').touched && bookForm.get('target').errors">
+                          <div class="text-danger" *ngIf="bookForm.get('target').errors?.required">
+                            {{'TARGET_IS_REQUIRED' | translate}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group ">
+                        <label><i class='bx bx-book-open'></i> {{'LANGUAGE_NAME' | translate}}</label>
+                        <input formControlName="languageName" class="form-control" type="text">
+                        <div *ngIf="bookForm.get('target').touched && bookForm.get('target').errors">
+                          <div class="text-danger" *ngIf="bookForm.get('target').errors?.required">
+                            {{'TARGET_IS_REQUIRED' | translate}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group ">
+                        <label><i class='bx bx-book-open'></i> {{'PAGE_COUNT' | translate}}</label>
+                        <input formControlName="pageCount" class="form-control" type="text">
+                        <div *ngIf="bookForm.get('target').touched && bookForm.get('target').errors">
+                          <div class="text-danger" *ngIf="bookForm.get('target').errors?.required">
+                            {{'TARGET_IS_REQUIRED' | translate}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group ">
+                        <label><i class='bx bx-book-open'></i> {{'PAPER_TYPE' | translate}}</label>
+                        <input formControlName="paperType" class="form-control" type="text">
+                        <div *ngIf="bookForm.get('target').touched && bookForm.get('target').errors">
+                          <div class="text-danger" *ngIf="bookForm.get('target').errors?.required">
+                            {{'TARGET_IS_REQUIRED' | translate}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group ">
+                        <label><i class='bx bx-book-open'></i> {{'SKIN_TYPE' | translate}}</label>
+                        <input formControlName="skinType" class="form-control" type="text">
+                        <div *ngIf="bookForm.get('target').touched && bookForm.get('target').errors">
+                          <div class="text-danger" *ngIf="bookForm.get('target').errors?.required">
+                            {{'TARGET_IS_REQUIRED' | translate}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group ">
+                        <label><i class='bx bx-book-open'></i> {{'PUBLISHER_NAME' | translate}}</label>
+                        <input formControlName="publisherName" class="form-control" type="text">
+                        <div *ngIf="bookForm.get('publisherName').touched && bookForm.get('publisherName').errors">
+                          <div class="text-danger" *ngIf="bookForm.get('publisherName').errors?.required">
+                            {{'TARGET_IS_REQUIRED' | translate}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group ">
+                        <label><i class='bx bx-book-open'></i> {{'PUBLISH_MEDIA_TYPE' | translate}}</label>
+                        <input formControlName="publishMediaType" class="form-control" type="text">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group ">
+                        <label><i class='bx bx-book-open'></i> {{'PUBLISH_MEDIA' | translate}}</label>
+                        <input formControlName="publishMedia" class="form-control" type="text">   
+                      </div>
+                    </div>
+                    
+      
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <b> {{'AUTHORS' | translate}}:</b>
+                          <a  class="btn btn-primary btn-sm ml-3" (click)="addAuthor()">
+                            <i class="fas fa-plus"></i> {{'ADD' | translate}} </a>
+                        </div>
+                        <div formArrayName="bookAuthors">
+                          <div class="row">
+                            <div *ngFor="let ip of bookAuthors.controls; let i=index" class="mb-3">
+                              <div class="form-inline" [formGroupName]="i">
+                                <div class="form-group">
+                                  <input class="form-control mb-2" type="text" formControlName="authorName" placeholder="Yazar Adı">
+                                  <input class="form-control mb-2" type="text" formControlName="institutionName" placeholder="Kurumu"><input class="form-control mb-2" type="text" formControlName="typeName" placeholder="Yazar Türü">
+                                  <a (click)="removeAuthor(i)" type="button" class="btn btn-danger btn-sm  mb-2">
+                                    <i class="bx bx-trash-alt"></i></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+          
+                      <div class="col-md-4">
+                        <div class="mb-3">
+                          <b> {{'CONTRIBUTES' | translate}}:</b>
+                          <a type="button" class="btn btn-primary btn-sm ml-3" (click)="addContribute()">
+                            <i class="fas fa-plus"></i> {{'ADD' | translate}} </a>
+                        </div>
+                        <div formArrayName="contributes">
+                          <div class="row">
+                            <div *ngFor="let ip of bookContributes.controls; let i=index" class="m-bottom-10">
+                              <div class="form-inline" [formGroupName]="i">
+                                <div class="form-group">
+                                  <input class="form-control mb-2" type="text" formControlName="fullName">
+                                  <input class="form-control mb-2" type="text" formControlName="typeName">
+                                  <a (click)="removeContribute(i)" type="button" class="btn btn-danger btn-sm  mb-2">
+                                    <i class="bx bx-trash-alt"></i></a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+          
+      
+                  <div class="form-group col-md-4">
+                    <div class="sidebar-widgets">
+                      <div class="box">
+                        <span class="title">
+                          <span *ngIf="bookForm.get('isActive').value">{{'ACTIVE' | translate}}</span>
+                          <span *ngIf="!bookForm.get('isActive').value">{{'INACTIVE' | translate}}</span>
+                        </span>
+                        <label class="switch">
+                            <input type="checkbox" formControlName="isActive">
+                            <span></span>
+                        </label>
+                    </div>
+                    </div>
+                  </div>
+                    <div class="m-top-10 col-md-12">
+                      <div class="listing-edit-delete-option">
+                        <div class="d-flex justify-content-between align-items-center">
+                          
+                            <a (click)="saveBook()" class="btn btn-md btn-success">
+                              {{isEditMode ? 'EDIT' : 'SAVE' | translate}}</a>
+                            <a  [routerLink]="['/admin/video-book']" class="btn btn-md btn-danger ml-3">{{'CANCEL' | translate}}</a>
+                        </div>
+                    </div>
+                     
+                    </div>
+                  </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane fade show" id="video" role="tabpanel"  *ngIf="isEditMode">
+      <div class="add-listing-box mb-30">
+        <h3>Video</h3>
+        <app-manage-video [book]="book" [bookVideo]="bookVideo"></app-manage-video>
+      </div>
+    </div>
+    <div class="tab-pane fade show" id="permission" role="tabpanel"  *ngIf="isEditMode">
+      <div class="add-listing-box mb-30">
+        <h3>Telif Ayarları</h3>
+        <app-manage-permission [book]="book"  [bookVideo]="bookVideo"></app-manage-permission>
+      </div>
+    </div>
+    <div class="tab-pane fade show" id="history" role="tabpanel"  *ngIf="isEditMode">
+      <div class="add-listing-box mb-30" >
+        <h3>{{book?.name}}</h3>
+        <app-reading-history [book]="book" ></app-reading-history>
+        <!-- <app-manage-permission [book]="book"  [bookVideo]="bookVideo"></app-manage-permission> -->
+      </div>
+    </div>
+
+  </div>
+</section>

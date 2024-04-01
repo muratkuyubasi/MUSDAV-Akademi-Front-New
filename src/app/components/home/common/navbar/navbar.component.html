@@ -1,0 +1,168 @@
+<div class="navbar-area" [ngClass]="{'sticky': isSticky}">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg" [class.active]="classApplied">
+            <a class="navbar-brand" routerLink="/">
+                <img src="assets/logo_horizontal.png" alt="logo">
+            </a>
+            <button class="navbar-toggler" type="button" (click)="toggleClass()">
+                <span class="burger-menu">
+                    <span class="top-bar"></span>
+                    <span class="middle-bar"></span>
+                    <span class="bottom-bar"></span>
+                </span>
+            </button>
+            <div class="collapse navbar-collapse">
+                <form class="search-box"  #form="ngForm"  (ngSubmit)="submitTemplateForm(form.value)">
+                    <!-- <input class="form-control shadow-none" type="text" placeholder="{{'HOMEPAGE.SEARCH' | translate}}"> -->
+                            <div class="ng-autocomplete"  class="shadow-none">
+                                <ng-autocomplete #ngAutoCompleteStatic
+                                                 [data]="courses"
+                                                 name="searchKey"
+                                                 [(ngModel)]="searchKey"
+                                                 [initialValue]=""
+                                                 [placeholder]="'HOMEPAGE.SEARCH' | translate"
+                                                 [searchKeyword]="keyword"
+                                                 historyIdentifier="courseTemplateList"
+                                                 [historyHeading]="historyHeading"
+                                                 [historyListMaxNumber]="5"
+                                                 [notFoundText]="'HOMEPAGE.NOTFOUND' | translate"
+                                                 [itemTemplate]="itemTemplateStatic"
+                                               
+                                                 [notFoundTemplate]="notFoundTemplate">
+                                </ng-autocomplete>
+                      
+                                <ng-template #itemTemplateStatic let-item>
+                                  <a (click)="submitSearchForm(item.title)" [innerHTML]="item.title"></a>
+                                </ng-template>
+                      
+                                <ng-template #notFoundTemplate let-notFound>
+                                  <div [innerHTML]="notFound"></div>
+                                </ng-template>
+                                <button type="submit" >
+                                    <i class="flaticon-search"></i>
+                                </button>
+                              </div>
+                 
+
+                </form>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a routerLink="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            {{'HOMEPAGE.HOME' | translate}}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/categories" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            {{'HOMEPAGE.CATEGORIES' | translate}}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/courses" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            {{'HOMEPAGE.COURSES' | translate}}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="dropdown-toggle nav-link">
+                            {{'HOMEPAGE.DERS' | translate}}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a routerLink="/about" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                    {{'HOMEPAGE.WHAT_DERS' | translate}}
+                                </a>
+                            </li>
+                           
+                            <li class="nav-item">
+                                <a routerLink="/faq" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                    {{'HOMEPAGE.FAQ' | translate}}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a routerLink="/privacy-policy" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                    {{'HOMEPAGE.PRIVACY_POLICY' | translate}}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a routerLink="/terms-conditions" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                                    {{'HOMEPAGE.TERMS_CONDITIONS' | translate}}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/contact" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                            {{'HOMEPAGE.CONTACT_US' | translate}}
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav for-responsive">
+                    <li class="nav-item">
+                        <a routerLink="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="toggleClass()">
+                            {{'HOMEPAGE.HOME' | translate}}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/categories" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="toggleClass()">
+                            {{'HOMEPAGE.CATEGORIES' | translate}}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/courses" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="toggleClass()">
+                            {{'HOMEPAGE.COURSES' | translate}}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="dropdown-toggle nav-link">
+                            {{'HOMEPAGE.DERS' | translate}}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a routerLink="/about" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="toggleClass()">
+                                    {{'HOMEPAGE.WHAT_DERS' | translate}}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a routerLink="/faq" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="toggleClass()">
+                                    {{'HOMEPAGE.FAQ' | translate}}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a routerLink="/privacy-policy" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="toggleClass()">
+                                    {{'HOMEPAGE.PRIVACY_POLICY' | translate}}
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a routerLink="/terms-conditions" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="toggleClass()">
+                                    {{'HOMEPAGE.TERMS_CONDITIONS' | translate}}
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/contact" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="toggleClass()">
+                            {{'HOMEPAGE.CONTACT_US' | translate}}
+                        </a>
+                    </li>
+                </ul>
+                <div class="others-option d-flex align-items-center">
+                    <!-- <div class="option-item">
+                        <a routerLink="/dashboard/cart" class="cart-btn">
+                            <i class="flaticon-shopping-bag"></i>
+                            <span>01</span>
+                        </a>
+                    </div> -->
+                    <div class="option-item" *ngIf="!appUserAuth">
+                        <a routerLink="/profile-authentication" class="default-btn two">
+                            {{'HOMEPAGE.LOGIN_REGISTER' | translate}}
+                        </a>
+                    </div>
+                    <div class="option-item" *ngIf="appUserAuth">
+                        <a routerLink="/dashboard" class="default-btn two">
+                            {{appUserAuth.firstName}} {{appUserAuth.lastName}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>

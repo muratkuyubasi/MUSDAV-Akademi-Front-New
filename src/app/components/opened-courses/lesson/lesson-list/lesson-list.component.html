@@ -1,0 +1,14 @@
+<app-breadcrumb *ngIf="!isEditMode" title="Dersler" subTitle="{{'ADD' | translate}}"></app-breadcrumb>
+<app-breadcrumb *ngIf="isEditMode" title="Dersler" subTitle="{{'EDIT' | translate}}"></app-breadcrumb>
+
+<section class="listing-area mb-30">
+    <div class="add-listing-box mb-30">
+        <h3>{{section?.openedCourseSectionRecords[0].title}} - Dersler</h3>
+    </div>
+
+
+     <!-- SECTIONa TAŞI -->
+          <app-manage-synchron *ngIf="course?.openedCourseTypeId==1" [section]="section" [course]="course"></app-manage-synchron>
+          <app-manage-asynchron *ngIf="course?.openedCourseTypeId==2" [section]="section" [course]="course"></app-manage-asynchron>
+          <app-manage-facetoface *ngIf="course?.openedCourseTypeId==3"  [section]="section" [course]="course"></app-manage-facetoface>
+</section>

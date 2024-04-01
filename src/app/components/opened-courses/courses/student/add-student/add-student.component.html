@@ -1,0 +1,144 @@
+<div class="add-listing-box mb-30">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+          <div class="content-header">
+            <h3>{{course?.openedCourseRecords?.title}}</h3>
+          </div>
+        </div>
+        <div class="col-md-auto col-sm-auto">
+          <h4 class="widget-title">
+            <button class="btn btn-warning btn-sm m-right-10">
+              <i class="fas fa-plus"></i> {{course?.openedCourseType?.openedCourseTypeRecords[0].title}}</button>
+          </h4>
+        </div>
+      </div>
+      <div class="row mb-30">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label><i class='bx bx-book-open'></i>  {{'EMAIL' | translate}}</label>
+                <input class="form-control mb-2" type="text" [(ngModel)]="email">
+              </div>    
+            </div>
+            <div class="col-md-2">
+              <div class="form-group mt-4">
+                <ng-container>
+                  <button  class="btn btn-success btn-sm m-right-10" (click)="checkUser()"
+                    cdkFocusInitial><i class="fas fa-save"></i> {{'CHECKSTUDENT' | translate}}</button>
+                </ng-container>
+              </div>
+            </div>
+            <div class="col-md-12 mt-3" *ngIf="users">
+              
+              <div class="row" *ngIf="!isEditMode">
+                <div class="text-danger mt-2 mb-2" >{{checkUserResult}}</div>
+                <div class="col-md-12 mb-3" *ngFor="let user of users">
+                  <div class="row">
+                    <div class="col-md-3">{{user.roleName.toUpperCase() | translate}}</div>
+                    <div class="col-md-3">{{user.firstName}} {{user.lastName}}</div>
+                    <div class="col-md-3">{{user.userName}}</div>
+                    <div class="col-md-3">
+                      <ng-container>
+                        <button  class="btn btn-danger btn-sm m-right-10" (click)="saveCourseStudent(user)"
+                          cdkFocusInitial><i class="fas fa-save"></i> {{'ADDTOCOURSE' | translate}} <i class='bx bx-arrow-right'></i></button>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12" *ngIf="isEditMode">
+          <div  class="text-danger mt-2 mb-2" >{{checkUserResult}}</div>
+            <form [formGroup]="userForm">
+                <div class="row">
+                    <div class="col-md-4">
+                            <div class="form-group">
+                              <label><i class='bx bx-book-open'></i>  {{'FIRST_NAME' | translate}}</label>
+                              <input class="form-control mb-2" type="text" formControlName="firstName">
+                              <div *ngIf="userForm.get('firstName').touched && userForm.get('firstName').errors">
+                                <div class="text-danger" *ngIf="userForm.get('firstName').errors?.required">
+                                  {{'FIRST_NAME_IS_REQUIRED' | translate}}
+                                </div>
+                              </div>
+                            </div>
+                    </div>
+                    <div class="col-md-4">
+                            <div class="form-group">
+                              <label><i class='bx bx-book-open'></i>  {{'LAST_NAME' | translate}}</label>
+                              <input class="form-control mb-2" type="text" formControlName="lastName">
+                              <div *ngIf="userForm.get('lastName').touched && userForm.get('lastName').errors">
+                                <div class="text-danger" *ngIf="userForm.get('lastName').errors?.required">
+                                  {{'LAST_NAME_IS_REQUIRED' | translate}}
+                                </div>
+                              </div>
+                            </div>
+                    </div>
+                    <div class="col-md-4">
+                            <div class="form-group">
+                              <label><i class='bx bx-book-open'></i>  {{'MOBILE_NUMBER' | translate}}</label>
+                              <input class="form-control mb-2" type="text" formControlName="phoneNumber">
+                              <div *ngIf="userForm.get('phoneNumber').touched && userForm.get('phoneNumber').errors">
+                                <div class="text-danger" *ngIf="userForm.get('phoneNumber').errors?.required">
+                                  {{'MOBILE_IS_REQUIRED' | translate}}
+                                </div>
+                              </div>
+                            </div>
+                    </div>
+                    <div class="col-md-4">
+                            <div class="form-group">
+                              <label><i class='bx bx-book-open'></i>  {{'EMAIL' | translate}}</label>
+                              <input class="form-control mb-2" type="text" formControlName="email">
+                              <div *ngIf="userForm.get('email').touched && userForm.get('email').errors">
+                                <div class="text-danger" *ngIf="userForm.get('email').errors?.required">
+                                  {{'EMAIL_IS_REQUIRED' | translate}}
+                                </div>
+                                <div class="text-danger" *ngIf="userForm.get('email').errors?.email">
+                                  {{'PLEASE_ENTER_VALID_EMAIL' | translate}}
+                                </div>
+                              </div>
+                            </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><i class='bx bx-book-open'></i>  {{'PASSWORD' | translate}}</label>
+                            <input class="form-control mb-2" type="password" formControlName="password">
+                            <div *ngIf="userForm.get('password').touched && userForm.get('password').errors">
+                                <div class="text-danger" *ngIf="userForm.get('password').errors?.required">
+                                  {{'PASSWORD_IS_REQUIRED' | translate}}
+                                </div>
+                                <div class="text-danger" *ngIf="userForm.get('password').errors?.minlength">
+                                  {{'YOU_HAVE_TO_ENTER_AT_LEAST_6_DIGIT' | translate}}
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><i class='bx bx-book-open'></i>  {{'CONFIRM_PASSWORD' | translate}}</label>
+                            <input class="form-control mb-2" type="password" formControlName="confirmPassword">
+                            <div *ngIf="userForm.get('confirmPassword').touched && userForm.get('confirmPassword').errors">
+                                <div class="text-danger" *ngIf="userForm.get('confirmPassword').errors?.required">
+                                  {{'CONFIRM_PASSWORD_IS_REQUIRED' | translate}}
+                                </div>
+                              </div>
+                              <div class="text-danger"
+                                *ngIf="userForm.get('confirmPassword').touched && userForm.hasError('notSame')">
+                                {{'PASSWORDS_DO_NOT_MATCH' | translate}}
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-top-10 col-md-12">
+                    <ng-container >
+                        <button  class="btn btn-success btn-sm m-right-10" (click)="saveUser()"
+                          cdkFocusInitial><i class="fas fa-save"></i> {{'SAVE' | translate}}</button>
+                      </ng-container>
+                </div>
+            </form>
+        </div>
+      </div>
+      <app-student-list [courseId]="course.id" [openedCourseStudents]="openedCourseStudents"></app-student-list>
+</div>

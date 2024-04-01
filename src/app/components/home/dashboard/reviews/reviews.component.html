@@ -1,0 +1,55 @@
+<div class="courses-table">
+    <div class="table-responsive">
+        <form [formGroup]="commentForm">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th scope="col">{{'HOMEPAGE.COURSE_NAME' | translate}}</th>
+                    <th scope="col">{{'HOMEPAGE.COMMENT' | translate}}</th>
+                    <th scope="col">{{'HOMEPAGE.COURSE_RATING' | translate}}</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let comment of comments">
+                    <th scope="row">
+                        <a routerLink="/course-detail/{{comment.openedCourse.code}}/{{comment.openedCourse.openedCourseRecords[0].title}}">
+                            {{comment.openedCourse.openedCourseRecords[0]['title']}}
+                        </a>
+                    </th>
+                    <td *ngIf="!isEditMode">
+                            <h6>{{comment.title}}</h6>
+                            {{comment.comment}}    
+                    </td>
+                    <td *ngIf="isEditMode">
+                        <div *ngIf="selectedComment != comment.id">
+                            <h6>{{comment.title}}</h6>
+                            {{comment.comment}}    
+                        </div>
+                        <div *ngIf="selectedComment == comment.id">
+                            <input class="form-control" formControlName="title" />
+                            <input class="form-control" formControlName="comment" />
+                            <button class="btn btn-warning btn-sm" (click)="saveComment()" >{{'Edit' | translate}}</button>
+                        </div>
+                        
+                    </td>
+                    
+                    <td>
+                        <div class="rating">
+                            <i class="bx bx{{comment.rating>=1 ?'s':''}}-star"></i>
+                            <i class="bx bx{{comment.rating>=2 ?'s':''}}-star"></i>
+                            <i class="bx bx{{comment.rating>=3 ?'s':''}}-star"></i>
+                            <i class="bx bx{{comment.rating>=4 ?'s':''}}-star"></i>
+                            <i class="bx bx{{comment.rating>=5 ?'s':''}}-star"></i>
+                        </div>
+                    </td>
+                    <td class="action">
+                        <button *ngIf="!comment.isConfirm" (click)="updateComment(comment)" type="button" class="default-btn two"><i class='bx bx-edit-alt'></i></button>
+                        <button type="button" (click)="deleteComment(comment.id)" class="default-btn ms-2"><i class='bx bx-trash'></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </form>
+    </div>
+</div>

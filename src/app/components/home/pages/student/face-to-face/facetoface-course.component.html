@@ -1,0 +1,444 @@
+<div
+    class="page-banner-area ptb-100"
+    style="background-image: url(assets/images/shapes/page-banner-bg.jpg);"
+>
+    <div class="container">
+
+
+        <div class="page-banner-content">
+            <div class="list d-sm-flex align-items-center">
+                <div class="list-item d-block position-relative">
+                    <div class="d-flex align-items-center">
+                        <img [src]="course?.teacherPicture" class="rounded-circle" width="30" alt="user">
+                        {{course?.teacherFullName}}
+                    </div>
+                </div>
+                <div class="list-item d-inline-block position-relative">
+                    {{course?.openedCourseTypeName}}
+                </div>
+                <div class="list-item d-inline-block position-relative" *ngIf="course.isReview">
+                    <i class='bx bxs-star'></i> 5.0 (223 Reviews)
+                </div>
+            </div>
+            <h1>{{course?.title}}</h1>
+            <ul class="ps-0 mb-0 list-unstyled">
+                <li class="d-inline-block position-relative"><a routerLink="/">{{'HOMEPAGE.HOME' | translate}}</a></li>
+                <li class="d-inline-block position-relative">{{course?.title}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Course Details -->
+<div class="course-details-area ptb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12">
+                <div class="course-details-desc">
+                    <ul class="nav nav-tabs d-block">
+                        <li class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab1'}">
+                            <button type="button" class="nav-link position-relative shadow-none border-0 mb-0 rounded-0" (click)="switchTab($event, 'tab1')">
+                                {{'HOMEPAGE.OVERVIEW' | translate}}
+                            </button>
+                        </li>
+                        <li class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab2'}">
+                            <button type="button" class="nav-link position-relative shadow-none border-0 mb-0 rounded-0" (click)="switchTab($event, 'tab2')">
+                                {{'HOMEPAGE.COURSE_CONTENT' | translate}}
+                            </button>
+                        </li>
+                        <li class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab7'}">
+                            <button type="button" class="nav-link position-relative shadow-none border-0 mb-0 rounded-0" (click)="switchTab($event, 'tab7')">
+                                {{'HOMEPAGE.FILES' | translate}}
+                            </button>
+                        </li>
+                        <li class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab3'}">
+                            <button type="button" class="nav-link position-relative shadow-none border-0 mb-0 rounded-0" (click)="switchTab($event, 'tab3')">
+                                {{'HOMEPAGE.INSTRUCTOR' | translate}}
+                            </button>
+                        </li>
+                        <li *ngIf="course.IsReviews" class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab4'}">
+                            <button type="button" class="nav-link position-relative shadow-none border-0 mb-0 rounded-0" (click)="switchTab($event, 'tab4')">
+                                {{'HOMEPAGE.REVIEWS' | translate}}
+                            </button>
+                        </li>
+                        <li class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab5'}">
+                            <button type="button" class="nav-link position-relative shadow-none border-0 mb-0 rounded-0" (click)="switchTab($event, 'tab5')">
+                                {{'HOMEPAGE.MY_QUESTIONS' | translate}}
+                            </button>
+                        </li>
+                        <li class="nav-item d-inline-block" [ngClass]="{'active': currentTab === 'tab6'}">
+                            <button type="button" class="nav-link position-relative shadow-none border-0 mb-0 rounded-0" (click)="switchTab($event, 'tab6')">
+                                {{'HOMEPAGE.MY_NOTES' | translate}}
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane fade" id="tab1" *ngIf="currentTab === 'tab1'">
+                            <div class="overview-details-content" [innerHTML]="course.description">
+                            </div>
+                            <div class="course-details-content">
+                                <h4>{{'HOMEPAGE.COURSE_CONTENT' |translate}}</h4>
+                                <div class="accordion">
+                                    <div class="accordion-section" *ngFor="let section of course?.openedCourseSections; let i=index">
+                                        <div class="accordion-header" (click)="toggleSection(i)" [ngClass]="{ 'open': isSectionOpen(i) }">
+                                            {{section.sectionName}}
+                                            <span>{{section.lessonCount}} {{'HOMEPAGE.LESSON' | translate}}</span>
+                                        </div>
+                                        <div class="accordion-content" [ngClass]="{ 'open': isSectionOpen(i) }">
+                                            <ul class="ps-0 mb-0 list-unstyled">
+                                                <li class="" *ngFor="let lesson of section.sectionLessons">
+                                                    <div class="d-sm-flex align-items-center justify-content-between"  >
+                                                        {{lesson.title}} {{lesson.bracheName}}
+                                                        <span> • {{lesson.startLessonTime | date:'dd-MM-yyyy HH:mm'}} <b>{{lesson.duration}} {{'HOMEPAGE.MINUTE' | translate}}</b>
+                                                        </span> 
+                                                        <span>
+                                                        <i *ngIf="!lesson.lessonEnd" class='bx bx-lock-alt'></i>
+                                                        <i routerLink="/replay-lesson/{{course.code}}/{{course.courseSlug}}" *ngIf="lesson.lessonEnd && lesson.classroomId >0" class='bx bx-play-circle'  style="color:red; cursor:pointer">Ders Tamamlandı</i>
+                                                        
+                                                        </span>
+                                                    </div>
+                                                    
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="course-details-instructor">
+                                <h4>{{'HOMEPAGE.INSTRUCTOR' | translate}} </h4>
+                                <div *ngFor="let teacher of course.teachers">
+                                    <div class="user d-md-flex align-items-center" >
+                                        <img [src]="teacher.profilePhoto" class="rounded-circle" width="80" [alt]="teacher.fullName">
+                                        <div>
+                                            <h6>{{teacher.fullName}}</h6>
+                                            <span class="designation d-block">{{teacher.academicTitle}}</span>
+                                            <ul class="social-links ps-0 mb-0 list-unstyled">
+                                                <li class="d-inline-block">
+                                                    <a href="https://www.facebook.com/{{teacher.profile.facebook}}" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                                        <i class="bx bxl-facebook"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="d-inline-block">
+                                                    <a href="https://linkedin.com/{{teacher.profile.linkedin}}" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                                        <i class="bx bxl-linkedin"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="d-inline-block">
+                                                    <a href="https://twitter.com/{{teacher.profile.twitter}}" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                                        <i class="bx bxl-twitter"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="d-inline-block">
+                                                    <a href="https://www.instagram.com/{{teacher.profile.instagram}}" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                                        <i class='bx bxl-instagram'></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <p [innerHTML]="teacher.profile.biblio"></p>
+                                </div>
+                                
+                               
+                            </div>
+                           
+                        </div>
+                        <div class="tab-pane fade" id="tab2" *ngIf="currentTab === 'tab2'">
+                            <div class="course-details-content mb-0">
+                                <h4>{{'HOMEPAGE.COURSE_CONTENT' | translate}}</h4>
+                                <div class="accordion">
+                                    <div class="accordion-section" *ngFor="let section of course?.openedCourseSections; let i=index">
+                                        <div class="accordion-header" (click)="toggleSection(i)" [ngClass]="{ 'open': isSectionOpen(i) }">
+                                            {{section.sectionName}}
+                                            <span>{{section.lessonCount}} {{'HOMEPAGE.LESSON' | translate}}</span>
+                                        </div>
+                                        <div class="accordion-content" [ngClass]="{ 'open': isSectionOpen(i) }">
+                                            <ul class="ps-0 mb-0 list-unstyled">
+                                                <li class="" *ngFor="let lesson of section.sectionLessons">
+                                                    <div class="d-sm-flex align-items-center justify-content-between"  >
+                                                        {{lesson.title}} {{lesson.bracheName}}
+                                                        <span>  {{lesson.startLessonTime | date:'dd-MM-yyyy HH:mm'}} <b>{{lesson.duration}} {{'HOMEPAGE.MINUTE' | translate}}</b>
+                                                        </span> 
+                                                        <span>
+                                                           <i *ngIf="!lesson.lessonEnd" class='bx bx-lock-alt'></i>
+                                                           <i routerLink="/replay-lesson/{{course.code}}/{{course.courseSlug}}" *ngIf="lesson.lessonEnd && lesson.classroomId >0" class='bx bx-play-circle'  style="color:red; cursor:pointer">Ders Tamamlandı</i>
+                                                        </span>
+                                                    </div>
+
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab3" *ngIf="currentTab === 'tab3'">
+                            <div class="course-details-instructor mb-0">
+                                <h4>{{'HOMEPAGE.INSTRUCTOR' |translate}}</h4>
+                                <div class="user d-md-flex align-items-center" *ngFor="let teacher of course.teachers">
+                                    <img [src]="teacher.profilePhoto" class="rounded-circle" width="80" [alt]="teacher.fullName">
+                                   
+                                    <div>
+                                        <h6>{{teacher.fullName}}</h6>
+                                        <span class="designation d-block">{{teacher.academicTitle}}</span>
+                                            <ul class="social-links ps-0 mb-0 list-unstyled">
+                                                <li class="d-inline-block">
+                                                    <a href="https://www.facebook.com/{{teacher.profile.facebook}}" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                                        <i class="bx bxl-facebook"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="d-inline-block">
+                                                    <a href="https://linkedin.com/{{teacher.profile.linkedin}}" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                                        <i class="bx bxl-linkedin"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="d-inline-block">
+                                                    <a href="https://twitter.com/{{teacher.profile.twitter}}" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                                        <i class="bx bxl-twitter"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="d-inline-block">
+                                                    <a href="https://www.instagram.com/{{teacher.profile.instagram}}" target="_blank" class="position-relative d-block rounded-circle text-center">
+                                                        <i class='bx bxl-instagram'></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                    </div>
+                                    <p [innerHTML]="teacher.profile.biblio"></p>
+                                </div>
+                               
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab4" *ngIf="currentTab === 'tab4'">
+                            <div class="course-details-feedback">
+                                <h4>Student's feedback</h4>
+                                <div class="row align-items-center">
+                                    <div class="col-lg-4 col-md-4">
+                                        <div class="content text-center">
+                                            <h1>5.0</h1>
+                                            <div class="rating">
+                                                <i class="bx bxs-star"></i>
+                                                <i class="bx bxs-star"></i>
+                                                <i class="bx bxs-star"></i>
+                                                <i class="bx bxs-star"></i>
+                                                <i class="bx bxs-star"></i>
+                                            </div>
+                                            <span class="d-block">Course Rating</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8">
+                                        <div class="rating-content">
+                                            <div class="item d-flex align-items-center">
+                                                <div class="w-75">
+                                                    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="progress-bar" style="width: 70%"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="rating">
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                </div>
+                                                <span>70%</span>
+                                            </div>
+                                            <div class="item d-flex align-items-center">
+                                                <div class="w-75">
+                                                    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="progress-bar" style="width: 20%"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="rating">
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                </div>
+                                                <span>20%</span>
+                                            </div>
+                                            <div class="item d-flex align-items-center">
+                                                <div class="w-75">
+                                                    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="progress-bar" style="width: 10%"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="rating">
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                </div>
+                                                <span>10%</span>
+                                            </div>
+                                            <div class="item d-flex align-items-center">
+                                                <div class="w-75">
+                                                    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="progress-bar" style="width: 0%"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="rating">
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                </div>
+                                                <span>0%</span>
+                                            </div>
+                                            <div class="item d-flex align-items-center">
+                                                <div class="w-75">
+                                                    <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                                        <div class="progress-bar" style="width: 0%"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="rating">
+                                                    <i class="bx bxs-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                    <i class="bx bx-star"></i>
+                                                </div>
+                                                <span>0%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="feedback-list">
+                                    <div class="feedback-item">
+                                        <div class="user d-flex align-items-center">
+                                            <img src="assets/images/users/user2.jpg" class="rounded-circle" width="55" alt="user">
+                                            <div>
+                                                <h6>Laurence Simpson <span>3 days ago</span></h6>
+                                                <span class="sub-title">The best LMS Design</span>
+                                            </div>
+                                        </div>
+                                        <p>It is a long established fact that a reader will be distracted by the readable content of a page whof using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using.</p>
+                                    </div>
+                                    <div class="feedback-item">
+                                        <div class="user d-flex align-items-center">
+                                            <img src="assets/images/users/user3.jpg" class="rounded-circle" width="55" alt="user">
+                                            <div>
+                                                <h6>Alina Smith <span>2 days ago</span></h6>
+                                                <span class="sub-title">Great Course</span>
+                                            </div>
+                                        </div>
+                                        <p>It is a long established fact that a reader will be distracted by the readable content of a page whof using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using.</p>
+                                    </div>
+                                    <div class="feedback-item">
+                                        <div class="user d-flex align-items-center">
+                                            <img src="assets/images/users/user4.jpg" class="rounded-circle" width="55" alt="user">
+                                            <div>
+                                                <h6>James Andy <span>1 day ago</span></h6>
+                                                <span class="sub-title">Best Learning</span>
+                                            </div>
+                                        </div>
+                                        <p>It is a long established fact that a reader will be distracted by the readable content of a page whof using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="course-details-write-review">
+                                <h4>Write a Review</h4>
+                                <p>What is it like to Course?</p>
+                                <form>
+                                    <div class="rating">
+                                        <input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
+                                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
+                                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
+                                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
+                                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" placeholder="Great Course">
+                                    </div>
+                                    <div class="form-group">
+                                        <textarea class="form-control" cols="30" rows="5" placeholder="Message..."></textarea>
+                                    </div>
+                                    <button type="submit" class="default-btn">Submit Review</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab5" *ngIf="currentTab === 'tab5'">
+                            <div class="course-details-content mb-3">
+                                <form [formGroup]="questionForm">
+                                    <div class="form-group  mb-3">
+                                        <textarea class="form-control" formControlName="question"  placeholder="{{'HOMEPAGE.WRITEQUESTION' | translate}}"></textarea>
+                                    <button class="default-btn two btn-sm" (click)="saveQuestion()">{{'HOMEPAGE.SEND' | translate}}</button>
+                                    </div>
+                                </form>
+                              
+                                <div class="accordion">
+                                    <div class="accordion-section" *ngFor="let question of course?.lessonQuestions; let i=index">
+                                        <div class="accordion-header" (click)="toggleSection(i)" [ngClass]="{ 'open': isSectionOpen(i) }">
+                                            {{question.question}}
+                                        </div>
+                                        <div class="accordion-content" [ngClass]="{ 'open': isSectionOpen(i) }">
+                                            <p *ngIf="question.isAnswer">Henüz Cevaplanmamış</p>
+                                            <p>{{question.answer}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab6" *ngIf="currentTab === 'tab6'">
+                            <div class="course-details-content mb-3">
+                                <button class="default-btn two btn-sm" *ngIf="!showNoteForm"  (click)="setNoteForm(true)">{{videoLastSeekSecondTime }} {{'HOMEPAGE.ADDNOTE' | translate}}</button>
+                                <button class="default-btn  btn-sm" *ngIf="showNoteForm"  (click)="setNoteForm(false)"> {{'HOMEPAGE.CLOSE' | translate}}</button>
+                                <form [formGroup]="noteForm" *ngIf="showNoteForm" >
+                                    <div class="form-group  mb-3">
+                                        <textarea class="form-control" formControlName="note"  placeholder="{{'HOMEPAGE.WRITENOTE' | translate}}"></textarea>
+                                    <button class="default-btn two btn-sm" (click)="saveNote()">{{'HOMEPAGE.SEND' | translate}}</button>
+                                    </div>
+                                </form>
+                              
+                                <div class="accordion">
+                                    <div class="accordion-section" *ngFor="let note of course?.studentNotes; let i=index">
+                                        <div class="accordion-header" (click)="toggleSection(i)" [ngClass]="{ 'open': isSectionOpen(i) }">
+                                            {{note.lessonSeekTime}}
+                                        </div>
+                                        <div class="accordion-content" [ngClass]="{ 'open': isSectionOpen(i) }">
+                                            
+                                            <p>{{note.note}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab7" *ngIf="currentTab === 'tab7'">
+                            <div class="course-details-content mb-3">
+                               
+                              
+                                <div class="accordion">
+                                    <table class="table align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col"></th>
+                                                <th scope="col">{{'HOMEPAGE.LESSONNAME' | translate}}</th>
+                                                <th scope="col">{{'HOMEPAGE.FILENAME' | translate}}</th>
+                                                <th scope="col">{{'HOMEPAGE.FILE' | translate}}</th>
+                                               
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let file of files">
+                                                <td>{{file.sectionName}}</td>
+                                                <td>{{file.lessonName}}</td>
+                                                <td>{{file.fileTitle}}</td>
+                                                <td><a target="_blank" href="/{{file.filePath}}">{{'HOMEPAGE.FILE' | translate}}</a></td>
+                                                 
+                                            </tr>
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

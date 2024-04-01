@@ -1,0 +1,257 @@
+<div class="breadcrumb-area">
+    <h1>Bookings Listing</h1>
+
+    <ol class="breadcrumb">
+        <li class="item"><a routerLink="/"><i class='bx bx-home-alt'></i></a></li>
+
+        <li class="item">Dashboard</li>
+
+        <li class="item">Listing</li>
+    </ol>
+</div>
+
+<div class="card bookings-listing-box mb-30">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h3>Bookings List</h3>
+
+        <div class="dropdown">
+            <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class='bx bx-dots-horizontal-rounded' ></i>
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                    <i class='bx bx-show'></i> View
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                    <i class='bx bx-edit-alt'></i> Edit
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                    <i class='bx bx-trash'></i> Delete
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                    <i class='bx bx-printer'></i> Print
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                    <i class='bx bx-download'></i> Download
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Details</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td class="name"><img src="assets/img/user1.jpg" class="shadow" alt="image"><span>James Anderson</span></td>
+                        <td class="details">
+                            <h3>Farmis Garden Hotel & Restaurant</h3>
+                            <ul>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Address:</span>
+                                    40 Journal Square, NG USA
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Booking Date:</span>
+                                    20/05/2020
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Price:</span>
+                                    $1500
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Persons:</span>
+                                    4 Peoples
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Phone:</span>
+                                    <a href="#">+214 4455 6521</a>
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Email:</span>
+                                    <a href="#">jamesanderson@gmail.com</a>
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Payment State:</span>
+                                    <strong>Paid</strong> using Paypal
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <a routerLink="/bookings" class="btn btn-md btn-primary">Approve</a>
+                            <a routerLink="/bookings" class="btn btn-md btn-danger ml-3">Reject</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="name"><img src="assets/img/user2.jpg" class="shadow" alt="image"><span>Alina Smith</span></td>
+                        <td class="details">
+                            <h3>Skyview Shopping Complex Center</h3>
+                            <ul>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Address:</span>
+                                    55 County Laois, Ireland
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Booking Date:</span>
+                                    19/05/2020
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Price:</span>
+                                    $200
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Persons:</span>
+                                    3 Peoples
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Phone:</span>
+                                    <a href="#">+214 4455 6521</a>
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Email:</span>
+                                    <a href="#">alinasmith@gmail.com</a>
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Payment State:</span>
+                                    <strong>Paid</strong> using Paypal
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <a routerLink="/bookings" class="btn btn-md btn-primary">Approve</a>
+                            <a routerLink="/bookings" class="btn btn-md btn-danger ml-3">Reject</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="name"><img src="assets/img/user3.jpg" class="shadow" alt="image"><span>James Andy</span></td>
+                        <td class="details">
+                            <h3>Power House Gym Training Center</h3>
+                            <ul>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Address:</span>
+                                    Tilt Tilbury, United Kingdom
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Booking Date:</span>
+                                    18/05/2020
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Price:</span>
+                                    $214
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Persons:</span>
+                                    5 Peoples
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Phone:</span>
+                                    <a href="#">+214 4455 6521</a>
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Email:</span>
+                                    <a href="#">jamesandy@gmail.com</a>
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Payment State:</span>
+                                    <strong>Paid</strong> using Paypal
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <a routerLink="/bookings" class="btn btn-md btn-primary">Approve</a>
+                            <a routerLink="/bookings" class="btn btn-md btn-danger ml-3">Reject</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="name"><img src="assets/img/user4.jpg" class="shadow" alt="image"><span>Steven Smith</span></td>
+                        <td class="details">
+                            <h3>The Magician Restaurant in USA</h3>
+                            <ul>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Address:</span>
+                                    40 Journal Square, NG USA
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Booking Date:</span>
+                                    17/05/2020
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Price:</span>
+                                    $1500
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Persons:</span>
+                                    3 Peoples
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Phone:</span>
+                                    <a href="#">+214 4455 6521</a>
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Email:</span>
+                                    <a href="#">stevensmith@gmail.com</a>
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Payment State:</span>
+                                    <strong>Paid</strong> using Paypal
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <a routerLink="/bookings" class="btn btn-md btn-primary">Approve</a>
+                            <a routerLink="/bookings" class="btn btn-md btn-danger ml-3">Reject</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="name"><img src="assets/img/user5.jpg" class="shadow" alt="image"><span>Sarah Taylor</span></td>
+                        <td class="details">
+                            <h3>New Oriental Shopping Center</h3>
+                            <ul>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Address:</span>
+                                    55 County Laois, Ireland
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Booking Date:</span>
+                                    10/05/2020
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Price:</span>
+                                    $540
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Persons:</span>
+                                    5 Peoples
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Phone:</span>
+                                    <a href="#">+214 4455 6521</a>
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Email:</span>
+                                    <a href="#">sarahtaylor@gmail.com</a>
+                                </li>
+                                <li>
+                                    <span><i class='bx bx-map'></i> Payment State:</span>
+                                    <strong>Paid</strong> using Paypal
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <a routerLink="/bookings" class="btn btn-md btn-primary">Approve</a>
+                            <a routerLink="/bookings" class="btn btn-md btn-danger ml-3">Reject</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

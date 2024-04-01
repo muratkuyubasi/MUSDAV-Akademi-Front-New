@@ -1,0 +1,151 @@
+<div class="my-profile-box" *ngIf="!isEditMode">
+    <div class="action">
+        <button type="button" (click)="isEditMode = !isEditMode" class="default-btn two"><i class='bx bx-edit-alt'></i></button>
+    </div>
+    <input hidden (change)="fileEvent($event)" #fileInput name="logo" type="file" name="Profile Photo"
+            fxFlex="30">
+          <img class="full-width" [src]="imgURL" (click)="fileInput.click()"/>
+         
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="ps-0 mb-0 list-unstyled">
+                    <li>
+                        <span>{{'HOMEPAGE.FIRST_NAME' |translate}}:</span>
+                        {{profile.firstName}}
+                    </li>
+                    <li>
+                        <span>{{'HOMEPAGE.LAST_NAME' |translate}}:</span>
+                        {{profile.lastName}}
+                    </li>
+                    <li>
+                        <span>{{'HOMEPAGE.NICKNAME' |translate}}:</span>
+                        @{{profile['firstName']}}
+                    </li>
+                    <li>
+                        <span>{{'HOMEPAGE.BIRTHDAY' |translate}}:</span>
+                        {{profile?.birthDay |date:'dd-MM-yyyy'}}
+                    </li>
+                    <li>
+                        <span>{{'HOMEPAGE.GENDER' |translate}}:</span>
+                        {{profile?.gender | translate}}
+                    </li>
+                   
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="ps-0 mb-0 list-unstyled">
+                    <li>
+                        <span>{{'HOMEPAGE.EMAIL' |translate}}:</span>
+                        {{profile.email}}
+                    </li>
+                    <li>
+                        <span>{{'HOMEPAGE.PHONENUMBER' |translate}}:</span>
+                        {{profile.phoneNumber}}
+                  
+                    
+                    <li>
+                        <span>{{'HOMEPAGE.CITY' |translate}}:</span>
+                        {{profile.cityName}}
+                    </li>
+                    <li>
+                        <span>{{'HOMEPAGE.COUNTRY' |translate}}:</span>
+                        {{profile.countryName}}
+                    </li>
+                    <li>
+                        <span>{{'HOMEPAGE.REGISTERED' |translate}}:</span>
+                        {{profile?.registeredDate |date:'dd-MM-yyyy'}}
+                    </li>
+                    
+                   
+                    <li *hasClaim="'instructor_list'">
+                        <span>{{'HOMEPAGE.KEYWORDS' |translate}}:</span>
+                        {{profile.keywords}}
+                    </li>
+                    <li  *hasClaim="'instructor_list'">
+                        <span>{{'HOMEPAGE.BIBLIO' |translate}}:</span>
+                        {{profile.biblio}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    
+
+</div>
+<div class="edit-profile-box" *ngIf="isEditMode">
+    <div class="action">
+        <button type="button" (click)="isEditMode = !isEditMode" class="default-btn"><i class='bx bx-window-close'></i></button>
+    </div>
+    <form [formGroup]="userForm">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.FIRST_NAME' |translate}}</label>
+                    <input formControlName="firstName" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.LAST_NAME' |translate}}</label>
+                    <input type="text" formControlName="lastName" class="form-control">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.BIRTHDAY' |translate}}</label>
+                    <input type="date" formControlName="birthDay" class="form-control">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.GENDER' |translate}}</label>
+                    <select class="form-control form-select" formControlName="gender">
+                        <option>Seçiniz</option>
+                        <option value="Female">{{'Female'| translate}}</option>
+                        <option value="Male">{{'Male'| translate}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.EMAIL' |translate}}</label>
+                    <input type="email" class="form-control" formControlName="email">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.PHONENUMBER' |translate}}</label>
+                    <input type="text" class="form-control" formControlName="phoneNumber">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.CITY' |translate}}</label>
+                    <input type="text" class="form-control" formControlName="cityName">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>{{'HOMEPAGE.COUNTRY' |translate}}</label>
+                    <input type="text" class="form-control" formControlName="countryName">
+                </div>
+            </div>
+            <!-- <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label>Biography</label>
+                    <textarea class="form-control" cols="30" rows="5" placeholder="I'm the Front-End Developer for #Toledo IT in Australia, OR. I have serious passion for UI effects, animations and creating intuitive, dynamic user experiences."></textarea>
+                </div>
+            </div> -->
+            <div class="col-md-6">
+                <button (click)="updateProfile()" class="default-btn two">{{'EDIT' |translate}}</button>
+            </div>
+            <div class="col-md-6" style="text-align: right;">
+                <button class="default-btn" (click)="changePassword()">
+                    <i class="bx bx-key"></i>
+                    {{'CHANGE_PASSWORD' | translate}}
+                  </button>
+            </div>
+        </div>
+        
+       
+    </form>
+</div>

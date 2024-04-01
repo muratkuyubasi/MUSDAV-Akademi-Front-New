@@ -1,0 +1,202 @@
+<div
+    class="page-banner-area ptb-50"
+    style="background-image: url(assets/images/shapes/page-banner-bg.jpg);"
+>
+    <div class="container">
+        <div class="page-banner-content text-center">
+            <h1>{{'HOMEPAGE.MYHOME' | translate}}</h1>
+            <ul class="ps-0 mb-0 list-unstyled">
+                <li class="d-inline-block position-relative"><a routerLink="/">{{'HOME' | translate}}</a></li>
+                <li class="d-inline-block position-relative">{{'HOMEPAGE.MYHOME' | translate}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Dashboard -->
+<div class="dashboard-area ptb-50">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-12">
+                <div class="dashboard-sidebar">
+                    <ul class="nav flex-column" *hasClaim="'student_list'">
+                        <li class="nav-item">
+                            <a class="nav-link"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard">
+                                <i class="bx bx-home"></i>
+                                {{'HOMEPAGE.MYHOME' | translate}}
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/get-offer">
+                                <i class="bx bxs-offer"></i>
+                                {{'HOMEPAGE.GETOFFER' | translate}}
+                            </a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/enrolled-courses">
+                                <i class="bx bx-book-bookmark"></i>
+                                {{'HOMEPAGE.ENROLLED_COURSES' | translate}}
+                            </a>
+                        </li>
+                        
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/cart">
+                                <i class='bx bx-cart'></i>
+                                {{'HOMEPAGE.MY_CART' | translate}}
+                            </a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/my-profile">
+                                <i class="bx bx-user"></i>
+                                {{'HOMEPAGE.MY_PROFILE' | translate}}
+                            </a>
+                        </li>
+                        
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/orders">
+                                <i class="bx bxs-shopping-bag"></i>
+                                {{'HOMEPAGE.ORDER_LIST' | translate}}
+                            </a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/reviews">
+                                <i class="bx bx-star"></i>
+                                {{'HOMEPAGE.MY_REVIEWS' | translate}}
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/instructor-manage">
+                                <i class="bx bx-chalkboard"></i>
+                                {{'HOMEPAGE.BECOME_TEACHER' | translate}}
+                            </a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="onLogout()">
+                                <i class="bx bx-log-out-circle"></i>
+                                {{'LOGOUT' | translate}}
+                            </a>
+                        </li>
+                        <!--<li class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/completed-courses">
+                                <i class="bx bxs-book-bookmark"></i>
+                                
+                            </a>
+                        </li> -->
+                    </ul>
+                    <ul class="nav flex-column" *hasClaim="'instructor_list'">
+                        <li class="nav-item">
+                            <a class="nav-link"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard">
+                                <i class="bx bx-home"></i>
+                                {{'HOMEPAGE.MYHOME' | translate}}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/give-offer">
+                                <i class="bx bxs-offer"></i>
+                                {{'HOMEPAGE.GIVEOFFER' | translate}}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/course-detail">
+                                <i class="bx bx-book-bookmark"></i>
+                                {{'HOMEPAGE.NEW_COURSE' | translate}}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/courses">
+                                <i class="bx bx-book-bookmark"></i>
+                                {{'HOMEPAGE.ENROLLED_COURSES' | translate}}
+                            </a>
+                        </li>
+                        <li class="nav-item" *hasClaim="'exam_list'">
+                            <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/exams">
+                                <i class="bx bx-question-mark"></i>
+                                {{'HOMEPAGE.EXAMS' | translate}}
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="/dashboard/my-profile">
+                                <i class="bx bx-user"></i>
+                                {{'HOMEPAGE.MY_PROFILE' | translate}}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="onLogout()">
+                                <i class="bx bx-log-out-circle"></i>
+                                {{'LOGOUT' | translate}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-12">
+                <ng-container *ngIf="(router.url === '/dashboard'); else elseBlock">
+                    
+            <app-enrolled-courses></app-enrolled-courses>
+                    <!-- <div class="dashboard-stats">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="stats-box">
+                                    <div class="icon ms-auto me-auto rounded-circle position-relative">
+                                        <i class="bx bx-book-bookmark"></i>
+                                    </div>
+                                    <h3>{{userCounter?.totalCourseCount}}</h3>
+                                    <span class="d-block">{{'HOMEPAGE.TOTAL_COURSES' | translate}}</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="stats-box">
+                                    <div class="icon ms-auto me-auto rounded-circle position-relative">
+                                        <i class='bx bx-book-reader'></i>
+                                    </div>
+                                    <h3>{{userCounter?.totalActiveCourseCount}}</h3>
+                                    <span class="d-block">{{'HOMEPAGE.TOTAL_ACTIVE_COURSES' | translate}}</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="stats-box">
+                                    <div class="icon ms-auto me-auto rounded-circle position-relative">
+                                        <i class='bx bx-book'></i>
+                                    </div>
+                                    <h3>{{userCounter?.totalCompletedCourseCount}}</h3>
+                                    <span class="d-block">{{'HOMEPAGE.TOTAL_COMPLETED_COURSES' | translate}}</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="stats-box">
+                                    <div class="icon ms-auto me-auto rounded-circle position-relative">
+                                        <i class='bx bx-cube'></i>
+                                    </div>
+                                    <h3>{{userCounter?.totalMyPoints}}</h3>
+                                    <span class="d-block">{{'HOMEPAGE.TOTAL_MY_POINTS' | translate}}</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="stats-box">
+                                    <div class="icon ms-auto me-auto rounded-circle position-relative">
+                                        <i class='bx bx-group'></i>
+                                    </div>
+                                    <h3>{{userCounter?.totalMyReviews}}</h3>
+                                    <span class="d-block">{{'HOMEPAGE.TOTAL_MY_REVIEWS' | translate}}</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="stats-box">
+                                    <div class="icon ms-auto me-auto rounded-circle position-relative">
+                                        <i class='bx bx-dollar'></i>
+                                    </div>
+                                    <h3>{{userCounter?.totalPayment}}</h3>
+                                    <span class="d-block">{{'HOMEPAGE.TOTAL_PAYMENTS' | translate}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </ng-container>
+                <ng-template #elseBlock>
+                    <router-outlet></router-outlet>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

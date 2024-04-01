@@ -1,0 +1,162 @@
+<div class="add-listing-box mb-30">
+    <div class="row align-items-center justify-content-between">
+        <div class="col-md-auto col-sm-auto">
+          <div class="content-header">
+            <h3>{{course?.openedCourseRecords.title}}</h3>
+          </div>
+        </div>
+        <div class="col-md-auto col-sm-auto">
+          <h4 class="widget-title">
+            <button class="btn btn-warning btn-sm m-right-10">
+              <i class="fas fa-plus"></i> {{course?.openedCourseType?.openedCourseTypeRecords[0].title}}</button>
+          </h4>
+        </div>
+      </div>
+   
+    <div class="row">
+        <div class="col-md-12">
+            <span></span>
+          <form [formGroup]="detailForm">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label><i class='bx bx-book-open'></i>  {{'LESSONSTARTTIME' | translate}}</label>
+                  <!-- <mat-form-field>
+                    <input matInput [matDatepicker]="picker" 
+                           (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)" formControlName="startLessonTime">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field> -->
+                  <input matInput class="form-control mb-2" type="datetime-local" formControlName="startLessonTime" (change)="setButton()" (click)="setButton()">
+                </div>
+                <div class="example-events">
+                  <div *ngFor="let e of events">{{e}}</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label><i class='bx bx-book-open'></i>  {{'TOTALWEEKS' | translate}}</label>
+                  <input class="form-control mb-2" type="text" formControlName="totalWeeks">
+                </div>
+              </div>
+              <!-- <div class="col-md-3">
+                <div class="form-group">
+                  <label><i class='bx bx-book-open'></i>  {{'DAYSOFWEEK' | translate}}</label>
+                  <mat-form-field appearance="fill" class="full-width">
+                    <mat-select [(value)]="selectedDays" multiple >
+                      <mat-select-trigger>
+                        <span *ngIf="selectedDays.length > 0">
+                          {{selectedDays[0].key  | translate}}
+                        </span>
+                        <span *ngIf="selectedDays.length > 1" class="example-additional-selection">
+                          (+{{selectedDays.length - 1}} {{selectedDays.length === 2 ? 'other' : 'others'}})
+                        </span>
+                      </mat-select-trigger>
+                      <mat-option *ngFor="let day of days" [value]="day">{{day.key | translate}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  
+
+                </div>
+              </div> -->
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label><i class='bx bx-book-open'></i>  {{'PERLESSONTIME' | translate}}</label>
+                  <input class="form-control mb-2" type="text" formControlName="perLessonTime">
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group" style="padding-top: 40px;">
+                  <button [disabled]="!showButton"  class=" m-top-10 btn btn-success btn-sm m-right-10" (click)="createLessons()"
+                    cdkFocusInitial><i class="fas fa-save"></i> {{'ADD' | translate}}</button>
+                </div>
+                
+              </div>
+            </div>
+            
+            </form>
+        </div>
+        <div *ngIf="lessonDays.length>0">
+          <h3>Ders Planınız</h3>
+          <div class="m-top-10 col-md-12" *ngFor="let lesson of lessonDays ; let i = 'index+1'">
+            <div class="row">
+              <div class="col-md-3">{{i}}. Ders</div>
+              <div class="col-md-3">{{lesson.dateTime}}</div>
+              <div class="col-md-2">{{lesson.day.toUpperCase() | translate}}</div>
+              <div class="col-md-2">{{lesson.hour}}</div>
+              <div class="col-md-2">{{lesson.duration}} dk</div>
+            </div>
+          </div>
+          <div class="m-top-10 col-md-12">
+            <div class="form-group" style="padding-top: 40px;">
+              <button  class=" m-top-10 btn btn-success btn-sm m-right-10" (click)="saveLessons()"
+                cdkFocusInitial><i class="fas fa-save"></i> {{'CONFIRM_AND_SAVE' | translate}}</button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="section.openedCourseLessons.length>0">
+          <!-- <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target)" placeholder="Ara">
+          </mat-form-field> -->
+          
+          <table mat-table [dataSource]="dataSource" matSort matSortDisableClear>
+            <!-- <ng-container matColumnDef="title">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{'LESSON'| translate}}
+              </th>
+              <td mat-cell *matCellDef="let lesson"> 
+              </td>
+            </ng-container> -->
+            <ng-container matColumnDef="startLessonTime">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{'DATE'| translate}}
+              </th>
+              <td mat-cell *matCellDef="let lesson"> 
+                {{lesson?.startLessonTime | date:"dd-MM-yyyy"}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="day">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{'DAY'| translate}}
+              </th>
+              <td mat-cell *matCellDef="let lesson"> 
+                {{lesson?.day.toUpperCase() | translate}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="hour">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{'HOUR'| translate}}
+              </th>
+              <td mat-cell *matCellDef="let lesson"> 
+                {{lesson?.hour}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="duration">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  {{'DURATION'| translate}} 
+              </th>
+              <td mat-cell *matCellDef="let lesson"> 
+                {{lesson?.duration}} {{'MINUTE'| translate}}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="option">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                  
+              </th>
+              <td mat-cell *matCellDef="let lesson"> 
+                <ng-container>
+                  <button  class="btn btn-warning btn-sm m-right-10" (click)="lessonDetail(lesson)"
+                    cdkFocusInitial><i class="fas fa-save"></i> {{'DETAIL' | translate}} <i class='bx bx-arrow-right'></i></button>
+                </ng-container>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+          </table>
+          <!-- <mat-paginator [pageSizeOptions]="[5]"></mat-paginator> -->
+        </div>
+        
+        
+    </div>
+</div>
